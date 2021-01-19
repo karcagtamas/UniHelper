@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniHelper", "UniHelper\UniHelper.csproj", "{158EF201-EDBA-4AF7-B4D7-7CED2F317EFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{B7234843-90B7-47C5-AB54-6106FDE91BF7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{B82F921E-17AF-466D-9D0D-8AE6F9B28571}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniHelper.Backend", "UniHelper.Backend\UniHelper.Backend.csproj", "{5268303B-333F-46EA-A463-21C5E016684F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{158EF201-EDBA-4AF7-B4D7-7CED2F317EFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{158EF201-EDBA-4AF7-B4D7-7CED2F317EFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{158EF201-EDBA-4AF7-B4D7-7CED2F317EFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{158EF201-EDBA-4AF7-B4D7-7CED2F317EFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5268303B-333F-46EA-A463-21C5E016684F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5268303B-333F-46EA-A463-21C5E016684F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5268303B-333F-46EA-A463-21C5E016684F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5268303B-333F-46EA-A463-21C5E016684F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{158EF201-EDBA-4AF7-B4D7-7CED2F317EFF} = {B7234843-90B7-47C5-AB54-6106FDE91BF7}
+		{5268303B-333F-46EA-A463-21C5E016684F} = {B82F921E-17AF-466D-9D0D-8AE6F9B28571}
+	EndGlobalSection
+EndGlobal
