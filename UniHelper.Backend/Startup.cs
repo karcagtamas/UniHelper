@@ -33,6 +33,10 @@ namespace UniHelper.Backend
             var mapperConfig = new MapperConfiguration(x =>
             {
                 x.AddProfile(new PeriodMapper());
+                x.AddProfile(new SubjectMapper());
+                x.AddProfile(new CourseMapper());
+                x.AddProfile(new NoteMapper());
+                x.AddProfile(new TaskMapper());
             });
 
             var mapper = mapperConfig.CreateMapper();
@@ -45,7 +49,15 @@ namespace UniHelper.Backend
             services.AddScoped<IUtilsService, UtilsService<DatabaseContext>>();
             services.AddScoped<ILoggerService, LoggerService>();
             services.AddScoped<IPeriodService, PeriodService>();
-            
+            services.AddScoped<ISubjectService, SubjectService>();
+            services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IGlobalNoteService, GlobalNoteService>();
+            services.AddScoped<IPeriodNoteService, PeriodNoteService>();
+            services.AddScoped<ISubjectNoteService, SubjectNoteService>();
+            services.AddScoped<IGlobalTaskService, GlobalTaskService>();
+            services.AddScoped<IPeriodTaskService, PeriodTaskService>();
+            services.AddScoped<ISubjectTaskService, SubjectTaskService>();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             
             services.AddControllers();

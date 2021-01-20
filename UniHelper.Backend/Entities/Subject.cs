@@ -48,13 +48,6 @@ namespace UniHelper.Backend.Entities
         public int Credit { get; set; }
 
         /// <value>
-        /// Subject folder name
-        /// </value>
-        [Required]
-        [StringLength(20)]
-        public string FolderName { get; set; }
-        
-        /// <value>
         /// Period Id
         /// </value>
         [Required]
