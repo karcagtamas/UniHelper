@@ -19,8 +19,9 @@ namespace UniHelper.Backend.Migrations
 
             modelBuilder.Entity("UniHelper.Backend.Models.Course", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<string>("Day")
                         .IsRequired()
@@ -43,22 +44,26 @@ namespace UniHelper.Backend.Migrations
 
                     b.Property<string>("SubjectId")
                         .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("SubjectId1")
+                        .HasColumnType("int");
 
                     b.Property<string>("Teachers")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubjectId");
+                    b.HasIndex("SubjectId1");
 
                     b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("UniHelper.Backend.Models.GlobalNote", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime(6)");
@@ -81,8 +86,9 @@ namespace UniHelper.Backend.Migrations
 
             modelBuilder.Entity("UniHelper.Backend.Models.GlobalTask", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime(6)");
@@ -103,8 +109,9 @@ namespace UniHelper.Backend.Migrations
 
             modelBuilder.Entity("UniHelper.Backend.Models.Period", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -116,8 +123,9 @@ namespace UniHelper.Backend.Migrations
 
             modelBuilder.Entity("UniHelper.Backend.Models.PeriodNote", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime(6)");
@@ -130,7 +138,10 @@ namespace UniHelper.Backend.Migrations
 
                     b.Property<string>("PeriodId")
                         .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("PeriodId1")
+                        .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -139,15 +150,16 @@ namespace UniHelper.Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PeriodId");
+                    b.HasIndex("PeriodId1");
 
                     b.ToTable("PeriodNotes");
                 });
 
             modelBuilder.Entity("UniHelper.Backend.Models.PeriodTask", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime(6)");
@@ -157,7 +169,10 @@ namespace UniHelper.Backend.Migrations
 
                     b.Property<string>("PeriodId")
                         .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("PeriodId1")
+                        .HasColumnType("int");
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
@@ -167,15 +182,16 @@ namespace UniHelper.Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PeriodId");
+                    b.HasIndex("PeriodId1");
 
                     b.ToTable("PeriodTasks");
                 });
 
             modelBuilder.Entity("UniHelper.Backend.Models.Subject", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -203,7 +219,10 @@ namespace UniHelper.Backend.Migrations
 
                     b.Property<string>("PeriodId")
                         .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("PeriodId1")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Result")
                         .HasColumnType("int");
@@ -215,15 +234,16 @@ namespace UniHelper.Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PeriodId");
+                    b.HasIndex("PeriodId1");
 
                     b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("UniHelper.Backend.Models.SubjectNote", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime(6)");
@@ -236,7 +256,10 @@ namespace UniHelper.Backend.Migrations
 
                     b.Property<string>("SubjectId")
                         .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("SubjectId1")
+                        .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -245,15 +268,16 @@ namespace UniHelper.Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubjectId");
+                    b.HasIndex("SubjectId1");
 
                     b.ToTable("SubjectNotes");
                 });
 
             modelBuilder.Entity("UniHelper.Backend.Models.SubjectTask", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime(6)");
@@ -266,14 +290,17 @@ namespace UniHelper.Backend.Migrations
 
                     b.Property<string>("SubjectId")
                         .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("SubjectId1")
+                        .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubjectId");
+                    b.HasIndex("SubjectId1");
 
                     b.ToTable("SubjectTasks");
                 });
@@ -282,7 +309,7 @@ namespace UniHelper.Backend.Migrations
                 {
                     b.HasOne("UniHelper.Backend.Models.Subject", "Subject")
                         .WithMany("Courses")
-                        .HasForeignKey("SubjectId")
+                        .HasForeignKey("SubjectId1")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
@@ -293,7 +320,7 @@ namespace UniHelper.Backend.Migrations
                 {
                     b.HasOne("UniHelper.Backend.Models.Period", "Period")
                         .WithMany("Notes")
-                        .HasForeignKey("PeriodId")
+                        .HasForeignKey("PeriodId1")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
@@ -304,7 +331,7 @@ namespace UniHelper.Backend.Migrations
                 {
                     b.HasOne("UniHelper.Backend.Models.Period", "Period")
                         .WithMany("Tasks")
-                        .HasForeignKey("PeriodId")
+                        .HasForeignKey("PeriodId1")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
@@ -315,7 +342,7 @@ namespace UniHelper.Backend.Migrations
                 {
                     b.HasOne("UniHelper.Backend.Models.Period", "Period")
                         .WithMany("Subjects")
-                        .HasForeignKey("PeriodId")
+                        .HasForeignKey("PeriodId1")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
@@ -326,7 +353,7 @@ namespace UniHelper.Backend.Migrations
                 {
                     b.HasOne("UniHelper.Backend.Models.Subject", "Subject")
                         .WithMany("Notes")
-                        .HasForeignKey("SubjectId")
+                        .HasForeignKey("SubjectId1")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
@@ -337,7 +364,7 @@ namespace UniHelper.Backend.Migrations
                 {
                     b.HasOne("UniHelper.Backend.Models.Subject", "Subject")
                         .WithMany("Tasks")
-                        .HasForeignKey("SubjectId")
+                        .HasForeignKey("SubjectId1")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
