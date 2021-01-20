@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Karcags.Common.Annotations;
 using Karcags.Common.Tools;
 
 namespace UniHelper.Backend.Entities
@@ -14,19 +15,25 @@ namespace UniHelper.Backend.Entities
         public string Place { get; set; }
         
         [Required]
-        public DateTime Start { get; set; }
+        [MinNumber(0)]
+        public int Type { get; set; }
         
         [Required]
-        public DateTime End { get; set; }
+        public TimeSpan Start { get; set; }
         
         [Required]
-        [MaxLength(20)]
-        public string Day { get; set; }
+        public TimeSpan End { get; set; }
+        
+        [Required]
+        [MinNumber(0)]
+        [MaxNumber(6)]
+        public int Day { get; set; }
         
         public string Teachers { get; set; }
         
+        [Required]
         public bool IsSelected { get; set; }
-        
+
         [Required]
         public string SubjectId { get; set; }
         

@@ -1,4 +1,5 @@
 using System;
+using UniHelper.Backend.Enums;
 
 namespace UniHelper.Backend.DTOs
 {
@@ -6,9 +7,10 @@ namespace UniHelper.Backend.DTOs
     {
         public int Id { get; set; }
         public string Place { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-        public string Day { get; set; }
+        public CourseType Type { get; set; }
+        public TimeSpan Start { get; set; }
+        public TimeSpan End { get; set; }
+        public DayOfWeek Day { get; set; }
         public string Teachers { get; set; }
         public bool IsSelected { get; set; }
         public int SubjectId { get; set; }

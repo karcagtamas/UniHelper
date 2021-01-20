@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Karcags.Common.Annotations;
 using Karcags.Common.Tools;
 
 namespace UniHelper.Backend.Entities
@@ -45,6 +46,7 @@ namespace UniHelper.Backend.Entities
         /// Subject credit value
         /// </value>
         [Required]
+        [MinNumber(1)]
         public int Credit { get; set; }
 
         /// <value>
@@ -56,12 +58,18 @@ namespace UniHelper.Backend.Entities
         /// <value>
         /// Result mark of subject
         /// </value>
+        [MinNumber(1)]
+        [MaxNumber(5)]
         public int? Result { get; set; }
         
         /// <value>
         /// Is active
         /// </value>
+        [Required]
         public bool IsActive { get; set; }
+        
+        [Required]
+        public int Type { get; set; }
         
         /// <value>
         /// Period

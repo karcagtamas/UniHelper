@@ -1,6 +1,7 @@
 using AutoMapper;
 using UniHelper.Backend.DTOs;
 using UniHelper.Backend.Entities;
+using UniHelper.Backend.Enums;
 using UniHelper.Backend.Models;
 
 namespace UniHelper.Backend.Mappers
@@ -19,6 +20,7 @@ namespace UniHelper.Backend.Mappers
                 .ForMember(dest => dest.Result, opt => opt.MapFrom(src => src.Result))
                 .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
                 .ForMember(dest => dest.PeriodId, opt => opt.MapFrom(src => src.Period.Id))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => (SubjectType)src.Type))
                 .ForMember(dest => dest.Tasks, opt => opt.MapFrom(src => src.Tasks))
                 .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes))
                 .ForMember(dest => dest.Courses, opt => opt.MapFrom(src => src.Courses));
@@ -31,7 +33,8 @@ namespace UniHelper.Backend.Mappers
                 .ForMember(dest => dest.Credit, opt => opt.MapFrom(src => src.Credit))
                 .ForMember(dest => dest.Result, opt => opt.MapFrom(src => src.Result))
                 .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
-                .ForMember(dest => dest.PeriodId, opt => opt.MapFrom(src => src.PeriodId));
+                .ForMember(dest => dest.PeriodId, opt => opt.MapFrom(src => src.PeriodId))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => (int)src.Type));
         }
     }
 }
