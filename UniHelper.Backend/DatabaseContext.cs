@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using UniHelper.Backend.Models;
+using UniHelper.Backend.Entities;
 
 namespace UniHelper.Backend
 {

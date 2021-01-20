@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Karcags.Common.Tools;
 
-namespace UniHelper.Backend.Models
+namespace UniHelper.Backend.Entities
 {
     /// <summary>
     /// Subject Entity
@@ -13,7 +13,7 @@ namespace UniHelper.Backend.Models
         /// Subject Id
         /// </value>
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
         
         /// <value>
         /// Subject long name
@@ -89,13 +89,5 @@ namespace UniHelper.Backend.Models
         /// Subject courses
         /// </value>
         public virtual ICollection<Course> Courses { get; set; }
-
-        /// <summary>
-        /// Initialize Subject Entity
-        /// </summary>
-        public Subject()
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
     }
 }

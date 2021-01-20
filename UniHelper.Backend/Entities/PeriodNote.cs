@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace UniHelper.Backend.Models
+namespace UniHelper.Backend.Entities
 {
     /// <summary>
     /// Period Note

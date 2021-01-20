@@ -1,12 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Karcags.Common.Tools;
 
-namespace UniHelper.Backend.Models
+namespace UniHelper.Backend.Entities
 {
     public class Course : IEntity
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
         
         [Required]
         [MaxLength(20)]
@@ -30,10 +31,5 @@ namespace UniHelper.Backend.Models
         public string SubjectId { get; set; }
         
         public virtual Subject Subject { get; set; }
-
-        public Course()
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
     }
 }

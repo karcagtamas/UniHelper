@@ -1,7 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Karcags.Common.Tools;
 
-namespace UniHelper.Backend.Models
+namespace UniHelper.Backend.Entities
 {
     /// <summary>
     /// Note base class
@@ -12,7 +13,7 @@ namespace UniHelper.Backend.Models
         /// Note Id
         /// </value>
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
         
         /// <value>
         /// Note Text

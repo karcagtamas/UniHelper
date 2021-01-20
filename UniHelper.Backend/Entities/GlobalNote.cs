@@ -1,4 +1,4 @@
-namespace UniHelper.Backend.Models
+namespace UniHelper.Backend.Entities
 {
     /// <summary>
     /// Global Note

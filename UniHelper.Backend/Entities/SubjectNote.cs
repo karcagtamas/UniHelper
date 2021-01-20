@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace UniHelper.Backend.Models
+namespace UniHelper.Backend.Entities
 {
     /// <summary>
-    /// Subject Task entity
+    /// Subject Note
     /// </summary>
-    public class SubjectTask : Task
+    public class SubjectNote : Note
     {
         /// <value>
         /// Subject Id

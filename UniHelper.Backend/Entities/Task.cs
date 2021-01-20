@@ -1,13 +1,14 @@
 using System;
+using Karcags.Common.Tools;
 
-namespace UniHelper.Backend.Models
+namespace UniHelper.Backend.Entities
 {
     public class Task : IEntity
     {
         /// <value>
         /// Task Id
         /// </value>
-        public string Id { get; set; }
+        public int Id { get; set; }
         
         /// <value>
         /// Task text
