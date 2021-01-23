@@ -1,4 +1,4 @@
-namespace UniHelper.Backend.Models
+namespace UniHelper.Shared.Models
 {
     public class PeriodNoteModel : NoteModel
     {

@@ -26,10 +26,29 @@ namespace UniHelper.Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("TestPolicy", builder =>
+                {
+                    builder.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .WithOrigins("https://localhost:5001", "http://localhost:5000");
+                });
+                
+                opt.AddPolicy("ReleasePolicy", builder =>
+                {
+                    builder.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .WithOrigins("https://localhost:5001", "http://localhost:5000");
+                });
+            });
+
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContextPool<DatabaseContext>(options =>
                 options.UseLazyLoadingProxies().UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-            
+
             var mapperConfig = new MapperConfiguration(x =>
             {
                 x.AddProfile(new PeriodMapper());
@@ -59,22 +78,22 @@ namespace UniHelper.Backend
             services.AddScoped<ISubjectTaskService, SubjectTaskService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            
+
             services.AddControllers();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "UniHelper.Backend", Version = "v1"});
             });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMyExceptionHandler();
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                // app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UniHelper.Backend v1"));
             }
@@ -84,6 +103,8 @@ namespace UniHelper.Backend
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(env.IsDevelopment() ? "TestPolicy" : "ReleasePolicy");
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

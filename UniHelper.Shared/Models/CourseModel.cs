@@ -1,9 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Karcags.Common.Annotations;
-using UniHelper.Backend.Enums;
+using UniHelper.Shared.Enums;
 
-namespace UniHelper.Backend.Models
+namespace UniHelper.Shared.Models
 {
     public class CourseModel
     {
@@ -12,7 +11,6 @@ namespace UniHelper.Backend.Models
         public string Place { get; set; }
         
         [Required]
-        [MinNumber(0)]
         public CourseType Type { get; set; }
         
         [Required]
@@ -22,8 +20,6 @@ namespace UniHelper.Backend.Models
         public TimeSpan End { get; set; }
         
         [Required]
-        [MinNumber(0)]
-        [MaxNumber(6)]
         public DayOfWeek Day { get; set; }
         public string Teachers { get; set; }
         

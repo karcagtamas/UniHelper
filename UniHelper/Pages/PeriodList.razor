@@ -1,0 +1,19 @@
+@page "/periods"
+@using UniHelper.Services
+@using UniHelper.Shared.DTOs
+
+<PageTitle Title="Period List"></PageTitle>
+
+@code {
+
+    [Inject]
+    private IPeriodService PeriodService { get; set; }
+
+    private List<PeriodDto> List { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.List = await PeriodService.GetList();
+    }
+
+}

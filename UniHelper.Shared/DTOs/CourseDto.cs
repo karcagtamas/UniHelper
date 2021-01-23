@@ -1,7 +1,7 @@
 using System;
-using UniHelper.Backend.Enums;
+using UniHelper.Shared.Enums;
 
-namespace UniHelper.Backend.DTOs
+namespace UniHelper.Shared.DTOs
 {
     public class CourseDto
     {

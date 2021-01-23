@@ -1,8 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using UniHelper.Backend.Enums;
+using UniHelper.Shared.Enums;
 
-namespace UniHelper.Backend.Models
+namespace UniHelper.Shared.Models
 {
     public class TaskModel
     {

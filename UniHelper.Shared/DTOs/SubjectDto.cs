@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using UniHelper.Backend.Entities;
-using UniHelper.Backend.Enums;
+using UniHelper.Shared.Enums;
 
-namespace UniHelper.Backend.DTOs
+namespace UniHelper.Shared.DTOs
 {
     public class SubjectDto
     {

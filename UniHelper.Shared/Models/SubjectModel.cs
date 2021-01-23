@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using Karcags.Common.Annotations;
-using UniHelper.Backend.Enums;
+using UniHelper.Shared.Enums;
 
-namespace UniHelper.Backend.Models
+namespace UniHelper.Shared.Models
 {
     public class SubjectModel
     {
@@ -20,11 +19,8 @@ namespace UniHelper.Backend.Models
         public string Description { get; set; }
         
         [Required]
-        [MinNumber(1)]
         public int Credit { get; set; }
         
-        [MinNumber(1)]
-        [MaxNumber(5)]
         public int? Result { get; set; }
         
         [Required]

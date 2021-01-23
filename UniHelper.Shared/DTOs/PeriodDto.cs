@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace UniHelper.Backend.DTOs
+namespace UniHelper.Shared.DTOs
 {
     public class PeriodDto
     {

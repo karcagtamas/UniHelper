@@ -1,4 +1,4 @@
-namespace UniHelper.Backend.Enums
+namespace UniHelper.Shared.Enums
 {
     public enum CourseType
     {

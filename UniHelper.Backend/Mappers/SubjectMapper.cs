@@ -1,8 +1,8 @@
 using AutoMapper;
-using UniHelper.Backend.DTOs;
 using UniHelper.Backend.Entities;
-using UniHelper.Backend.Enums;
-using UniHelper.Backend.Models;
+using UniHelper.Shared.DTOs;
+using UniHelper.Shared.Enums;
+using UniHelper.Shared.Models;
 
 namespace UniHelper.Backend.Mappers
 {

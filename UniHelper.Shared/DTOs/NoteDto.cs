@@ -1,6 +1,6 @@
 using System;
 
-namespace UniHelper.Backend.DTOs
+namespace UniHelper.Shared.DTOs
 {
     public class NoteDto
     {
