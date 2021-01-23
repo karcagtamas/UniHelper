@@ -25,6 +25,14 @@ namespace UniHelper
             builder.Services.AddScoped<IHelperService, HelperService>();
             builder.Services.AddScoped<IHttpService, HttpService>();
             builder.Services.AddScoped<IPeriodService, PeriodService>();
+            builder.Services.AddScoped<ISubjectService, SubjectService>();
+            builder.Services.AddScoped<ICourseService, CourseService>();
+            builder.Services.AddScoped<IGlobalNoteService, GlobalNoteService>();
+            builder.Services.AddScoped<IGlobalTaskService, GlobalTaskService>();
+            builder.Services.AddScoped<IPeriodNoteService, PeriodNoteService>();
+            builder.Services.AddScoped<IPeriodTaskService, PeriodTaskService>();
+            builder.Services.AddScoped<ISubjectNoteService, SubjectNoteService>();
+            builder.Services.AddScoped<ISubjectTaskService, SubjectTaskService>();
 
             if (builder.HostEnvironment.IsDevelopment())
             {
