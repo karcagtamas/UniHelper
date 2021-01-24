@@ -1,0 +1,39 @@
+#period-list {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+#period-list .period-data {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    border-radius: 12px;
+    padding: 0.4rem;
+    margin: 0.2rem;
+    transition-duration: 0.4s;
+    color: black;
+    box-shadow: 1px 1px 1px 0 gray;
+}
+
+#period-list .period-data:hover {
+    background-color: lightcoral;
+    transition-duration: 0.4s;
+    color: white;
+    cursor: pointer;
+}
+
+#period-list .period-data.current {
+    background-color: lightgreen;
+}
+
+#period-list .period-data .period-cell { 
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-content: center;
+}
+
+#period-list .period-data .period-cell.title {
+    font-weight: bold;
+}

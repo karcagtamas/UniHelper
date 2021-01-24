@@ -1,0 +1,26 @@
+@page "/periods/{Id:int}"
+@using UniHelper.Services
+@using UniHelper.Shared.DTOs
+
+<PageTitle Title="@GetTitle()"></PageTitle>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [Inject]
+    private IPeriodService PeriodService { get; set; }
+
+    private PeriodDto PeriodData { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        PeriodData = await PeriodService.Get(Id);
+    }
+
+    private string GetTitle()
+    {
+        return PeriodData?.Name ?? "Period";
+    }
+}

@@ -4,16 +4,49 @@
 
 <PageTitle Title="Period List"></PageTitle>
 
+<MatIconButton Icon="add"></MatIconButton>
+
+@if (List != null)
+{
+    <div id="period-list">
+        <div class="period-data">
+            <div class="period-cell title">Period Name</div>
+            <div class="period-cell title">Start - End</div>
+            <div class="period-cell title">Notes</div>
+            <div class="period-cell title">Tasks</div>
+            <div class="period-cell title">Subjects</div>
+        </div>
+        @foreach (var period in List)
+        {
+            <div class="period-data @(period.IsCurrent ? "current" : "")" @onclick="() => OpenPeriod(period.Id)">
+                <div class="period-cell title">@period.Name</div>
+                <div class="period-cell">@period.Start.ToShortDateString() - @period.End.ToShortDateString()</div>
+                <div class="period-cell">@period.Notes?.Count</div>
+                <div class="period-cell">@period.Tasks?.Count</div>
+                <div class="period-cell">@period.Subjects?.Count</div>
+            </div>
+        }
+    </div>
+}
+
 @code {
 
     [Inject]
     private IPeriodService PeriodService { get; set; }
+    
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
 
-    private List<PeriodDto> List { get; set; }
+    private List<PeriodDto> List { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
-        this.List = await PeriodService.GetList();
+        this.List = (await PeriodService.GetList()).OrderBy(x => x.Name).ToList();
+    }
+
+    private void OpenPeriod(int id)
+    {
+        NavigationManager.NavigateTo($"/periods/{id}");
     }
 
 }

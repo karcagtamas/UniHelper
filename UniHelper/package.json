@@ -1,0 +1,22 @@
+{
+  "name": "UniHelper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "node-sass": "node-sass"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtucker/blazer-sass-scoped.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/jtucker/blazer-sass-scoped#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "clean-css-cli": "^4.3.0",
+    "node-sass": "^4.14.1"
+  }
+}

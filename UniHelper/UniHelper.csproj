@@ -17,4 +17,10 @@
       <ProjectReference Include="..\UniHelper.Shared\UniHelper.Shared.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ScssFiles Include="**/*/*.scss" Exclude="node_modules/**" />
+    </ItemGroup> 
+    
+
+
 </Project>

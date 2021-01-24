@@ -1,0 +1,71 @@
+.top-row {
+  height: 3.5rem;
+  background-color: #e54f4faa;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  vertical-align: middle;
+  margin-bottom: 1rem;
+
+  .navbar-brand {
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  .navbar-toggler {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.nav {
+  .nav-item {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+
+    :first-of-type {
+      padding-top: 1rem;
+    }
+
+    :last-of-type {
+      padding-bottom: 1rem;
+    }
+
+    ::deep a {
+      color: #d7d7d7;
+      border-radius: 4px;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      line-height: 3rem;
+
+      &.active {
+        background-color: #e54f4f88;
+        color: white;
+      }
+
+      &:hover {
+        background-color: #e54f4f88;
+        color: white;
+      }
+    }
+  }
+}
+
+.oi {
+  width: 2rem;
+  font-size: 1.1rem;
+  vertical-align: text-top;
+  top: -2px;
+}
+
+@media (min-width: 641px) {
+  .navbar-toggler {
+    display: none;
+  }
+
+  .collapse {
+    /* Never collapse the sidebar for wide screens */
+    display: block;
+  }
+}
