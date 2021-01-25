@@ -8,8 +8,7 @@ namespace UniHelper.Backend.Services
 {
     public class CourseService : Repository<Course>, ICourseService
     {
-        public CourseService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper,
-            string entity) : base(context, logger, utils, mapper, entity)
+        public CourseService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper) : base(context, logger, utils, mapper, "Course")
         {
         }
     }

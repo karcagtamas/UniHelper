@@ -1,0 +1,47 @@
+@import '../Assets/colors';
+
+#period-list {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+  .period-data {
+    display: flex;
+    flex-direction: row;
+    border-radius: 8px;
+    padding: 0.4rem;
+    margin: 0.2rem;
+    transition-duration: 0.4s;
+
+    &.current {
+      background-color: lightgreen;
+    }
+    
+    &.header-row {
+      background-color: $main-color-dark;
+      padding: 0.8rem;
+      opacity: 0.8;
+      color: white;
+    }
+    
+    &.data-row {
+      &:hover {
+        background-color: $main-color-light;
+        transition-duration: 0.4s;
+        color: white;
+        cursor: pointer;
+      }
+    }
+
+    .period-cell {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-content: center;
+
+      &.title {
+        font-weight: bold;
+      }
+    }
+  }
+}

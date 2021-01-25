@@ -1,9 +1,9 @@
-#period-list {
+#subject-list {
   display: flex;
   width: 100%;
   flex-direction: column;
 }
-#period-list .period-data {
+#subject-list .subject-data {
   display: flex;
   flex-direction: row;
   border-radius: 8px;
@@ -11,29 +11,29 @@
   margin: 0.2rem;
   transition-duration: 0.4s;
 }
-#period-list .period-data.current {
+#subject-list .subject-data.current {
   background-color: lightgreen;
 }
-#period-list .period-data.header-row {
+#subject-list .subject-data.header-row {
   background-color: #7b3c59;
   padding: 0.8rem;
   opacity: 0.8;
   color: white;
 }
-#period-list .period-data.data-row:hover {
+#subject-list .subject-data.data-row:hover {
   background-color: #e54f4f88;
   transition-duration: 0.4s;
   color: white;
   cursor: pointer;
 }
-#period-list .period-data .period-cell {
+#subject-list .subject-data .subject-cell {
   display: flex;
   width: 100%;
   flex-direction: column;
   align-content: center;
 }
-#period-list .period-data .period-cell.title {
+#subject-list .subject-data .subject-cell.title {
   font-weight: bold;
 }
 
-/*# sourceMappingURL=PeriodList.razor.css.map */
+/*# sourceMappingURL=Period.razor.css.map */

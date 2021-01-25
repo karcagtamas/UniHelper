@@ -1,17 +1,20 @@
+@import '../Assets/colors';
+
 .page {
   position: relative;
   display: flex;
   flex-direction: column;
 
   .sidebar {
-    background-image: linear-gradient(200deg, rgb(5, 39, 103) 40%, #e54f4faa 100%);
+    background-image: linear-gradient(200deg, rgb(5, 39, 103) 40%, $main-color 100%);
   }
 
   .main {
     flex: 1;
+    background-color: #fffbaf44;
 
     .top-row {
-      background-image: linear-gradient(160deg, rgb(5, 39, 103) 68%, #e54f4faa 78%);
+      background-image: linear-gradient(160deg, rgb(5, 39, 103) 68%, $main-color 78%);
       border-bottom: 1px solid #d6d5d5;
       justify-content: flex-end;
       height: 3.5rem;

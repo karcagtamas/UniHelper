@@ -4,6 +4,47 @@
 
 <PageTitle Title="@GetTitle()"></PageTitle>
 
+@if (PeriodData != null)
+{
+    <div id="data">
+        <div>
+            <MatIconButton Icon="edit"></MatIconButton>
+            <MatIconButton Icon="remove"></MatIconButton>
+        </div>
+        <div><strong>Interval:</strong> @PeriodData.Start.ToShortDateString() - @PeriodData.End.ToShortDateString()</div>
+        <div><strong>Is Current Period:</strong> @(PeriodData.IsCurrent ? "Yes" : "No")</div>
+    </div>
+
+    <MatDivider></MatDivider>
+
+    @if (PeriodData.Subjects != null)
+    {
+        <div id="subject-list">
+            <div class="subject-data header-row">
+                <div class="subject-cell title">Period Name</div>
+                <div class="subject-cell title">Code</div>
+                <div class="subject-cell title">Type</div>
+                <div class="subject-cell title">Notes</div>
+                <div class="subject-cell title">Tasks</div>
+                <div class="subject-cell title">Courses</div>
+            </div>
+            @foreach (var subject in PeriodData.Subjects)
+            {
+                <div class="subject-data data-row">
+                    <div class="subject-cell title">@subject.ShortName</div>
+                    <div class="subject-cell">@subject.Code</div>
+                    <div class="subject-cell">@subject.Type</div>
+                    <div class="subject-cell">@subject.Notes?.Count</div>
+                    <div class="subject-cell">@subject.Tasks?.Count</div>
+                    <div class="subject-cell">@subject.Courses?.Count</div>
+                </div>
+            }
+        </div>
+    }
+    
+    <MatDivider></MatDivider>
+}
+
 @code {
 
     [Parameter]

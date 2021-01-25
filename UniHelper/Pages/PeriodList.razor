@@ -1,52 +1,61 @@
 @page "/periods"
-@using UniHelper.Services
-@using UniHelper.Shared.DTOs
+@using UniHelper.Enums
 
 <PageTitle Title="Period List"></PageTitle>
-
-<MatIconButton Icon="add"></MatIconButton>
-
-@if (List != null)
+@if (State == PageState.Display)
 {
-    <div id="period-list">
-        <div class="period-data">
-            <div class="period-cell title">Period Name</div>
-            <div class="period-cell title">Start - End</div>
-            <div class="period-cell title">Notes</div>
-            <div class="period-cell title">Tasks</div>
-            <div class="period-cell title">Subjects</div>
-        </div>
-        @foreach (var period in List)
-        {
-            <div class="period-data @(period.IsCurrent ? "current" : "")" @onclick="() => OpenPeriod(period.Id)">
-                <div class="period-cell title">@period.Name</div>
-                <div class="period-cell">@period.Start.ToShortDateString() - @period.End.ToShortDateString()</div>
-                <div class="period-cell">@period.Notes?.Count</div>
-                <div class="period-cell">@period.Tasks?.Count</div>
-                <div class="period-cell">@period.Subjects?.Count</div>
+    <MatIconButton Icon="add" OnClick="EnableAdding"></MatIconButton>
+
+    <MatDivider></MatDivider>
+
+    @if (List != null)
+    {
+        <div id="period-list">
+            <div class="period-data header-row">
+                <div class="period-cell title">Name</div>
+                <div class="period-cell title">Start - End</div>
+                <div class="period-cell title">Notes</div>
+                <div class="period-cell title">Tasks</div>
+                <div class="period-cell title">Subjects</div>
             </div>
-        }
-    </div>
+            @foreach (var period in List)
+            {
+                <div class="period-data data-row @(period.IsCurrent ? "current" : "")" @onclick="() => OpenPeriod(period.Id)">
+                    <div class="period-cell title">@period.Name</div>
+                    <div class="period-cell">@period.Start.ToShortDateString() - @period.End.ToShortDateString()</div>
+                    <div class="period-cell">@period.Notes?.Count</div>
+                    <div class="period-cell">@period.Tasks?.Count</div>
+                    <div class="period-cell">@period.Subjects?.Count</div>
+                </div>
+            }
+        </div>
+        <MatDivider></MatDivider>
+    }
 }
+else if (State == PageState.Adding)
+{
+    <MatIconButton Icon="done" OnClick="() => DisableAdding(false)"></MatIconButton>
+    <MatIconButton Icon="cancel" OnClick="() => DisableAdding(true)"></MatIconButton>
 
-@code {
+    <MatDivider></MatDivider>
 
-    [Inject]
-    private IPeriodService PeriodService { get; set; }
-    
-    [Inject]
-    private NavigationManager NavigationManager { get; set; }
+    <div>
+        <EditForm EditContext="PeriodContext">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <div>
+                <MatTextField @bind-Value="Model.Name" Label="Name" FullWidth="true"></MatTextField>
+                <ValidationMessage For="() => Model.Name"></ValidationMessage>
+            </div>
+            <div>
+                <MatDatePicker @bind-Value="Model.Start" Label="Start" FullWidth="true"></MatDatePicker>
+                <ValidationMessage For="() => Model.Start"></ValidationMessage>
+            </div>
+            <div>
+                <MatDatePicker @bind-Value="Model.End" Label="End" FullWidth="true"></MatDatePicker>
+                <ValidationMessage For="() => Model.End"></ValidationMessage>
+            </div>
+        </EditForm>
+    </div>
 
-    private List<PeriodDto> List { get; set; } = new();
-
-    protected override async Task OnInitializedAsync()
-    {
-        this.List = (await PeriodService.GetList()).OrderBy(x => x.Name).ToList();
-    }
-
-    private void OpenPeriod(int id)
-    {
-        NavigationManager.NavigateTo($"/periods/{id}");
-    }
-
+    <MatDivider></MatDivider>
 }

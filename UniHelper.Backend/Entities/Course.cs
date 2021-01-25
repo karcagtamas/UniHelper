@@ -35,7 +35,7 @@ namespace UniHelper.Backend.Entities
         public bool IsSelected { get; set; }
 
         [Required]
-        public string SubjectId { get; set; }
+        public int SubjectId { get; set; }
         
         public virtual Subject Subject { get; set; }
     }

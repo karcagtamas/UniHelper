@@ -1,6 +1,8 @@
+@import '../Assets/colors';
+
 .top-row {
   height: 3.5rem;
-  background-color: #e54f4faa;
+  background-color: $main-color;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -40,12 +42,12 @@
       line-height: 3rem;
 
       &.active {
-        background-color: #e54f4f88;
+        background-color: $main-color-light;
         color: white;
       }
 
       &:hover {
-        background-color: #e54f4f88;
+        background-color: $main-color-light;
         color: white;
       }
     }

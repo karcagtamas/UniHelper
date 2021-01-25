@@ -8,8 +8,7 @@ namespace UniHelper.Backend.Services
 {
     public class SubjectService : Repository<Subject>, ISubjectService
     {
-        public SubjectService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper,
-            string entity) : base(context, logger, utils, mapper, entity)
+        public SubjectService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper) : base(context, logger, utils, mapper, "Subject")
         {
         }
     }

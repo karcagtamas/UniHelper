@@ -8,8 +8,7 @@ namespace UniHelper.Backend.Services
 {
     public class PeriodTaskService : Repository<PeriodTask>, IPeriodTaskService
     {
-        public PeriodTaskService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper,
-            string entity) : base(context, logger, utils, mapper, entity)
+        public PeriodTaskService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper) : base(context, logger, utils, mapper, "Period Task")
         {
         }
     }

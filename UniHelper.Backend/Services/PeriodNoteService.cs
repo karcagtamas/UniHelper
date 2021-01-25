@@ -7,7 +7,7 @@ namespace UniHelper.Backend.Services
 {
     public class PeriodNoteService : Repository<PeriodNote>, IPeriodNoteService
     {
-        public PeriodNoteService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper, string entity) : base(context, logger, utils, mapper, entity)
+        public PeriodNoteService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper) : base(context, logger, utils, mapper, "Period Note")
         {
         }
     }

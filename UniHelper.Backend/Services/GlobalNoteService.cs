@@ -7,7 +7,7 @@ namespace UniHelper.Backend.Services
 {
     public class GlobalNoteService : Repository<GlobalNote>, IGlobalNoteService
     {
-        public GlobalNoteService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper, string entity) : base(context, logger, utils, mapper, entity)
+        public GlobalNoteService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper) : base(context, logger, utils, mapper, "Global Note")
         {
         }
     }

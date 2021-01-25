@@ -11,7 +11,7 @@ namespace UniHelper.Backend.Entities
         /// Subject Id
         /// </value>
         [Required]
-        public string SubjectId { get; set; }
+        public int SubjectId { get; set; }
         
         /// <value>
         /// Subject

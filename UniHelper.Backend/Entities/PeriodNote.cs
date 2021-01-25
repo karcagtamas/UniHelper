@@ -11,7 +11,7 @@ namespace UniHelper.Backend.Entities
         /// Period Id
         /// </value>
         [Required]
-        public string PeriodId { get; set; }
+        public int PeriodId { get; set; }
         
         /// <value>
         /// Period
