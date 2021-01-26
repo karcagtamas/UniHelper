@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Shared.Models
 {
@@ -16,6 +17,16 @@ namespace UniHelper.Shared.Models
         public DateTime Start { get; set; }
         
         [Required]
-        public DateTime End { get; set; } 
+        public DateTime End { get; set; }
+        
+        public PeriodModel() {}
+
+        public PeriodModel(PeriodDto dto)
+        {
+            Name = dto.Name;
+            IsCurrent = dto.IsCurrent;
+            Start = dto.Start;
+            End = dto.End;
+        }
     }
 }

@@ -1,6 +1,6 @@
 @page "/periods/{Id:int}"
-@using UniHelper.Services
-@using UniHelper.Shared.DTOs
+@using UniHelper.Enums
+@using UniHelper.Shared.Enums
 
 <PageTitle Title="@GetTitle()"></PageTitle>
 
@@ -8,60 +8,115 @@
 {
     <div id="data">
         <div>
-            <MatIconButton Icon="edit"></MatIconButton>
-            <MatIconButton Icon="remove"></MatIconButton>
-        </div>
-        <div><strong>Interval:</strong> @PeriodData.Start.ToShortDateString() - @PeriodData.End.ToShortDateString()</div>
-        <div><strong>Is Current Period:</strong> @(PeriodData.IsCurrent ? "Yes" : "No")</div>
-    </div>
-
-    <MatDivider></MatDivider>
-
-    @if (PeriodData.Subjects != null)
-    {
-        <div id="subject-list">
-            <div class="subject-data header-row">
-                <div class="subject-cell title">Period Name</div>
-                <div class="subject-cell title">Code</div>
-                <div class="subject-cell title">Type</div>
-                <div class="subject-cell title">Notes</div>
-                <div class="subject-cell title">Tasks</div>
-                <div class="subject-cell title">Courses</div>
-            </div>
-            @foreach (var subject in PeriodData.Subjects)
+            @if (State == PageState.Display)
             {
-                <div class="subject-data data-row">
-                    <div class="subject-cell title">@subject.ShortName</div>
-                    <div class="subject-cell">@subject.Code</div>
-                    <div class="subject-cell">@subject.Type</div>
-                    <div class="subject-cell">@subject.Notes?.Count</div>
-                    <div class="subject-cell">@subject.Tasks?.Count</div>
-                    <div class="subject-cell">@subject.Courses?.Count</div>
+                <MatIconButton Icon="add" OnClick="EnableSubjectAdding"></MatIconButton>
+                <MatIconButton Icon="edit" OnClick="EnableEditing"></MatIconButton>
+                <MatIconButton Icon="remove" OnClick="EnableRemoving"></MatIconButton>
+                <MatDivider></MatDivider>
+                @if (PeriodData.Subjects != null && PeriodData.Subjects.Count > 0)
+                {
+                    <div id="subject-list">
+                        <div class="subject-data header-row">
+                            <div class="subject-cell title">Period Name</div>
+                            <div class="subject-cell title">Code</div>
+                            <div class="subject-cell title">Type</div>
+                            <div class="subject-cell title">Notes</div>
+                            <div class="subject-cell title">Tasks</div>
+                            <div class="subject-cell title">Courses</div>
+                        </div>
+                        @foreach (var subject in PeriodData.Subjects)
+                        {
+                            <div class="subject-data data-row" @onclick="() => OpenSubject(subject.Id)">
+                                <div class="subject-cell title">@subject.ShortName</div>
+                                <div class="subject-cell">@subject.Code</div>
+                                <div class="subject-cell">@subject.Type</div>
+                                <div class="subject-cell">@subject.Notes?.Count</div>
+                                <div class="subject-cell">@subject.Tasks?.Count</div>
+                                <div class="subject-cell">@subject.Courses?.Count</div>
+                            </div>
+                        }
+                    </div>
+                }
+
+                <MatDivider></MatDivider>
+                <div><strong>Interval:</strong> @PeriodData.Start.ToShortDateString() - @PeriodData.End.ToShortDateString()</div>
+                <div>
+                    <strong>Is Current Period:</strong> @(PeriodData.IsCurrent ? "Yes" : "No")
                 </div>
+                <MatDivider></MatDivider>
+            }
+            else if (State == PageState.Editing)
+            {
+                <MatIconButton Icon="done" OnClick="() => DisableEditing(false)"></MatIconButton>
+                <MatIconButton Icon="cancel" OnClick="() => DisableEditing(true)"></MatIconButton>
+                <MatDivider></MatDivider>
+
+                <div>
+                    <EditForm EditContext="PeriodContext">
+                        <DataAnnotationsValidator></DataAnnotationsValidator>
+                        <div>
+                            <MatTextField @bind-Value="PeriodModel.Name" Label="Name" FullWidth="true"></MatTextField>
+                            <ValidationMessage For="() => PeriodModel.Name"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatDatePicker @bind-Value="PeriodModel.Start" Label="Start" FullWidth="true"></MatDatePicker>
+                            <ValidationMessage For="() => PeriodModel.Start"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatDatePicker @bind-Value="PeriodModel.End" Label="End" FullWidth="true"></MatDatePicker>
+                            <ValidationMessage For="() => PeriodModel.End"></ValidationMessage>
+                        </div>
+                    </EditForm>
+                </div>
+
+                <MatDivider></MatDivider>
+            }
+            else if (State == PageState.Removing)
+            {
+                <div>
+                    <strong>Are you sure about removing Period?</strong>
+                </div>
+                <MatIconButton Icon="done" OnClick="() => DisableRemoving(true)"></MatIconButton>
+                <MatIconButton Icon="cancel" OnClick="() => DisableRemoving(false)"></MatIconButton>
+                <MatDivider></MatDivider>
+            }
+            else if (State == PageState.Adding)
+            {
+                <MatIconButton Icon="done" OnClick="() => DisabledSubjectAdding(false)"></MatIconButton>
+                <MatIconButton Icon="cancel" OnClick="() => DisabledSubjectAdding(true)"></MatIconButton>
+                <MatDivider></MatDivider>
+                <div>
+                    <EditForm EditContext="SubjectContext">
+                        <DataAnnotationsValidator></DataAnnotationsValidator>
+                        <div>
+                            <MatTextField @bind-Value="SubjectModel.LongName" Label="Long Name" FullWidth="true"></MatTextField>
+                            <ValidationMessage For="() => SubjectModel.LongName"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatTextField @bind-Value="SubjectModel.ShortName" Label="Short Name" FullWidth="true"></MatTextField>
+                            <ValidationMessage For="() => SubjectModel.ShortName"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatTextField @bind-Value="SubjectModel.Code" Label="Code" FullWidth="true"></MatTextField>
+                            <ValidationMessage For="() => SubjectModel.Code"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatTextField @bind-Value="SubjectModel.Description" TextArea="true" Label="Description" FullWidth="true"></MatTextField>
+                            <ValidationMessage For="() => SubjectModel.Description"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatNumericUpDownField @bind-Value="SubjectModel.Credit" Minimum="1" Maximum="10" Label="Credit" FullWidth="true"></MatNumericUpDownField>
+                            <ValidationMessage For="() => SubjectModel.Credit"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatSelectItem @bind-Value="SubjectModel.Type" Label="Type" FullWidth="true" Items="Enum.GetValues(typeof(SubjectType)).Cast<SubjectType>().ToArray()"></MatSelectItem>
+                            <ValidationMessage For="() => SubjectModel.Type"></ValidationMessage>
+                        </div>
+                    </EditForm>
+                </div>
+                <MatDivider></MatDivider>
             }
         </div>
-    }
-    
-    <MatDivider></MatDivider>
-}
-
-@code {
-
-    [Parameter]
-    public int Id { get; set; }
-
-    [Inject]
-    private IPeriodService PeriodService { get; set; }
-
-    private PeriodDto PeriodData { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        PeriodData = await PeriodService.Get(Id);
-    }
-
-    private string GetTitle()
-    {
-        return PeriodData?.Name ?? "Period";
-    }
+    </div>
 }

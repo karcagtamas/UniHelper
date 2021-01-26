@@ -4,6 +4,7 @@ namespace UniHelper.Enums
     {
         Display,
         Adding,
-        Editing
+        Editing,
+        Removing
     }
 }

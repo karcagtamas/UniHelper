@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using UniHelper.Shared.DTOs;
 using UniHelper.Shared.Enums;
 
 namespace UniHelper.Shared.Models
@@ -31,5 +32,29 @@ namespace UniHelper.Shared.Models
         
         [Required]
         public SubjectType Type { get; set; }
+
+        public SubjectModel()
+        {
+            IsActive = true;
+        }
+
+        public SubjectModel(int periodId)
+        {
+            PeriodId = periodId;
+            IsActive = true;
+        }
+
+        public SubjectModel(SubjectDto dto)
+        {
+            LongName = dto.LongName;
+            ShortName = dto.ShortName;
+            Code = dto.Code;
+            Description = dto.Description;
+            Credit = dto.Credit;
+            Result = dto.Result;
+            IsActive = dto.IsActive;
+            PeriodId = dto.PeriodId;
+            Type = dto.Type;
+        }
     }
 }

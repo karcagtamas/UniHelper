@@ -57,8 +57,9 @@ namespace UniHelper.Pages
                 Model.Start = Model.Start.ToLocalTime();
                 Model.End = Model.End.ToLocalTime();
                 await PeriodService.Create(Model);
+                await Refresh();
             }
-            await Refresh();
+            
             State = PageState.Display;
             StateHasChanged();
         }

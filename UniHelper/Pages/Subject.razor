@@ -1,0 +1,140 @@
+@page "/periods/subjects/{Id:int}"
+@using UniHelper.Enums
+@using UniHelper.Shared.Enums
+@using UniHelper.Shared.Models
+
+<PageTitle Title="@GetTitle()"></PageTitle>
+
+@if (SubjectData != null)
+{
+    <div id="data">
+        <div>
+            @if (State == PageState.Display)
+            {
+                <MatIconButton Icon="add" OnClick="EnableCourseAdding"></MatIconButton>
+                <MatIconButton Icon="edit" OnClick="EnableEditing"></MatIconButton>
+                <MatIconButton Icon="remove" OnClick="EnableRemoving"></MatIconButton>
+                <MatDivider></MatDivider>
+                @if (SubjectData.Courses != null && SubjectData.Courses.Count > 0)
+                {
+                    <div id="subject-list">
+                        <div class="subject-data header-row">
+                            <div class="subject-cell title">Place</div>
+                            <div class="subject-cell title">Type</div>
+                            <div class="subject-cell title">Start</div>
+                            <div class="subject-cell title">End</div>
+                            <div class="subject-cell title">Day</div>
+                            <div class="subject-cell title">Teachers</div>
+                        </div>
+                        @foreach (var course in SubjectData.Courses)
+                        {
+                            <div class="subject-data data-row" @onclick="() => OpenCourse(course.Id)">
+                                <div class="subject-cell title">@course.Place</div>
+                                <div class="subject-cell">@course.Type</div>
+                                <div class="subject-cell">@course.Start</div>
+                                <div class="subject-cell">@course.End</div>
+                                <div class="subject-cell">@course.Day</div>
+                                <div class="subject-cell">@course.Teachers</div>
+                            </div>
+                        }
+                    </div>
+                }
+
+                <MatDivider></MatDivider>
+                <div>
+                    <strong>Short Name:</strong> @SubjectData.ShortName
+                </div>
+                <div>
+                    <strong>Code:</strong> @SubjectData.Code
+                </div>
+                <div>
+                    <strong>Description:</strong> @SubjectData.Description
+                </div>
+                <div>
+                    <strong>Credit:</strong> @SubjectData.Credit
+                </div>
+                <div>
+                    <strong>Result:</strong> @SubjectData.Result
+                </div>
+                <div>
+                    <strong>Is Active:</strong> @(SubjectData.IsActive ? "Yes" : "No")
+                </div>
+                <div>
+                    <strong>Type:</strong> @SubjectData.Type
+                </div>
+                <MatDivider></MatDivider>
+            }
+            else if (State == PageState.Editing)
+            {
+                <MatIconButton Icon="done" OnClick="() => DisableEditing(false)"></MatIconButton>
+                <MatIconButton Icon="cancel" OnClick="() => DisableEditing(true)"></MatIconButton>
+                <MatDivider></MatDivider>
+
+                <div>
+                    <EditForm EditContext="SubjectContext">
+                        <DataAnnotationsValidator></DataAnnotationsValidator>
+                        <div>
+                            <MatTextField @bind-Value="SubjectModel.LongName" Label="Long Name" FullWidth="true"></MatTextField>
+                            <ValidationMessage For="() => SubjectModel.LongName"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatTextField @bind-Value="SubjectModel.ShortName" Label="Short Name" FullWidth="true"></MatTextField>
+                            <ValidationMessage For="() => SubjectModel.ShortName"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatTextField @bind-Value="SubjectModel.Code" Label="Code" FullWidth="true"></MatTextField>
+                            <ValidationMessage For="() => SubjectModel.Code"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatTextField @bind-Value="SubjectModel.Description" TextArea="true" Label="Description" FullWidth="true"></MatTextField>
+                            <ValidationMessage For="() => SubjectModel.Description"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatNumericUpDownField @bind-Value="SubjectModel.Credit" Minimum="1" Maximum="10" Label="Credit" FullWidth="true"></MatNumericUpDownField>
+                            <ValidationMessage For="() => SubjectModel.Credit"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatNumericUpDownField @bind-Value="SubjectModel.Result" Minimum="1" Maximum="5" Label="Result" FullWidth="true"></MatNumericUpDownField>
+                            <ValidationMessage For="() => SubjectModel.Result"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatSelectItem @bind-Value="SubjectModel.Type" Label="Type" FullWidth="true" Items="Enum.GetValues(typeof(SubjectType)).Cast<SubjectType>().ToArray()"></MatSelectItem>
+                            <ValidationMessage For="() => SubjectModel.Type"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatSlideToggle @bind-Value="SubjectModel.IsActive" Label="Is Active"></MatSlideToggle>
+                            <ValidationMessage For="() => SubjectModel.IsActive"></ValidationMessage>
+                        </div>
+                    </EditForm>
+                </div>
+
+                <MatDivider></MatDivider>
+            }
+            else if (State == PageState.Removing)
+            {
+                <div>
+                    <strong>Are you sure about removing Subject?</strong>
+                </div>
+                <MatIconButton Icon="done" OnClick="() => DisableRemoving(true)"></MatIconButton>
+                <MatIconButton Icon="cancel" OnClick="() => DisableRemoving(false)"></MatIconButton>
+                <MatDivider></MatDivider>
+            }
+            else if (State == PageState.Adding)
+            {
+                <MatIconButton Icon="done" OnClick="() => DisabledCourseAdding(false)"></MatIconButton>
+                <MatIconButton Icon="cancel" OnClick="() => DisabledCourseAdding(true)"></MatIconButton>
+                <MatDivider></MatDivider>
+                <div>
+                    <EditForm EditContext="CourseContext">
+                        <DataAnnotationsValidator></DataAnnotationsValidator>
+                        <div>
+                            <MatTextField @bind-Value="CourseModel.Place" Label="Place" FullWidth="true"></MatTextField>
+                            <ValidationMessage For="() => CourseModel.Place"></ValidationMessage>
+                        </div>
+                    </EditForm>
+                </div>
+                <MatDivider></MatDivider>
+            }
+        </div>
+    </div>
+}

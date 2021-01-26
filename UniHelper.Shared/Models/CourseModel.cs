@@ -28,5 +28,16 @@ namespace UniHelper.Shared.Models
         
         [Required]
         public int SubjectId { get; set; }
+
+        public CourseModel()
+        {
+            IsSelected = true;
+        }
+
+        public CourseModel(int subjectId)
+        {
+            SubjectId = subjectId;
+            IsSelected = true;
+        }
     }
 }
