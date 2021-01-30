@@ -15,10 +15,10 @@ namespace UniHelper.Shared.Models
         public CourseType Type { get; set; }
         
         [Required]
-        public TimeSpan Start { get; set; }
+        public int Number { get; set; }
         
         [Required]
-        public TimeSpan End { get; set; }
+        public int Length { get; set; }
         
         [Required]
         public DayOfWeek Day { get; set; }
@@ -45,8 +45,8 @@ namespace UniHelper.Shared.Models
         {
             Place = dto.Place;
             Type = dto.Type;
-            Start = dto.Start;
-            End = dto.End;
+            Number = dto.Number;
+            Length = dto.Length;
             Day = dto.Day;
             Teachers = dto.Teachers;
             IsSelected = dto.IsSelected;

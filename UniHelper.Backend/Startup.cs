@@ -77,6 +77,7 @@ namespace UniHelper.Backend
             services.AddScoped<IGlobalTaskService, GlobalTaskService>();
             services.AddScoped<IPeriodTaskService, PeriodTaskService>();
             services.AddScoped<ISubjectTaskService, SubjectTaskService>();
+            services.AddScoped<ICalendarService, CalendarService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

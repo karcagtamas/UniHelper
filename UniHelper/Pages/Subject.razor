@@ -30,8 +30,8 @@
                             <div class="course-data data-row" @onclick="() => OpenCourse(course.Id)">
                                 <div class="course-cell title">@course.Place</div>
                                 <div class="course-cell">@course.Type</div>
-                                <div class="course-cell">@course.Start</div>
-                                <div class="course-cell">@course.End</div>
+                                <div class="course-cell">@course.Number</div>
+                                <div class="course-cell">@course.Length</div>
                                 <div class="course-cell">@course.Day</div>
                                 <div class="course-cell">@course.Teachers</div>
                             </div>
@@ -135,12 +135,12 @@
                             <ValidationMessage For="() => CourseModel.Type"></ValidationMessage>
                         </div>
                         <div>
-                            <MatDatePicker ValueExpression="() => CourseStart" TValue="DateTime" ValueChanged="CourseStartChange" Label="Start" FullWidth="true" DisableCalendar="true" EnableTime="true" Enable24hours="true"></MatDatePicker>
-                            <ValidationMessage For="() => CourseModel.Start"></ValidationMessage>
+                            <MatNumericUpDownField @bind-Value="CourseModel.Number" Minimum="1" Maximum="5" Label="Number" FullWidth="true"></MatNumericUpDownField>
+                            <ValidationMessage For="() => CourseModel.Number"></ValidationMessage>
                         </div>
                         <div>
-                            <MatDatePicker ValueExpression="() => CourseEnd" TValue="DateTime" ValueChanged="CourseEndChange" Label="End" FullWidth="true" DisableCalendar="true" EnableTime="true" Enable24hours="true"></MatDatePicker>
-                            <ValidationMessage For="() => CourseModel.End"></ValidationMessage>
+                            <MatNumericUpDownField @bind-Value="CourseModel.Length" Minimum="1" Maximum="5" Label="Length" FullWidth="true"></MatNumericUpDownField>
+                            <ValidationMessage For="() => CourseModel.Length"></ValidationMessage>
                         </div>
                         <div>
                             <MatSelectItem @bind-Value="CourseModel.Day" Label="Day" FullWidth="true" Items="Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().ToArray()"></MatSelectItem>

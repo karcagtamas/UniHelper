@@ -19,10 +19,14 @@ namespace UniHelper.Backend.Entities
         public int Type { get; set; }
         
         [Required]
-        public TimeSpan Start { get; set; }
+        [MinNumber(0)]
+        [MaxNumber(10)]
+        public int Number { get; set; }
         
         [Required]
-        public TimeSpan End { get; set; }
+        [MinNumber(1)]
+        [MaxNumber(6)]
+        public int Length { get; set; }
         
         [Required]
         [MinNumber(0)]

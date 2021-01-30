@@ -25,10 +25,6 @@ namespace UniHelper.Pages
         private EditContext CourseContext { get; set; }
         
         private CourseModel CourseModel { get; set; }
-        
-        private DateTime CourseStart { get; set; }
-        
-        private DateTime CourseEnd { get; set; }
 
         private PageState State { get; set; } = PageState.Display;
         
@@ -50,8 +46,6 @@ namespace UniHelper.Pages
         private void EnableEditing()
         {
             CourseModel = new CourseModel(CourseData);
-            CourseStart = new DateTime(2000, 1, 1, CourseModel.Start.Hours, CourseModel.Start.Minutes, CourseModel.Start.Seconds);
-            CourseEnd = new DateTime(2000, 1, 1, CourseModel.End.Hours, CourseModel.End.Minutes, CourseModel.End.Seconds);
             CourseContext = new EditContext(CourseModel);
             State = PageState.Editing;
             StateHasChanged();
@@ -87,18 +81,6 @@ namespace UniHelper.Pages
                 State = PageState.Display;
                 StateHasChanged();
             }
-        }
-        
-        private void CourseStartChange(DateTime date)
-        {
-            CourseModel.Start = date.TimeOfDay;
-            CourseStart = date;
-        }
-        
-        private void CourseEndChange(DateTime date)
-        {
-            CourseModel.End = date.TimeOfDay;
-            CourseEnd = date;
         }
     }
 }

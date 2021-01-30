@@ -11,8 +11,23 @@ namespace UniHelper.Backend.Controllers
     [ApiController]
     public class PeriodController : MyController<Period, PeriodModel, PeriodDto>
     {
+        private readonly IPeriodService _service;
+
         public PeriodController(IPeriodService service) : base(service)
         {
+            _service = service;
+        }
+
+        [HttpGet("current")]
+        public int GetCurrent()
+        {
+            return _service.GetCurrent();
+        }
+
+        [HttpPut("current")]
+        public void SetCurrent([FromBody] int id)
+        {
+            _service.SetCurrent(id);
         }
     }
 }

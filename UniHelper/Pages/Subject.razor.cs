@@ -32,10 +32,6 @@ namespace UniHelper.Pages
         private EditContext CourseContext { get; set; }
         
         private CourseModel CourseModel { get; set; }
-        
-        private DateTime CourseStart { get; set; }
-        
-        private DateTime CourseEnd { get; set; }
 
         private PageState State { get; set; } = PageState.Display;
         
@@ -96,8 +92,6 @@ namespace UniHelper.Pages
         
         private void EnableCourseAdding()
         {
-            CourseStart = new DateTime();
-            CourseEnd = new DateTime();
             CourseModel = new CourseModel(SubjectData.Id);
             CourseContext = new EditContext(CourseModel);
             State = PageState.Adding;
@@ -119,18 +113,6 @@ namespace UniHelper.Pages
         private void OpenCourse(int id)
         {
             NavigationManager.NavigateTo($"/periods/subjects/courses/{id}");
-        }
-
-        private void CourseStartChange(DateTime date)
-        {
-            CourseModel.Start = date.TimeOfDay;
-            CourseStart = date;
-        }
-        
-        private void CourseEndChange(DateTime date)
-        {
-            CourseModel.End = date.TimeOfDay;
-            CourseEnd = date;
         }
     }
 }
