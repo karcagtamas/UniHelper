@@ -33,7 +33,7 @@ namespace UniHelper.Pages
 
         private async Task Refresh()
         {
-            this.List = (await PeriodService.GetList()).OrderBy(x => x.Name).ToList();
+            this.List = await PeriodService.GetList();
             StateHasChanged();
         }
 

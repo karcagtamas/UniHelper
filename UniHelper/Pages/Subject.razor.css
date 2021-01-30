@@ -1,0 +1,39 @@
+#course-list {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+#course-list .course-data {
+  display: flex;
+  flex-direction: row;
+  border-radius: 8px;
+  padding: 0.4rem;
+  margin: 0.2rem;
+  transition-duration: 0.4s;
+}
+#course-list .course-data.current {
+  background-color: lightgreen;
+}
+#course-list .course-data.header-row {
+  background-color: #7b3c59;
+  padding: 0.8rem;
+  opacity: 0.8;
+  color: white;
+}
+#course-list .course-data.data-row:hover {
+  background-color: #e54f4f88;
+  transition-duration: 0.4s;
+  color: white;
+  cursor: pointer;
+}
+#course-list .course-data .course-cell {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-content: center;
+}
+#course-list .course-data .course-cell.title {
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=Subject.razor.css.map */

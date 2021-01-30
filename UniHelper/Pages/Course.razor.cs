@@ -9,13 +9,10 @@ using UniHelper.Shared.Models;
 
 namespace UniHelper.Pages
 {
-    public partial class Subject
+    public partial class Course
     {
         [Parameter]
         public int Id { get; set; }
-
-        [Inject]
-        private ISubjectService SubjectService { get; set; }
         
         [Inject]
         private ICourseService CourseService { get; set; }
@@ -23,11 +20,7 @@ namespace UniHelper.Pages
         [Inject]
         private NavigationManager NavigationManager { get; set; }
         
-        private SubjectDto SubjectData { get; set; }
-        
-        private EditContext SubjectContext { get; set; }
-        
-        private SubjectModel SubjectModel { get; set; }
+        private CourseDto CourseData { get; set; }
         
         private EditContext CourseContext { get; set; }
         
@@ -46,18 +39,20 @@ namespace UniHelper.Pages
 
         private async Task GetData()
         {
-            SubjectData = await SubjectService.Get(Id);
+            CourseData = await CourseService.Get(Id);
         }
 
         private string GetTitle()
         {
-            return SubjectData?.LongName ?? "Subject";
+            return CourseData?.Place ?? "Course";
         }
         
         private void EnableEditing()
         {
-            SubjectModel = new SubjectModel(SubjectData);
-            SubjectContext = new EditContext(SubjectModel);
+            CourseModel = new CourseModel(CourseData);
+            CourseStart = new DateTime(2000, 1, 1, CourseModel.Start.Hours, CourseModel.Start.Minutes, CourseModel.Start.Seconds);
+            CourseEnd = new DateTime(2000, 1, 1, CourseModel.End.Hours, CourseModel.End.Minutes, CourseModel.End.Seconds);
+            CourseContext = new EditContext(CourseModel);
             State = PageState.Editing;
             StateHasChanged();
         }
@@ -72,7 +67,7 @@ namespace UniHelper.Pages
         {
             if (!discard)
             {
-                await SubjectService.Update(SubjectData.Id, SubjectModel);
+                await CourseService.Update(CourseData.Id, CourseModel);
                 await GetData();
             }
 
@@ -84,8 +79,8 @@ namespace UniHelper.Pages
         {
             if (persist)
             {
-                await SubjectService.Remove(SubjectData.Id);
-                NavigationManager.NavigateTo($"/periods/{SubjectData.PeriodId}");
+                await CourseService.Remove(CourseData.Id);
+                NavigationManager.NavigateTo($"/periods/subjects/{CourseData.SubjectId}");
             }
             else
             {
@@ -94,33 +89,6 @@ namespace UniHelper.Pages
             }
         }
         
-        private void EnableCourseAdding()
-        {
-            CourseStart = new DateTime();
-            CourseEnd = new DateTime();
-            CourseModel = new CourseModel(SubjectData.Id);
-            CourseContext = new EditContext(CourseModel);
-            State = PageState.Adding;
-            StateHasChanged();
-        }
-
-        private async void DisabledCourseAdding(bool discard)
-        {
-            if (!discard)
-            {
-                await CourseService.Create(CourseModel);
-                await GetData();
-            }
-
-            State = PageState.Display;
-            StateHasChanged();
-        }
-        
-        private void OpenCourse(int id)
-        {
-            NavigationManager.NavigateTo($"/periods/subjects/courses/{id}");
-        }
-
         private void CourseStartChange(DateTime date)
         {
             CourseModel.Start = date.TimeOfDay;

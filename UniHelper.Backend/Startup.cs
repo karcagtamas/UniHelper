@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using UniHelper.Backend.Mappers;
 using UniHelper.Backend.Services;
+using UniHelper.Shared;
 
 namespace UniHelper.Backend
 {
@@ -79,7 +80,7 @@ namespace UniHelper.Backend
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOptions.Converters.Add(new TimeSpanConverter()));
 
             services.AddSwaggerGen(c =>
             {

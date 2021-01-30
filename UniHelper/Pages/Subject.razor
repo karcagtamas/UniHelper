@@ -1,7 +1,6 @@
 @page "/periods/subjects/{Id:int}"
 @using UniHelper.Enums
 @using UniHelper.Shared.Enums
-@using UniHelper.Shared.Models
 
 <PageTitle Title="@GetTitle()"></PageTitle>
 
@@ -17,24 +16,24 @@
                 <MatDivider></MatDivider>
                 @if (SubjectData.Courses != null && SubjectData.Courses.Count > 0)
                 {
-                    <div id="subject-list">
-                        <div class="subject-data header-row">
-                            <div class="subject-cell title">Place</div>
-                            <div class="subject-cell title">Type</div>
-                            <div class="subject-cell title">Start</div>
-                            <div class="subject-cell title">End</div>
-                            <div class="subject-cell title">Day</div>
-                            <div class="subject-cell title">Teachers</div>
+                    <div id="course-list">
+                        <div class="course-data header-row">
+                            <div class="course-cell title">Place</div>
+                            <div class="course-cell title">Type</div>
+                            <div class="course-cell title">Start</div>
+                            <div class="course-cell title">End</div>
+                            <div class="course-cell title">Day</div>
+                            <div class="course-cell title">Teachers</div>
                         </div>
                         @foreach (var course in SubjectData.Courses)
                         {
-                            <div class="subject-data data-row" @onclick="() => OpenCourse(course.Id)">
-                                <div class="subject-cell title">@course.Place</div>
-                                <div class="subject-cell">@course.Type</div>
-                                <div class="subject-cell">@course.Start</div>
-                                <div class="subject-cell">@course.End</div>
-                                <div class="subject-cell">@course.Day</div>
-                                <div class="subject-cell">@course.Teachers</div>
+                            <div class="course-data data-row" @onclick="() => OpenCourse(course.Id)">
+                                <div class="course-cell title">@course.Place</div>
+                                <div class="course-cell">@course.Type</div>
+                                <div class="course-cell">@course.Start</div>
+                                <div class="course-cell">@course.End</div>
+                                <div class="course-cell">@course.Day</div>
+                                <div class="course-cell">@course.Teachers</div>
                             </div>
                         }
                     </div>
@@ -130,6 +129,26 @@
                         <div>
                             <MatTextField @bind-Value="CourseModel.Place" Label="Place" FullWidth="true"></MatTextField>
                             <ValidationMessage For="() => CourseModel.Place"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatSelectItem @bind-Value="CourseModel.Type" Label="Type" FullWidth="true" Items="Enum.GetValues(typeof(CourseType)).Cast<CourseType>().ToArray()"></MatSelectItem>
+                            <ValidationMessage For="() => CourseModel.Type"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatDatePicker ValueExpression="() => CourseStart" TValue="DateTime" ValueChanged="CourseStartChange" Label="Start" FullWidth="true" DisableCalendar="true" EnableTime="true" Enable24hours="true"></MatDatePicker>
+                            <ValidationMessage For="() => CourseModel.Start"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatDatePicker ValueExpression="() => CourseEnd" TValue="DateTime" ValueChanged="CourseEndChange" Label="End" FullWidth="true" DisableCalendar="true" EnableTime="true" Enable24hours="true"></MatDatePicker>
+                            <ValidationMessage For="() => CourseModel.End"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatSelectItem @bind-Value="CourseModel.Day" Label="Day" FullWidth="true" Items="Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().ToArray()"></MatSelectItem>
+                            <ValidationMessage For="() => CourseModel.Day"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatTextField @bind-Value="CourseModel.Teachers" Label="Teachers" FullWidth="true"></MatTextField>
+                            <ValidationMessage For="() => CourseModel.Teachers"></ValidationMessage>
                         </div>
                     </EditForm>
                 </div>

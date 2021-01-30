@@ -1,0 +1,94 @@
+@page "/periods/subjects/courses/{Id:int}"
+@using UniHelper.Enums
+@using UniHelper.Shared.Enums
+@using UniHelper.Shared.Models
+
+<PageTitle Title="@GetTitle()"></PageTitle>
+
+@if (CourseData != null)
+{
+    <div id="data">
+        <div>
+            @if (State == PageState.Display)
+            {
+                <MatIconButton Icon="edit" OnClick="EnableEditing"></MatIconButton>
+                <MatIconButton Icon="remove" OnClick="EnableRemoving"></MatIconButton>
+                <MatDivider></MatDivider>
+
+                <div>
+                    <strong>Place:</strong> @CourseData.Place
+                </div>
+                <div>
+                    <strong>Type:</strong> @CourseData.Type
+                </div>
+                <div>
+                    <strong>Start:</strong> @CourseData.Start
+                </div>
+                <div>
+                    <strong>End:</strong> @CourseData.End
+                </div>
+                <div>
+                    <strong>Day:</strong> @CourseData.Day
+                </div>
+                <div>
+                    <strong>Teachers:</strong> @CourseData.Teachers
+                </div>
+                <div>
+                    <strong>Is Selected:</strong> @(CourseData.IsSelected ? "Yes" : "No")
+                </div>
+                <MatDivider></MatDivider>
+            }
+            else if (State == PageState.Editing)
+            {
+                <MatIconButton Icon="done" OnClick="() => DisableEditing(false)"></MatIconButton>
+                <MatIconButton Icon="cancel" OnClick="() => DisableEditing(true)"></MatIconButton>
+                <MatDivider></MatDivider>
+
+                <div>
+                    <EditForm EditContext="CourseContext">
+                        <DataAnnotationsValidator></DataAnnotationsValidator>
+                        <div>
+                            <MatTextField @bind-Value="CourseModel.Place" Label="Place" FullWidth="true"></MatTextField>
+                            <ValidationMessage For="() => CourseModel.Place"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatSelectItem @bind-Value="CourseModel.Type" Label="Type" FullWidth="true" Items="Enum.GetValues(typeof(CourseType)).Cast<CourseType>().ToArray()"></MatSelectItem>
+                            <ValidationMessage For="() => CourseModel.Type"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatDatePicker ValueExpression="() => CourseStart" TValue="DateTime" ValueChanged="CourseStartChange" Label="Start" FullWidth="true" DisableCalendar="true" EnableTime="true" Enable24hours="true"></MatDatePicker>
+                            <ValidationMessage For="() => CourseModel.Start"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatDatePicker ValueExpression="() => CourseEnd" TValue="DateTime" ValueChanged="CourseEndChange" Label="End" FullWidth="true" DisableCalendar="true" EnableTime="true" Enable24hours="true"></MatDatePicker>
+                            <ValidationMessage For="() => CourseModel.End"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatSelectItem @bind-Value="CourseModel.Day" Label="Day" FullWidth="true" Items="Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().ToArray()"></MatSelectItem>
+                            <ValidationMessage For="() => CourseModel.Day"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatTextField @bind-Value="CourseModel.Teachers" Label="Teachers" FullWidth="true"></MatTextField>
+                            <ValidationMessage For="() => CourseModel.Teachers"></ValidationMessage>
+                        </div>
+                        <div>
+                            <MatSlideToggle @bind-Value="CourseModel.IsSelected" Label="Is Selected"></MatSlideToggle>
+                            <ValidationMessage For="() => CourseModel.IsSelected"></ValidationMessage>
+                        </div>
+                    </EditForm>
+                </div>
+
+                <MatDivider></MatDivider>
+            }
+            else if (State == PageState.Removing)
+            {
+                <div>
+                    <strong>Are you sure about removing Course?</strong>
+                </div>
+                <MatIconButton Icon="done" OnClick="() => DisableRemoving(true)"></MatIconButton>
+                <MatIconButton Icon="cancel" OnClick="() => DisableRemoving(false)"></MatIconButton>
+                <MatDivider></MatDivider>
+            }
+        </div>
+    </div>
+}

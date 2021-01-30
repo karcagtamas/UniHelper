@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using UniHelper.Shared.DTOs;
 using UniHelper.Shared.Enums;
 
 namespace UniHelper.Shared.Models
@@ -38,6 +39,18 @@ namespace UniHelper.Shared.Models
         {
             SubjectId = subjectId;
             IsSelected = true;
+        }
+
+        public CourseModel(CourseDto dto)
+        {
+            Place = dto.Place;
+            Type = dto.Type;
+            Start = dto.Start;
+            End = dto.End;
+            Day = dto.Day;
+            Teachers = dto.Teachers;
+            IsSelected = dto.IsSelected;
+            SubjectId = dto.SubjectId;
         }
     }
 }

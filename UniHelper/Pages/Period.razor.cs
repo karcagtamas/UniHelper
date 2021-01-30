@@ -67,6 +67,8 @@ namespace UniHelper.Pages
         {
             if (!discard)
             {
+                PeriodModel.Start = PeriodModel.Start.ToLocalTime();
+                PeriodModel.End = PeriodModel.End.ToLocalTime();
                 await PeriodService.Update(PeriodData.Id, PeriodModel);
                 await GetData();
             }
