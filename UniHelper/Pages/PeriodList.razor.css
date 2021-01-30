@@ -1,3 +1,11 @@
+.data-header {
+  display: flex;
+  flex-direction: row;
+}
+.data-header .spacer {
+  flex-grow: 1;
+}
+
 #period-list {
   display: flex;
   width: 100%;

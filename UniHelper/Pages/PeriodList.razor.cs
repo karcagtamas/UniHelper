@@ -26,6 +26,8 @@ namespace UniHelper.Pages
 
         private List<PeriodDto> List { get; set; } = new();
 
+        private int SelectedPeriod { get; set; } = -1;
+
         protected override async Task OnInitializedAsync()
         {
             await Refresh();
@@ -34,6 +36,7 @@ namespace UniHelper.Pages
         private async Task Refresh()
         {
             this.List = await PeriodService.GetList();
+            SelectedPeriod = await PeriodService.GetCurrent();
             StateHasChanged();
         }
 
@@ -62,6 +65,13 @@ namespace UniHelper.Pages
             
             State = PageState.Display;
             StateHasChanged();
+        }
+
+        private async void ChangeCurrent(int id)
+        {
+            SelectedPeriod = id;
+            await PeriodService.SetCurrent(id);
+            await Refresh();
         }
     }
 }

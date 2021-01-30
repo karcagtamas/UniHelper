@@ -33,6 +33,7 @@ namespace UniHelper
             builder.Services.AddScoped<IPeriodTaskService, PeriodTaskService>();
             builder.Services.AddScoped<ISubjectNoteService, SubjectNoteService>();
             builder.Services.AddScoped<ISubjectTaskService, SubjectTaskService>();
+            builder.Services.AddScoped<ICalendarService, CalendarService>();
 
             if (builder.HostEnvironment.IsDevelopment())
             {

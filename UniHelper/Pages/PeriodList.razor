@@ -4,7 +4,21 @@
 <PageTitle Title="Period List"></PageTitle>
 @if (State == PageState.Display)
 {
-    <MatIconButton Icon="add" OnClick="EnableAdding"></MatIconButton>
+    <div class="data-header">
+        <MatIconButton Icon="add" OnClick="EnableAdding"></MatIconButton>
+        <span class="spacer"></span>
+        @if (List != null && List.Count > 0)
+        {
+            <MatSelect TValue="int" Value="SelectedPeriod" ValueChanged="ChangeCurrent">
+                @foreach (var i in List)
+                {
+                    <MatOption Value="@i.Id" >@i.Name</MatOption>
+                }
+            </MatSelect>
+        }
+        
+    </div>
+    
 
     <MatDivider></MatDivider>
 

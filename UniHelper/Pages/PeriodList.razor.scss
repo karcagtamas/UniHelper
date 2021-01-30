@@ -1,5 +1,14 @@
 @import '../Assets/colors';
 
+.data-header {
+  display: flex;
+  flex-direction: row;
+  
+  .spacer {
+    flex-grow: 1;
+  }
+}
+
 #period-list {
   display: flex;
   width: 100%;

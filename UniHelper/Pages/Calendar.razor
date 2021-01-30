@@ -1,0 +1,40 @@
+@page "/calendar"
+
+<PageTitle Title="Calendar"></PageTitle>
+
+@if (CalendarData != null)
+{
+    <table>
+        <thead>
+        <tr>
+            <th></th>
+            @foreach (var i in CalendarData.Days)
+            {
+                <th>@i.DayOfWeek</th>
+            }
+        </tr>
+        </thead>
+        @if (Rows != null && Rows.Count > 0)
+        {
+            <tbody>
+                @foreach (var row in Rows)
+                {
+                    <tr>
+                        <th>@row.Number</th>
+                        @foreach (var cell in row.Cells)
+                        {
+                            @if (cell.Tile != null)
+                            {
+                                <td>@cell.Tile.SubjectShortName</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        }
+    </table>
+}
