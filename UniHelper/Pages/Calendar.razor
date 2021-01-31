@@ -8,9 +8,12 @@
         <thead>
         <tr>
             <th></th>
-            @foreach (var i in CalendarData.Days)
+            @foreach (var i in HeaderRow)
             {
-                <th>@i.DayOfWeek</th>
+                @if (i.DoTile)
+                {
+                    <th colspan="@i.ColSpanNumber">@i.Day</th>
+                }
             }
         </tr>
         </thead>
@@ -27,9 +30,9 @@
                         {
                             <td rowspan="@cell.RowSpanNumber">
                                 <div class="tile">
-                                    @foreach (var tile in cell.Tiles)
+                                    @if (cell.Tile != null)
                                     {
-                                        <div class="tile-element">@tile.SubjectShortName</div>
+                                        <div class="tile-element">@cell.Tile.SubjectShortName</div>
                                     }
                                 </div>
                             </td>

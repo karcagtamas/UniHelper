@@ -14,6 +14,8 @@ namespace UniHelper.Pages
         [Inject] private ICalendarService CalendarService { get; set; }
 
         private CalendarDto CalendarData { get; set; }
+        
+        private List<CalendarHeaderData> HeaderRow { get; set; }
 
         private List<CalendarRow> Rows { get; set; }
 
@@ -25,8 +27,25 @@ namespace UniHelper.Pages
         private async Task Refresh()
         {
             CalendarData = await CalendarService.GetCurrentInterval();
+            ResetHeader();
             ResetRows();
             InitRows();
+        }
+
+        private void ResetHeader()
+        {
+            HeaderRow = new List<CalendarHeaderData>();
+            
+            CalendarData.Days.ForEach(x =>
+            {
+                HeaderRow.Add(new CalendarHeaderData
+                {
+                    ColSpanNumber = 1,
+                    HasColSpan = false,
+                    Day = x.DayOfWeek,
+                    DoTile = true
+                });
+            });
         }
 
         private void ResetRows()
@@ -46,7 +65,7 @@ namespace UniHelper.Pages
                     row.Cells.Add(new CalendarCell
                     {
                         Day = day,
-                        Tiles = new List<TileDto>(),
+                        Tile = null,
                         DoTile = true,
                         HasRowSpan = false,
                         RowSpanNumber = 1
@@ -68,41 +87,89 @@ namespace UniHelper.Pages
             {
                 day.Tiles.ForEach(tile =>
                 {
-                    int number = tile.Number;
-                    int count = tile.Length;
+                    bool success = false;
+                    int cellNumber = 0;
 
-                    while (count > 0)
+                    while (!success)
                     {
-                        var row = Rows.FirstOrDefault(x => x.Number == number);
+                        List<CalendarCell> cells = new List<CalendarCell>();
+                        int number = tile.Number;
+                        int count = tile.Length;
 
-                        if (row == null)
+                        while (count > 0)
                         {
-                            throw new ArgumentException("Missing row");
-                        }
+                            var row = Rows.FirstOrDefault(x => x.Number == number);
 
-                        var cell = row.Cells.FirstOrDefault(x => x.Day == day.DayOfWeek);
-
-                        if (cell == null)
-                        {
-                            throw new ArgumentException("Missing cell");
-                        }
-
-                        if (number == tile.Number)
-                        {
-                            cell.Tiles.Add(tile);
-                            if (tile.Length > 1)
+                            if (row == null)
                             {
-                                cell.HasRowSpan = true;
-                                cell.RowSpanNumber = tile.Length;
+                                throw new ArgumentException("Missing row");
                             }
-                        }
-                        else
-                        {
-                            cell.DoTile = false;
+
+                            var cellsWithGivenDay = row.Cells.Where(x => x.Day == day.DayOfWeek).ToList();
+                            var cell = cellsWithGivenDay[cellNumber];
+
+                            if (cell == null)
+                            {
+                                throw new ArgumentException("Missing cell");
+                            }
+                        
+                            cells.Add(cell);
+
+                            number++;
+                            count--;
                         }
                         
-                        number++;
-                        count--;
+                        var c = cells.Count(x => x.Tile != null);
+
+                        if (c > 0)
+                        {
+                            var cell = cells[0];
+                            // TODO: Checks
+                            var index = Rows[0].Cells.FindIndex(x => x.Day == cell.Day);
+                            Rows.ForEach(x =>
+                            {
+                                x.Cells.Insert(index + 1, new CalendarCell
+                                {
+                                    Day = cell.Day,
+                                    Tile = null,
+                                    DoTile = true,
+                                    HasRowSpan = false,
+                                    RowSpanNumber = 1
+                                });
+                            });
+
+                            HeaderRow[index].ColSpanNumber++;
+                            HeaderRow[index].HasColSpan = true;
+                            
+                            HeaderRow.Insert(index + 1, new CalendarHeaderData
+                            {
+                                Day = cell.Day,
+                                ColSpanNumber = 1,
+                                DoTile = false,
+                                HasColSpan = false
+                            });
+                            cellNumber++;
+                            continue;
+                        }
+                        
+                        for (int i = 0; i < cells.Count; i++)
+                        {
+                            if (i == 0)
+                            {
+                                cells[i].Tile = tile;
+                                if (tile.Length > 1)
+                                {
+                                    cells[i].HasRowSpan = true;
+                                    cells[i].RowSpanNumber = tile.Length;
+                                }
+                            }
+                            else
+                            {
+                                cells[i].DoTile = false;
+                            }
+                        }
+
+                        success = true;
                     }
                 });
             });
