@@ -82,5 +82,10 @@ namespace UniHelper.Pages
                 StateHasChanged();
             }
         }
+
+        private void OpenSubject()
+        {
+            NavigationManager.NavigateTo($"/periods/subjects/{CourseData.SubjectId}");
+        }
     }
 }

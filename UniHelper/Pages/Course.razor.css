@@ -1,0 +1,9 @@
+.data-header {
+  display: flex;
+  flex-direction: row;
+}
+.data-header .spacer {
+  flex-grow: 1;
+}
+
+/*# sourceMappingURL=Course.razor.css.map */

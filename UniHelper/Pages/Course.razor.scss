@@ -1,0 +1,8 @@
+.data-header {
+  display: flex;
+  flex-direction: row;
+
+  .spacer {
+    flex-grow: 1;
+  }
+}

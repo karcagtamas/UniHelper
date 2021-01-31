@@ -10,8 +10,13 @@
         <div>
             @if (State == PageState.Display)
             {
-                <MatIconButton Icon="edit" OnClick="EnableEditing"></MatIconButton>
-                <MatIconButton Icon="remove" OnClick="EnableRemoving"></MatIconButton>
+                <div class="data-header">
+                    <MatIconButton Icon="edit" OnClick="EnableEditing"></MatIconButton>
+                    <MatIconButton Icon="remove" OnClick="EnableRemoving"></MatIconButton>
+                    <span class="spacer"></span>
+                    <MatIconButton Icon="arrow_left" OnClick="OpenSubject"></MatIconButton>
+                </div>
+                
                 <MatDivider></MatDivider>
 
                 <div>
@@ -32,7 +37,7 @@
                 <div>
                     <strong>Teachers:</strong> @CourseData.Teachers
                 </div>
-                <div>
+                <div class="@(CourseData.IsSelected ? "green" : "red")">
                     <strong>Is Selected:</strong> @(CourseData.IsSelected ? "Yes" : "No")
                 </div>
                 <MatDivider></MatDivider>
