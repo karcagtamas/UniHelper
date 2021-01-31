@@ -33,7 +33,7 @@
                         @foreach (var subject in PeriodData.Subjects)
                         {
                             <div class="subject-data data-row @(subject.IsActive ? "" : "in-active")" @onclick="() => OpenSubject(subject.Id)">
-                                <div class="subject-cell title">@subject.ShortName</div>
+                                <div class="subject-cell title">@subject.LongName</div>
                                 <div class="subject-cell">@subject.Code</div>
                                 <div class="subject-cell">@subject.Type</div>
                                 <div class="subject-cell">@subject.Notes?.Count</div>

@@ -10,9 +10,14 @@
         <div>
             @if (State == PageState.Display)
             {
-                <MatIconButton Icon="add" OnClick="EnableCourseAdding"></MatIconButton>
-                <MatIconButton Icon="edit" OnClick="EnableEditing"></MatIconButton>
-                <MatIconButton Icon="remove" OnClick="EnableRemoving"></MatIconButton>
+                <div class="data-header">
+                    <MatIconButton Icon="add" OnClick="EnableCourseAdding"></MatIconButton>
+                                    <MatIconButton Icon="edit" OnClick="EnableEditing"></MatIconButton>
+                    <MatIconButton Icon="remove" OnClick="EnableRemoving"></MatIconButton>
+                    <span class="spacer"></span>
+                    <MatIconButton Icon="arrow_left" OnClick="OpenPeriod"></MatIconButton>
+                </div>
+                
                 <MatDivider></MatDivider>
                 @if (SubjectData.Courses != null && SubjectData.Courses.Count > 0)
                 {
@@ -27,7 +32,7 @@
                         </div>
                         @foreach (var course in SubjectData.Courses)
                         {
-                            <div class="course-data data-row" @onclick="() => OpenCourse(course.Id)">
+                            <div class="course-data data-row @(course.IsSelected ? "" : "un-selected")" @onclick="() => OpenCourse(course.Id)">
                                 <div class="course-cell title">@course.Place</div>
                                 <div class="course-cell">@course.Type</div>
                                 <div class="course-cell">@course.Number</div>
@@ -52,10 +57,10 @@
                 <div>
                     <strong>Credit:</strong> @SubjectData.Credit
                 </div>
-                <div>
+                <div class="@(SubjectData.Result != null ? "green" : "")">
                     <strong>Result:</strong> @SubjectData.Result
                 </div>
-                <div>
+                <div class="@(SubjectData.IsActive ? "green" : "red")">
                     <strong>Is Active:</strong> @(SubjectData.IsActive ? "Yes" : "No")
                 </div>
                 <div>
@@ -101,7 +106,7 @@
                             <ValidationMessage For="() => SubjectModel.Type"></ValidationMessage>
                         </div>
                         <div>
-                            <MatSlideToggle @bind-Value="SubjectModel.IsActive" Label="Is Active"></MatSlideToggle>
+                            <MatSlideToggle @bind-Value="SubjectModel.IsActive" Label=" Is Active"></MatSlideToggle>
                             <ValidationMessage For="() => SubjectModel.IsActive"></ValidationMessage>
                         </div>
                     </EditForm>

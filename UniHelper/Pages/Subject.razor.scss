@@ -1,5 +1,15 @@
 @import '../Assets/colors';
 
+.data-header {
+  display: flex;
+  flex-direction: row;
+
+  .spacer {
+    flex-grow: 1;
+  }
+}
+
+
 #course-list {
   display: flex;
   width: 100%;
@@ -13,8 +23,8 @@
     margin: 0.2rem;
     transition-duration: 0.4s;
 
-    &.current {
-      background-color: lightgreen;
+    &.un-selected {
+      background-color: lightgray;
     }
 
     &.header-row {

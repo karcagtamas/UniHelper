@@ -1,3 +1,11 @@
+.data-header {
+  display: flex;
+  flex-direction: row;
+}
+.data-header .spacer {
+  flex-grow: 1;
+}
+
 #course-list {
   display: flex;
   width: 100%;
@@ -11,8 +19,8 @@
   margin: 0.2rem;
   transition-duration: 0.4s;
 }
-#course-list .course-data.current {
-  background-color: lightgreen;
+#course-list .course-data.un-selected {
+  background-color: lightgray;
 }
 #course-list .course-data.header-row {
   background-color: #7b3c59;

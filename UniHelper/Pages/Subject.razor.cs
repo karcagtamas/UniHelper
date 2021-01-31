@@ -114,5 +114,10 @@ namespace UniHelper.Pages
         {
             NavigationManager.NavigateTo($"/periods/subjects/courses/{id}");
         }
+
+        private void OpenPeriod()
+        {
+            NavigationManager.NavigateTo($"/periods/{SubjectData.PeriodId}");
+        }
     }
 }
