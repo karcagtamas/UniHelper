@@ -20,12 +20,12 @@ namespace UniHelper.Backend.Entities
         
         [Required]
         [MinNumber(0)]
-        [MaxNumber(10)]
+        [MaxNumber(16)]
         public int Number { get; set; }
         
         [Required]
         [MinNumber(1)]
-        [MaxNumber(6)]
+        [MaxNumber(8)]
         public int Length { get; set; }
         
         [Required]

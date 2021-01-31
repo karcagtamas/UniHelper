@@ -52,7 +52,7 @@ namespace UniHelper.Pages
         {
             Rows = new List<CalendarRow>();
 
-            for (int i = 0; i <= 10; i++)
+            for (int i = 0; i <= 18; i++)
             {
                 var row = new CalendarRow
                 {

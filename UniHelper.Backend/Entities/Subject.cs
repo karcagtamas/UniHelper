@@ -34,7 +34,7 @@ namespace UniHelper.Backend.Entities
         /// Subject code
         /// </value>
         [Required]
-        [StringLength(10)]
+        [StringLength(16)]
         public string Code { get; set; }
         
         /// <value>

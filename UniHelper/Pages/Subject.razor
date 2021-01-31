@@ -20,8 +20,8 @@
                         <div class="course-data header-row">
                             <div class="course-cell title">Place</div>
                             <div class="course-cell title">Type</div>
-                            <div class="course-cell title">Start</div>
-                            <div class="course-cell title">End</div>
+                            <div class="course-cell title">Number</div>
+                            <div class="course-cell title">Length</div>
                             <div class="course-cell title">Day</div>
                             <div class="course-cell title">Teachers</div>
                         </div>
@@ -135,11 +135,11 @@
                             <ValidationMessage For="() => CourseModel.Type"></ValidationMessage>
                         </div>
                         <div>
-                            <MatNumericUpDownField @bind-Value="CourseModel.Number" Minimum="1" Maximum="5" Label="Number" FullWidth="true"></MatNumericUpDownField>
+                            <MatNumericUpDownField @bind-Value="CourseModel.Number" Minimum="1" Maximum="16" Label="Number" FullWidth="true"></MatNumericUpDownField>
                             <ValidationMessage For="() => CourseModel.Number"></ValidationMessage>
                         </div>
                         <div>
-                            <MatNumericUpDownField @bind-Value="CourseModel.Length" Minimum="1" Maximum="5" Label="Length" FullWidth="true"></MatNumericUpDownField>
+                            <MatNumericUpDownField @bind-Value="CourseModel.Length" Minimum="1" Maximum="8" Label="Length" FullWidth="true"></MatNumericUpDownField>
                             <ValidationMessage For="() => CourseModel.Length"></ValidationMessage>
                         </div>
                         <div>

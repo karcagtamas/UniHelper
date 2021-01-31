@@ -15,7 +15,7 @@ namespace UniHelper.Shared.Models
         public string ShortName { get; set; }
         
         [Required]
-        [StringLength(10)]
+        [StringLength(16)]
         public string Code { get; set; }
         public string Description { get; set; }
         

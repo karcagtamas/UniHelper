@@ -9,7 +9,7 @@
   border-bottom: 1px dotted #e54f4f88;
 }
 #calendar tbody tr td {
-  height: 40px;
+  height: 50px;
   padding: 0.2rem;
 }
 #calendar tbody tr td .tile {
@@ -24,7 +24,6 @@
 #calendar tbody tr td .tile .tile-element {
   display: flex;
   flex-direction: column;
-  margin: 0.2rem;
   padding: 0.2rem;
   flex-grow: 1;
   text-align: center;
