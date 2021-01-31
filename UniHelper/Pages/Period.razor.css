@@ -1,3 +1,11 @@
+.data-header {
+  display: flex;
+  flex-direction: row;
+}
+.data-header .spacer {
+  flex-grow: 1;
+}
+
 #subject-list {
   display: flex;
   width: 100%;
@@ -11,8 +19,8 @@
   margin: 0.2rem;
   transition-duration: 0.4s;
 }
-#subject-list .subject-data.current {
-  background-color: lightgreen;
+#subject-list .subject-data.in-active {
+  background-color: lightgray;
 }
 #subject-list .subject-data.header-row {
   background-color: #7b3c59;

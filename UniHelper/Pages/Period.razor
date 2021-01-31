@@ -10,9 +10,14 @@
         <div>
             @if (State == PageState.Display)
             {
-                <MatIconButton Icon="add" OnClick="EnableSubjectAdding"></MatIconButton>
-                <MatIconButton Icon="edit" OnClick="EnableEditing"></MatIconButton>
-                <MatIconButton Icon="remove" OnClick="EnableRemoving"></MatIconButton>
+                <div class="data-header">
+                    <MatIconButton Icon="add" OnClick="EnableSubjectAdding"></MatIconButton>
+                    <MatIconButton Icon="edit" OnClick="EnableEditing"></MatIconButton>
+                    <MatIconButton Icon="remove" OnClick="EnableRemoving"></MatIconButton>
+                    <span class="spacer"></span>
+                    <MatIconButton Icon="arrow_left" OnClick="OpenPeriodList"></MatIconButton>
+                </div>
+
                 <MatDivider></MatDivider>
                 @if (PeriodData.Subjects != null && PeriodData.Subjects.Count > 0)
                 {
@@ -27,7 +32,7 @@
                         </div>
                         @foreach (var subject in PeriodData.Subjects)
                         {
-                            <div class="subject-data data-row" @onclick="() => OpenSubject(subject.Id)">
+                            <div class="subject-data data-row @(subject.IsActive ? "" : "in-active")" @onclick="() => OpenSubject(subject.Id)">
                                 <div class="subject-cell title">@subject.ShortName</div>
                                 <div class="subject-cell">@subject.Code</div>
                                 <div class="subject-cell">@subject.Type</div>
@@ -41,7 +46,7 @@
 
                 <MatDivider></MatDivider>
                 <div><strong>Interval:</strong> @PeriodData.Start.ToShortDateString() - @PeriodData.End.ToShortDateString()</div>
-                <div>
+                <div class="@(PeriodData.IsCurrent ? "green" : "red")">
                     <strong>Is Current Period:</strong> @(PeriodData.IsCurrent ? "Yes" : "No")
                 </div>
                 <MatDivider></MatDivider>

@@ -115,5 +115,10 @@ namespace UniHelper.Pages
         {
             NavigationManager.NavigateTo($"/periods/subjects/{id}");
         }
+
+        private void OpenPeriodList()
+        {
+            NavigationManager.NavigateTo($"/periods");
+        }
     }
 }
