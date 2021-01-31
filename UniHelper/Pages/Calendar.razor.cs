@@ -46,7 +46,10 @@ namespace UniHelper.Pages
                     row.Cells.Add(new CalendarCell
                     {
                         Day = day,
-                        Tile = null
+                        Tiles = new List<TileDto>(),
+                        DoTile = true,
+                        HasRowSpan = false,
+                        RowSpanNumber = 1
                     });
                 }
 
@@ -65,21 +68,42 @@ namespace UniHelper.Pages
             {
                 day.Tiles.ForEach(tile =>
                 {
-                    var row = Rows.FirstOrDefault(x => x.Number == tile.Number);
+                    int number = tile.Number;
+                    int count = tile.Length;
 
-                    if (row == null)
+                    while (count > 0)
                     {
-                        throw new ArgumentException("Missing row");
+                        var row = Rows.FirstOrDefault(x => x.Number == number);
+
+                        if (row == null)
+                        {
+                            throw new ArgumentException("Missing row");
+                        }
+
+                        var cell = row.Cells.FirstOrDefault(x => x.Day == day.DayOfWeek);
+
+                        if (cell == null)
+                        {
+                            throw new ArgumentException("Missing cell");
+                        }
+
+                        if (number == tile.Number)
+                        {
+                            cell.Tiles.Add(tile);
+                            if (tile.Length > 1)
+                            {
+                                cell.HasRowSpan = true;
+                                cell.RowSpanNumber = tile.Length;
+                            }
+                        }
+                        else
+                        {
+                            cell.DoTile = false;
+                        }
+                        
+                        number++;
+                        count--;
                     }
-
-                    var cell = row.Cells.FirstOrDefault(x => x.Day == day.DayOfWeek);
-
-                    if (cell == null)
-                    {
-                        throw new ArgumentException("Missing cell");
-                    }
-
-                    cell.Tile = tile;
                 });
             });
         }

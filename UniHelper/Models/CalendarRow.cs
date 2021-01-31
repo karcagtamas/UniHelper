@@ -15,6 +15,12 @@ namespace UniHelper.Models
     {
         public DayOfWeek Day { get; set; }
         
-        public TileDto Tile { get; set; }
+        public List<TileDto> Tiles { get; set; }
+        
+        public bool HasRowSpan { get; set; }
+        
+        public int RowSpanNumber { get; set; }
+
+        public bool DoTile { get; set; } = true;
     }
 }

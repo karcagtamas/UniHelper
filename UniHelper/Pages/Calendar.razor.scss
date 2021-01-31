@@ -1,0 +1,53 @@
+@import '../Assets/colors';
+
+#calendar {
+  width: 100%;
+
+  thead {
+    tr {
+      th {
+        color: $main-color-dark;
+        text-align: center;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px dotted $main-color-light;
+
+      td {
+        height: 40px;
+        padding: 0.2rem;
+
+        .tile {
+          display: flex;
+          flex-direction: row;
+          padding: 0.2rem;
+          height: 100%;
+          align-items: center;
+          vertical-align: middle;
+          justify-items: center;
+
+          .tile-element {
+            display: flex;
+            flex-direction: column;
+            margin: 0.2rem;
+            padding: 0.2rem;
+            flex-grow: 1;
+            text-align: center;
+            border: 2px solid $main-color-dark;
+            background-color: $main-color-opacity;
+            color: $main-color-dark;
+            border-radius: 4px;
+            font-weight: bold;
+            height: 100%;
+            vertical-align: center;
+            justify-content: center;
+            align-content: center;
+          }
+        }
+      }
+    }
+  }
+}

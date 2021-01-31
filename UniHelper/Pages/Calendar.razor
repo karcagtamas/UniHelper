@@ -4,7 +4,7 @@
 
 @if (CalendarData != null)
 {
-    <table>
+    <table id="calendar">
         <thead>
         <tr>
             <th></th>
@@ -17,23 +17,26 @@
         @if (Rows != null && Rows.Count > 0)
         {
             <tbody>
-                @foreach (var row in Rows)
-                {
-                    <tr>
-                        <th>@row.Number</th>
-                        @foreach (var cell in row.Cells)
+            @foreach (var row in Rows)
+            {
+                <tr>
+                    <th>@row.Number</th>
+                    @foreach (var cell in row.Cells)
+                    {
+                        @if (cell.DoTile)
                         {
-                            @if (cell.Tile != null)
-                            {
-                                <td>@cell.Tile.SubjectShortName</td>
-                            }
-                            else
-                            {
-                                <td></td>
-                            }
+                            <td rowspan="@cell.RowSpanNumber">
+                                <div class="tile">
+                                    @foreach (var tile in cell.Tiles)
+                                    {
+                                        <div class="tile-element">@tile.SubjectShortName</div>
+                                    }
+                                </div>
+                            </td>
                         }
-                    </tr>
-                }
+                    }
+                </tr>
+            }
             </tbody>
         }
     </table>

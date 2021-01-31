@@ -1,0 +1,42 @@
+#calendar {
+  width: 100%;
+}
+#calendar thead tr th {
+  color: #7b3c59;
+  text-align: center;
+}
+#calendar tbody tr {
+  border-bottom: 1px dotted #e54f4f88;
+}
+#calendar tbody tr td {
+  height: 40px;
+  padding: 0.2rem;
+}
+#calendar tbody tr td .tile {
+  display: flex;
+  flex-direction: row;
+  padding: 0.2rem;
+  height: 100%;
+  align-items: center;
+  vertical-align: middle;
+  justify-items: center;
+}
+#calendar tbody tr td .tile .tile-element {
+  display: flex;
+  flex-direction: column;
+  margin: 0.2rem;
+  padding: 0.2rem;
+  flex-grow: 1;
+  text-align: center;
+  border: 2px solid #7b3c59;
+  background-color: rgba(255, 116, 116, 0.67);
+  color: #7b3c59;
+  border-radius: 4px;
+  font-weight: bold;
+  height: 100%;
+  vertical-align: center;
+  justify-content: center;
+  align-content: center;
+}
+
+/*# sourceMappingURL=Calendar.razor.css.map */
