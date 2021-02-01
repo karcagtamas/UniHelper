@@ -8,6 +8,7 @@ using MatBlazor;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using UniHelper.Services;
+using UniHelper.Shared.DTOs;
 
 namespace UniHelper
 {
@@ -34,6 +35,7 @@ namespace UniHelper
             builder.Services.AddScoped<ISubjectNoteService, SubjectNoteService>();
             builder.Services.AddScoped<ISubjectTaskService, SubjectTaskService>();
             builder.Services.AddScoped<ICalendarService, CalendarService>();
+            builder.Services.AddScoped<ILessonHourService, LessonHourService>();
 
             if (builder.HostEnvironment.IsDevelopment())
             {

@@ -12,8 +12,12 @@ namespace UniHelper.Pages
     public partial class Calendar
     {
         [Inject] private ICalendarService CalendarService { get; set; }
+        
+        [Inject]
+        private ILessonHourService LessonHourService { get; set; }
 
         private CalendarDto CalendarData { get; set; }
+        private List<LessonHourDto> LessonHours { get; set; } = new();
         
         private List<CalendarHeaderData> HeaderRow { get; set; }
 
@@ -27,6 +31,7 @@ namespace UniHelper.Pages
         private async Task Refresh()
         {
             CalendarData = await CalendarService.GetCurrentInterval();
+            LessonHours = await LessonHourService.GetList();
             ResetHeader();
             ResetRows();
             InitRows();
@@ -51,12 +56,12 @@ namespace UniHelper.Pages
         private void ResetRows()
         {
             Rows = new List<CalendarRow>();
-
-            for (int i = 0; i <= 18; i++)
+            
+            LessonHours.OrderBy(x => x.Number).ToList().ForEach(hour =>
             {
                 var row = new CalendarRow
                 {
-                    Number = i,
+                    LessonHour = hour,
                     Cells = new List<CalendarCell>()
                 };
 
@@ -73,7 +78,7 @@ namespace UniHelper.Pages
                 }
 
                 Rows.Add(row);
-            }
+            });
         }
 
         private void InitRows()
@@ -98,7 +103,7 @@ namespace UniHelper.Pages
 
                         while (count > 0)
                         {
-                            var row = Rows.FirstOrDefault(x => x.Number == number);
+                            var row = Rows.FirstOrDefault(x => x.LessonHour.Number == number);
 
                             if (row == null)
                             {

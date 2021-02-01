@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniHelper.Backend;
 
 namespace UniHelper.Backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210201083734_LessonHourUpdate")]
+    partial class LessonHourUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,6 +117,9 @@ namespace UniHelper.Backend.Migrations
                     b.Property<TimeSpan>("End")
                         .HasColumnType("time(6)");
 
+                    b.Property<bool>("IsStart")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
@@ -130,6 +135,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 1,
                             End = new TimeSpan(0, 8, 25, 0, 0),
+                            IsStart = true,
                             Number = 0,
                             Start = new TimeSpan(0, 7, 40, 0, 0)
                         },
@@ -137,6 +143,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 2,
                             End = new TimeSpan(0, 9, 15, 0, 0),
+                            IsStart = true,
                             Number = 1,
                             Start = new TimeSpan(0, 8, 30, 0, 0)
                         },
@@ -144,6 +151,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 3,
                             End = new TimeSpan(0, 10, 10, 0, 0),
+                            IsStart = true,
                             Number = 2,
                             Start = new TimeSpan(0, 9, 25, 0, 0)
                         },
@@ -151,6 +159,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 4,
                             End = new TimeSpan(0, 11, 5, 0, 0),
+                            IsStart = true,
                             Number = 3,
                             Start = new TimeSpan(0, 10, 20, 0, 0)
                         },
@@ -158,6 +167,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 5,
                             End = new TimeSpan(0, 12, 0, 0, 0),
+                            IsStart = true,
                             Number = 4,
                             Start = new TimeSpan(0, 11, 15, 0, 0)
                         },
@@ -165,6 +175,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 6,
                             End = new TimeSpan(0, 12, 55, 0, 0),
+                            IsStart = true,
                             Number = 5,
                             Start = new TimeSpan(0, 12, 10, 0, 0)
                         },
@@ -172,6 +183,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 7,
                             End = new TimeSpan(0, 13, 50, 0, 0),
+                            IsStart = true,
                             Number = 6,
                             Start = new TimeSpan(0, 13, 5, 0, 0)
                         },
@@ -179,6 +191,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 8,
                             End = new TimeSpan(0, 14, 45, 0, 0),
+                            IsStart = true,
                             Number = 7,
                             Start = new TimeSpan(0, 14, 0, 0, 0)
                         },
@@ -186,6 +199,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 9,
                             End = new TimeSpan(0, 15, 35, 0, 0),
+                            IsStart = true,
                             Number = 8,
                             Start = new TimeSpan(0, 14, 50, 0, 0)
                         },
@@ -193,6 +207,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 10,
                             End = new TimeSpan(0, 16, 25, 0, 0),
+                            IsStart = true,
                             Number = 9,
                             Start = new TimeSpan(0, 15, 40, 0, 0)
                         },
@@ -200,6 +215,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 11,
                             End = new TimeSpan(0, 17, 15, 0, 0),
+                            IsStart = true,
                             Number = 10,
                             Start = new TimeSpan(0, 16, 30, 0, 0)
                         },
@@ -207,6 +223,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 12,
                             End = new TimeSpan(0, 18, 5, 0, 0),
+                            IsStart = true,
                             Number = 11,
                             Start = new TimeSpan(0, 17, 20, 0, 0)
                         },
@@ -214,6 +231,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 13,
                             End = new TimeSpan(0, 18, 55, 0, 0),
+                            IsStart = true,
                             Number = 12,
                             Start = new TimeSpan(0, 18, 10, 0, 0)
                         },
@@ -221,6 +239,7 @@ namespace UniHelper.Backend.Migrations
                         {
                             Id = 14,
                             End = new TimeSpan(0, 19, 45, 0, 0),
+                            IsStart = true,
                             Number = 13,
                             Start = new TimeSpan(0, 19, 0, 0, 0)
                         });

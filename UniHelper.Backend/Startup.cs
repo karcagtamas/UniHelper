@@ -57,6 +57,7 @@ namespace UniHelper.Backend
                 x.AddProfile(new CourseMapper());
                 x.AddProfile(new NoteMapper());
                 x.AddProfile(new TaskMapper());
+                x.AddProfile(new LessonHourMapper());
             });
 
             var mapper = mapperConfig.CreateMapper();
@@ -78,6 +79,7 @@ namespace UniHelper.Backend
             services.AddScoped<IPeriodTaskService, PeriodTaskService>();
             services.AddScoped<ISubjectTaskService, SubjectTaskService>();
             services.AddScoped<ICalendarService, CalendarService>();
+            services.AddScoped<ILessonHourService, LessonHourService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

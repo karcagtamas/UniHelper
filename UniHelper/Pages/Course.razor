@@ -26,11 +26,17 @@
                     <strong>Type:</strong> @CourseData.Type
                 </div>
                 <div>
-                    <strong>Start:</strong> @CourseData.Number
+                    <strong>Number:</strong> @CourseData.Number
                 </div>
                 <div>
-                    <strong>End:</strong> @CourseData.Length
+                    <strong>Length:</strong> @CourseData.Length
                 </div>
+                @if (Interval != null)
+                {
+                    <div>
+                        <strong>Interval:</strong> @Interval.Start - @Interval.End
+                    </div>
+                }
                 <div>
                     <strong>Day:</strong> @CourseData.Day
                 </div>

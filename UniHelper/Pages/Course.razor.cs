@@ -18,6 +18,9 @@ namespace UniHelper.Pages
         private ICourseService CourseService { get; set; }
         
         [Inject]
+        private ILessonHourService LessonHourService { get; set; }
+        
+        [Inject]
         private NavigationManager NavigationManager { get; set; }
         
         private CourseDto CourseData { get; set; }
@@ -28,6 +31,8 @@ namespace UniHelper.Pages
 
         private PageState State { get; set; } = PageState.Display;
         
+        private LessonHourIntervalDto Interval { get; set; }
+        
         protected override async Task OnInitializedAsync()
         {
             await GetData();
@@ -36,6 +41,8 @@ namespace UniHelper.Pages
         private async Task GetData()
         {
             CourseData = await CourseService.Get(Id);
+            Interval = await LessonHourService.GetHourInterval(CourseData.Number,
+                CourseData.Number + CourseData.Length - 1);
         }
 
         private string GetTitle()

@@ -23,7 +23,10 @@
             @foreach (var row in Rows)
             {
                 <tr>
-                    <th>@row.Number</th>
+                    <th>
+                        @row.LessonHour.Number <br />
+                        @row.LessonHour.Start - @row.LessonHour.End
+                    </th>
                     @foreach (var cell in row.Cells)
                     {
                         @if (cell.DoTile)

@@ -17,7 +17,7 @@ namespace UniHelper.Models
     
     public class CalendarRow
     {
-        public int Number { get; set; }
+        public LessonHourDto LessonHour { get; set; }
         
         public List<CalendarCell> Cells { get; set; }
     }
