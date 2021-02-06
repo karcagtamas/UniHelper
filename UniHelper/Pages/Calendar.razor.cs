@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using UniHelper.Models;
 using UniHelper.Services;
 using UniHelper.Shared.DTOs;
@@ -175,6 +176,23 @@ namespace UniHelper.Pages
                         }
 
                         success = true;
+                    }
+                });
+            });
+        }
+
+        private void OnHover(MouseEventArgs eventArgs, CalendarCell cell, bool activate)
+        {
+            cell.IsHovered = activate;
+            
+            Rows.ForEach(x =>
+            {
+                x.Cells.ForEach(c =>
+                {
+                    // TODO: Subject Id
+                    if (c.Tile?.SubjectShortName == cell.Tile?.SubjectShortName)
+                    {
+                        c.IsHovered = activate;
                     }
                 });
             });

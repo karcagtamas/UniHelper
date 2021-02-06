@@ -9,8 +9,8 @@
   border-bottom: 1px dotted #e54f4f88;
 }
 #calendar tbody tr td {
-  height: 50px;
-  padding: 0.2rem;
+  height: 57px;
+  padding: 0.1rem;
 }
 #calendar tbody tr td .tile {
   display: flex;
@@ -36,6 +36,14 @@
   vertical-align: center;
   justify-content: center;
   align-content: center;
+  transition-duration: 0.4s;
+}
+#calendar tbody tr td .tile .tile-element.hovered {
+  opacity: 0.6;
+  transition-duration: 0.4s;
+}
+#calendar tbody tr td .tile .tile-element .tile-info {
+  font-size: 0.7rem;
 }
 
 /*# sourceMappingURL=Calendar.razor.css.map */

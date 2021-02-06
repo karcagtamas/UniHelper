@@ -17,8 +17,8 @@
       border-bottom: 1px dotted $main-color-light;
 
       td {
-        height: 50px;
-        padding: 0.2rem;
+        height: 57px;
+        padding: 0.1rem;
 
         .tile {
           display: flex;
@@ -44,6 +44,20 @@
             vertical-align: center;
             justify-content: center;
             align-content: center;
+            transition-duration: 0.4s;
+            
+            &.hovered {
+              opacity: 0.6;
+              transition-duration: 0.4s;
+            }
+            
+            .tile-title {
+              
+            }
+            
+            .tile-info {
+              font-size: 0.7rem;
+            }
           }
         }
       }
