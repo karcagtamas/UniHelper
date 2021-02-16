@@ -33,6 +33,8 @@ namespace UniHelper.Models
         public int RowSpanNumber { get; set; }
 
         public bool DoTile { get; set; } = true;
+
+        public bool HasValue { get; set; }
         
         public bool IsHovered { get; set; }
     }

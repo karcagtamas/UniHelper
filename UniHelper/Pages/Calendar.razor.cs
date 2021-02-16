@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
@@ -13,16 +14,20 @@ namespace UniHelper.Pages
     public partial class Calendar
     {
         [Inject] private ICalendarService CalendarService { get; set; }
-        
-        [Inject]
-        private ILessonHourService LessonHourService { get; set; }
+
+        [Inject] private ILessonHourService LessonHourService { get; set; }
 
         private CalendarDto CalendarData { get; set; }
         private List<LessonHourDto> LessonHours { get; set; } = new();
-        
+
         private List<CalendarHeaderData> HeaderRow { get; set; }
 
         private List<CalendarRow> Rows { get; set; }
+
+        private bool RemoveEmptyCols { get; set; }
+
+        private bool RemoveWeekendCols { get; set; } = true;
+        private bool RemoveEmptyFirstAndLastRows { get; set; } = true;
 
         protected override async Task OnInitializedAsync()
         {
@@ -33,15 +38,119 @@ namespace UniHelper.Pages
         {
             CalendarData = await CalendarService.GetCurrentInterval();
             LessonHours = await LessonHourService.GetList();
+            BuildTable();
+        }
+
+        private void BuildTable()
+        {
             ResetHeader();
             ResetRows();
             InitRows();
+            DoFilter();
+            StateHasChanged();
+        }
+
+        private void DoFilter()
+        {
+            FilterWeekendCols();
+            FilterEmptyCols();
+            FilterEmptyFirstAndLastRows();
+        }
+
+        private void FilterEmptyCols()
+        {
+            if (!RemoveEmptyCols) return;
+            var counts = new int[HeaderRow.Count];
+            Rows.ForEach(x =>
+            {
+                for (var i = 0; i < x.Cells.Count; i++)
+                {
+                    if (x.Cells[i].HasValue)
+                    {
+                        counts[i]++;
+                    }
+                }
+            });
+
+            for (var i = counts.Length - 1; i >= 0; i--)
+            {
+                if (counts[i] != 0) continue;
+                HeaderRow.RemoveAt(i);
+                foreach (var row in Rows)
+                {
+                    row.Cells.RemoveAt(i);
+                }
+            }
+        }
+
+        private void FilterWeekendCols()
+        {
+            if (!RemoveWeekendCols) return;
+            DayOfWeek[] weekendDays = new[] { DayOfWeek.Saturday, DayOfWeek.Sunday };
+
+            weekendDays.ToList().ForEach(day =>
+            {
+                var index = -1;
+                do
+                {
+                    index = HeaderRow.FindIndex(x => x.Day == day);
+                    if (index != -1)
+                    {
+                        HeaderRow.RemoveAt(index);
+                        foreach (var row in Rows)
+                        {
+                            row.Cells.RemoveAt(index);
+                        }
+                    }
+                } while (index != -1);
+            });
+        }
+
+        private void FilterEmptyFirstAndLastRows()
+        {
+            if (!RemoveEmptyFirstAndLastRows) return;
+
+            int start = 0;
+            bool foundNotEmpty = false;
+
+            while (!foundNotEmpty && Rows.Count > 0)
+            {
+                var row = Rows[start];
+                var notEmptyCells = row.Cells.Count(x => x.HasValue);
+
+                if (notEmptyCells == 0)
+                {
+                    Rows.RemoveAt(start);
+                }
+                else
+                {
+                    foundNotEmpty = true;
+                }
+            }
+
+            foundNotEmpty = false;
+            
+            while (!foundNotEmpty && Rows.Count > 0)
+            {
+                int last = Rows.Count - 1;
+                var row = Rows[last];
+                var notEmptyCells = row.Cells.Count(x => x.HasValue);
+
+                if (notEmptyCells == 0)
+                {
+                    Rows.RemoveAt(last);
+                }
+                else
+                {
+                    foundNotEmpty = true;
+                }
+            }
         }
 
         private void ResetHeader()
         {
             HeaderRow = new List<CalendarHeaderData>();
-            
+
             CalendarData.Days.ForEach(x =>
             {
                 HeaderRow.Add(new CalendarHeaderData
@@ -57,7 +166,7 @@ namespace UniHelper.Pages
         private void ResetRows()
         {
             Rows = new List<CalendarRow>();
-            
+
             LessonHours.OrderBy(x => x.Number).ToList().ForEach(hour =>
             {
                 var row = new CalendarRow
@@ -118,13 +227,13 @@ namespace UniHelper.Pages
                             {
                                 throw new ArgumentException("Missing cell");
                             }
-                        
+
                             cells.Add(cell);
 
                             number++;
                             count--;
                         }
-                        
+
                         var c = cells.Count(x => x.Tile != null);
 
                         if (c > 0)
@@ -146,7 +255,7 @@ namespace UniHelper.Pages
 
                             HeaderRow[index].ColSpanNumber++;
                             HeaderRow[index].HasColSpan = true;
-                            
+
                             HeaderRow.Insert(index + 1, new CalendarHeaderData
                             {
                                 Day = cell.Day,
@@ -157,7 +266,7 @@ namespace UniHelper.Pages
                             cellNumber++;
                             continue;
                         }
-                        
+
                         for (int i = 0; i < cells.Count; i++)
                         {
                             if (i == 0)
@@ -173,6 +282,8 @@ namespace UniHelper.Pages
                             {
                                 cells[i].DoTile = false;
                             }
+
+                            cells[i].HasValue = true;
                         }
 
                         success = true;
@@ -184,7 +295,7 @@ namespace UniHelper.Pages
         private void OnHover(MouseEventArgs eventArgs, CalendarCell cell, bool activate)
         {
             cell.IsHovered = activate;
-            
+
             Rows.ForEach(x =>
             {
                 x.Cells.ForEach(c =>
@@ -196,6 +307,24 @@ namespace UniHelper.Pages
                     }
                 });
             });
+        }
+
+        private void ChangeEmptyColFilter(bool value)
+        {
+            RemoveEmptyCols = value;
+            BuildTable();
+        }
+
+        private void ChangeWeekendFilter(bool value)
+        {
+            RemoveWeekendCols = value;
+            BuildTable();
+        }
+
+        private void ChangeEmptyFirstAndLastRowFilter(bool value)
+        {
+            RemoveEmptyFirstAndLastRows = value;
+            BuildTable();
         }
     }
 }

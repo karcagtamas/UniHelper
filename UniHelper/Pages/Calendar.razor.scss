@@ -1,7 +1,17 @@
 @import '../Assets/colors';
 
+.title-row {
+  display: flex;
+  flex-direction: row;
+  
+  .spacer {
+    flex-grow: 1;
+  }
+}
+
 #calendar {
   width: 100%;
+  table-layout: fixed;
 
   thead {
     tr {
@@ -15,10 +25,19 @@
   tbody {
     tr {
       border-bottom: 1px dotted $main-color-light;
+      
+      th {
+        &.header-col {
+          width: 160px !important;
+          max-width: 160px !important;
+          min-width: 160px !important;
+        }
+      }
 
       td {
         height: 57px;
         padding: 0.1rem;
+        width: auto;
 
         .tile {
           display: flex;

@@ -1,5 +1,14 @@
+.title-row {
+  display: flex;
+  flex-direction: row;
+}
+.title-row .spacer {
+  flex-grow: 1;
+}
+
 #calendar {
   width: 100%;
+  table-layout: fixed;
 }
 #calendar thead tr th {
   color: #7b3c59;
@@ -8,9 +17,15 @@
 #calendar tbody tr {
   border-bottom: 1px dotted #e54f4f88;
 }
+#calendar tbody tr th.header-col {
+  width: 160px !important;
+  max-width: 160px !important;
+  min-width: 160px !important;
+}
 #calendar tbody tr td {
   height: 57px;
   padding: 0.1rem;
+  width: auto;
 }
 #calendar tbody tr td .tile {
   display: flex;
