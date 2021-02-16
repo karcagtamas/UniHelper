@@ -1,0 +1,57 @@
+@page "/tasks"
+@using UniHelper.Enums
+@using UniHelper.Shared.Enums
+
+<PageTitle Title="Tasks"></PageTitle>
+
+<div>
+    @if (State == PageState.Display)
+    {
+        <MatIconButton Icon="add" OnClick="EnableAdding"></MatIconButton>
+        <MatDivider></MatDivider>
+    }
+    else if (State == PageState.Adding)
+    {
+        <MatIconButton Icon="done" OnClick="() => DisableAdding(false)"></MatIconButton>
+        <MatIconButton Icon="cancel" OnClick="() => DisableAdding(true)"></MatIconButton>
+        <MatDivider></MatDivider>
+        <div>
+            <EditForm EditContext="TaskContext">
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <div>
+                    <MatRadioGroup @bind-Value="@AddType" Items="@(Enum.GetValues(typeof(TaskType)).Cast<TaskType>())">
+                    </MatRadioGroup>
+                </div>
+                @if (AddType == TaskType.Period)
+                {
+                    <div>
+                        <MatSelect @bind-Value="SelectedId" Label="Period" FullWidth="true">
+                            <MatOption TValue="int" Value="@(0)"></MatOption>
+                        </MatSelect>
+                    </div>
+                }
+                else if (AddType == TaskType.Subject)
+                {
+                    <div>
+                        <MatSelect @bind-Value="SelectedId" Label="Subject" FullWidth="true">
+                            <MatOption TValue="int" Value="@(0)"></MatOption>
+                        </MatSelect>
+                    </div>
+                }
+                <div>
+                    <MatTextField @bind-Value="TaskModel.Text" Label="Task" FullWidth="true"></MatTextField>
+                    <ValidationMessage For="() => TaskModel.Text"></ValidationMessage>
+                </div>
+                <div>
+                    <MatDatePicker @bind-Value="TaskModel.DueDate" Label="Due Date" FullWidth="true"></MatDatePicker>
+                    <ValidationMessage For="() => TaskModel.DueDate"></ValidationMessage>
+                </div>
+                <div>
+                    <MatSelectItem @bind-Value="TaskModel.Priority" Label="Priority" FullWidth="true" Items="Enum.GetValues(typeof(TaskPriority)).Cast<TaskPriority>().ToArray()"></MatSelectItem>
+                    <ValidationMessage For="() => TaskModel.Priority"></ValidationMessage>
+                </div>
+            </EditForm>
+        </div>
+        <MatDivider></MatDivider>
+    }
+</div>
