@@ -7,6 +7,7 @@ using Karcags.Blazor.Common.Services;
 using MatBlazor;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using MudBlazor.Services;
 using UniHelper.Services;
 using UniHelper.Shared.DTOs;
 
@@ -36,6 +37,7 @@ namespace UniHelper
             builder.Services.AddScoped<ISubjectTaskService, SubjectTaskService>();
             builder.Services.AddScoped<ICalendarService, CalendarService>();
             builder.Services.AddScoped<ILessonHourService, LessonHourService>();
+            builder.Services.AddMudServices();
 
             if (builder.HostEnvironment.IsDevelopment())
             {

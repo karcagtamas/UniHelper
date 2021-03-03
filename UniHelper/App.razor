@@ -1,4 +1,5 @@
 <MatPortalHost></MatPortalHost>
+<MudThemeProvider Theme="_myTheme"/>
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
@@ -9,3 +10,95 @@
         </LayoutView>
     </NotFound>
 </Router>
+
+@code {
+    private static readonly string[] FontFamily = {"Varela Round", "sans-serif"};
+
+    readonly MudTheme _myTheme = new()
+    {
+        Palette = new Palette
+        {
+            Primary = Colors.Red.Darken4,
+            Secondary = Colors.Red.Accent1,
+            AppbarBackground = Colors.Red.Darken4
+        },
+        LayoutProperties = new LayoutProperties
+        {
+            DrawerWidth = "280px"
+        },
+        Typography = new Typography
+        {
+            Default = new Default
+            {
+                FontFamily = FontFamily,
+                FontSize = "13px"
+            },
+            Body1 = new Body1
+            {
+                FontFamily = FontFamily,
+                FontSize = "13px"
+            },
+            Body2 = new Body2
+            {
+                FontFamily = FontFamily,
+                FontSize = "13px"
+            },
+            Button = new Button
+            {
+                FontFamily = FontFamily,
+                FontSize = "13px"
+            },
+            Caption = new Caption
+            {
+                FontFamily = FontFamily,
+                FontSize = "13px"
+            },
+            H1 = new H1
+            {
+                FontFamily = FontFamily,
+                FontSize = "24px"
+            },
+            H2 = new H2
+            {
+                FontFamily = FontFamily,
+                FontSize = "22px"
+            },
+            H3 = new H3
+            {
+                FontFamily = FontFamily,
+                FontSize = "20px"
+            },
+            H4 = new H4
+            {
+                FontFamily = FontFamily,
+                FontSize = "18px"
+            },
+            H5 = new H5
+            {
+                FontFamily = FontFamily,
+                FontSize = "16px"
+            },
+            H6 = new H6
+            {
+                FontFamily = FontFamily,
+                FontSize = "14px"
+            },
+            Subtitle1 = new Subtitle1
+            {
+                FontFamily = FontFamily,
+                FontSize = "10px"
+            },
+            Subtitle2 = new Subtitle2
+            {
+                FontFamily = FontFamily,
+                FontSize = "10px"
+            },
+            Overline = new Overline
+            {
+                FontFamily = FontFamily,
+                FontSize = "13px"
+            }
+        }
+    };
+
+}
