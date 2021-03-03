@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using MudBlazor;
 using UniHelper.Enums;
 using UniHelper.Services;
 using UniHelper.Shared.DTOs;
@@ -40,9 +41,9 @@ namespace UniHelper.Pages
             StateHasChanged();
         }
 
-        private void OpenPeriod(int id)
+        private void OpenPeriod(TableRowClickEventArgs<PeriodDto> e)
         {
-            NavigationManager.NavigateTo($"/periods/{id}");
+            NavigationManager.NavigateTo($"/periods/{e.Item.Id}");
         }
 
         private void EnableAdding()

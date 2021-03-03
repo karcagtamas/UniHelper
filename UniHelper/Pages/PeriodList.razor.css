@@ -6,42 +6,4 @@
   flex-grow: 1;
 }
 
-#period-list {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-}
-#period-list .period-data {
-  display: flex;
-  flex-direction: row;
-  border-radius: 8px;
-  padding: 0.4rem;
-  margin: 0.2rem;
-  transition-duration: 0.4s;
-}
-#period-list .period-data.current {
-  background-color: lightgreen;
-}
-#period-list .period-data.header-row {
-  background-color: #7b3c59;
-  padding: 0.8rem;
-  opacity: 0.8;
-  color: white;
-}
-#period-list .period-data.data-row:hover {
-  background-color: #e54f4f88;
-  transition-duration: 0.4s;
-  color: white;
-  cursor: pointer;
-}
-#period-list .period-data .period-cell {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-content: center;
-}
-#period-list .period-data .period-cell.title {
-  font-weight: bold;
-}
-
 /*# sourceMappingURL=PeriodList.razor.css.map */

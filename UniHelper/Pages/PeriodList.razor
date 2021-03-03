@@ -1,75 +1,73 @@
 @page "/periods"
 @using UniHelper.Enums
+@using UniHelper.Shared.DTOs
 
 <PageTitle Title="Period List"></PageTitle>
 @if (State == PageState.Display)
 {
     <div class="data-header">
-        <MatIconButton Icon="add" OnClick="EnableAdding"></MatIconButton>
+        <MudIconButton Icon="@Icons.Filled.Add" OnClick="EnableAdding"/>
         <span class="spacer"></span>
         @if (List != null && List.Count > 0)
         {
-            <MatSelect TValue="int" Value="SelectedPeriod" ValueChanged="ChangeCurrent">
+            <MudSelect T="int" Label="Current Period" Value="SelectedPeriod" ValueChanged="ChangeCurrent" Dense="true">
                 @foreach (var i in List)
                 {
-                    <MatOption Value="@i.Id" >@i.Name</MatOption>
+                    <MudSelectItem Value="@i.Id"> @i.Name</MudSelectItem>
                 }
-            </MatSelect>
+            </MudSelect>
         }
-        
     </div>
-    
 
-    <MatDivider></MatDivider>
+
+    <MudDivider></MudDivider>
 
     @if (List != null)
     {
-        <div id="period-list">
-            <div class="period-data header-row">
-                <div class="period-cell title">Name</div>
-                <div class="period-cell title">Start - End</div>
-                <div class="period-cell title">Notes</div>
-                <div class="period-cell title">Tasks</div>
-                <div class="period-cell title">Subjects</div>
-            </div>
-            @foreach (var period in List)
-            {
-                <div class="period-data data-row @(period.IsCurrent ? "current" : "")" @onclick="() => OpenPeriod(period.Id)">
-                    <div class="period-cell title">@period.Name</div>
-                    <div class="period-cell">@period.Start.ToShortDateString() - @period.End.ToShortDateString()</div>
-                    <div class="period-cell">@period.Notes?.Count</div>
-                    <div class="period-cell">@period.Tasks?.Count</div>
-                    <div class="period-cell">@period.Subjects?.Count</div>
-                </div>
-            }
-        </div>
-        <MatDivider></MatDivider>
+        <MudTable T="PeriodDto" Items="@List" Class="mt-1" Dense="true" FixedHeader="true" Hover="true" OnRowClick="@((e) => OpenPeriod(e))" RowClassFunc="@((e, i) => e.Id == SelectedPeriod ? "current" : "")">
+            <HeaderContent>
+                <MudTh>Name</MudTh>
+                <MudTh>Start - End</MudTh>
+                <MudTh>Notes</MudTh>
+                <MudTh>Task</MudTh>
+                <MudTh>Subjects</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Name">@context.Name</MudTd>
+                <MudTd DataLabel="Start - End">@context.Start.ToShortDateString() - @context.End.ToShortDateString()</MudTd>
+                <MudTd DataLabel="Notes">@context.Notes?.Count</MudTd>
+                <MudTd DataLabel="Tasks">@context.Tasks?.Count</MudTd>
+                <MudTd DataLabel="Subjects">@context.Subjects?.Count</MudTd>
+            </RowTemplate>
+        </MudTable>
+
+        <MudDivider></MudDivider>
     }
 }
 else if (State == PageState.Adding)
 {
-    <MatIconButton Icon="done" OnClick="() => DisableAdding(false)"></MatIconButton>
-    <MatIconButton Icon="cancel" OnClick="() => DisableAdding(true)"></MatIconButton>
+    <MudIconButton Icon="@Icons.Filled.Done" OnClick="() => DisableAdding(false)"/>
+    <MudIconButton Icon="@Icons.Filled.Cancel" OnClick="() => DisableAdding(true)"/>
 
-    <MatDivider></MatDivider>
+    <MudDivider></MudDivider>
 
     <div>
         <EditForm EditContext="PeriodContext">
             <DataAnnotationsValidator></DataAnnotationsValidator>
             <div>
-                <MatTextField @bind-Value="Model.Name" Label="Name" FullWidth="true"></MatTextField>
+                <MudTextField @bind-Value="Model.Name" Label="Name" FullWidth="true" />
                 <ValidationMessage For="() => Model.Name"></ValidationMessage>
             </div>
             <div>
-                <MatDatePicker @bind-Value="Model.Start" Label="Start" FullWidth="true"></MatDatePicker>
+                <MudDatePicker @bind-Value="Model.Start" Label="Start" Class="w-100"></MudDatePicker>
                 <ValidationMessage For="() => Model.Start"></ValidationMessage>
             </div>
             <div>
-                <MatDatePicker @bind-Value="Model.End" Label="End" FullWidth="true"></MatDatePicker>
+                <MudDatePicker @bind-Value="Model.End" Label="End" Class="w-100"></MudDatePicker>
                 <ValidationMessage For="() => Model.End"></ValidationMessage>
             </div>
         </EditForm>
     </div>
 
-    <MatDivider></MatDivider>
+    <MudDivider></MudDivider>
 }

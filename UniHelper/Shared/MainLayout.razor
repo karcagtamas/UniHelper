@@ -10,10 +10,8 @@
     <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
         <NavMenu/>
     </MudDrawer>
-    <MudMainContent>
-        <MatPaper Class="pl-3 pr-3">
-            @Body
-        </MatPaper>
+    <MudMainContent Class="h-100 pl-3 pr-3 pb-3">
+        @Body
     </MudMainContent>
 </MudLayout>
 
