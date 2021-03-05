@@ -1,8 +1,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using MudBlazor;
 using UniHelper.Enums;
 using UniHelper.Services;
+using UniHelper.Shared.Dialogs;
 using UniHelper.Shared.DTOs;
 using UniHelper.Shared.Models;
 
@@ -15,21 +17,24 @@ namespace UniHelper.Pages
 
         [Inject]
         private IPeriodService PeriodService { get; set; }
-        
+
         [Inject]
         private ISubjectService SubjectService { get; set; }
-        
+
         [Inject]
         private NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        private IDialogService DialogService { get; set; }
+
         private PageState State { get; set; } = PageState.Display;
-        
+
         private EditContext PeriodContext { get; set; }
-        
+
         private PeriodModel PeriodModel { get; set; }
-        
+
         private EditContext SubjectContext { get; set; }
-        
+
         private SubjectModel SubjectModel { get; set; }
 
         private PeriodDto PeriodData { get; set; }
@@ -49,48 +54,6 @@ namespace UniHelper.Pages
             return PeriodData?.Name ?? "Period";
         }
 
-        private void EnableEditing()
-        {
-            PeriodModel = new PeriodModel(PeriodData);
-            PeriodContext = new EditContext(PeriodModel);
-            State = PageState.Editing;
-            StateHasChanged();
-        }
-
-        private void EnableRemoving()
-        {
-            State = PageState.Removing;
-            StateHasChanged();
-        }
-
-        private async void DisableEditing(bool discard)
-        {
-            if (!discard)
-            {
-                PeriodModel.Start = PeriodModel.Start.ToLocalTime();
-                PeriodModel.End = PeriodModel.End.ToLocalTime();
-                await PeriodService.Update(PeriodData.Id, PeriodModel);
-                await GetData();
-            }
-
-            State = PageState.Display;
-            StateHasChanged();
-        }
-
-        private async void DisableRemoving(bool persist)
-        {
-            if (persist)
-            {
-                await PeriodService.Remove(PeriodData.Id);
-                NavigationManager.NavigateTo("/periods");
-            }
-            else
-            {
-                State = PageState.Display;
-                StateHasChanged();
-            }
-        }
-        
         private void EnableSubjectAdding()
         {
             SubjectModel = new SubjectModel(PeriodData.Id);
@@ -110,7 +73,7 @@ namespace UniHelper.Pages
             State = PageState.Display;
             StateHasChanged();
         }
-        
+
         private void OpenSubject(int id)
         {
             NavigationManager.NavigateTo($"/periods/subjects/{id}");
@@ -119,6 +82,36 @@ namespace UniHelper.Pages
         private void OpenPeriodList()
         {
             NavigationManager.NavigateTo($"/periods");
+        }
+
+        private async void OpenPeriodDialog()
+        {
+            var parameters = new DialogParameters();
+            parameters.Add("Period", PeriodData);
+            var dialog = DialogService.Show<PeriodDialog>("Edit Period", parameters);
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                await GetData();
+            }
+        }
+
+        private async void OpenDeleteDialog()
+        {
+            var parameters = new DialogParameters();
+            parameters.Add("Input", new ConfirmDialogInput
+            {
+                Name = PeriodData.Name,
+                DeleteFunction = async () => { return await PeriodService.Remove(PeriodData.Id); }
+            });
+            var dialog = DialogService.Show<PeriodDialog>("Edit Period", parameters);
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                NavigationManager.NavigateTo("/periods");
+            }
         }
     }
 }

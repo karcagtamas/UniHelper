@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
 using UniHelper.Services;
+using UniHelper.Shared.DTOs;
 using UniHelper.Shared.Models;
 
 namespace UniHelper.Shared.Dialogs
@@ -12,6 +13,9 @@ namespace UniHelper.Shared.Dialogs
         [CascadingParameter]
         private MudDialogInstance Dialog { get; set; }
 
+        [Parameter]
+        public PeriodDto Period { get; set; }
+
         [Inject]
         private IPeriodService PeriodService { get; set; }
         private EditContext PeriodContext { get; set; }
@@ -19,7 +23,14 @@ namespace UniHelper.Shared.Dialogs
 
         protected override Task OnInitializedAsync()
         {
-            Model = new PeriodModel();
+            if (Period != null)
+            {
+                Model = new PeriodModel(Period);
+            }
+            else
+            {
+                Model = new PeriodModel();
+            }
             PeriodContext = new EditContext(Model);
             return base.OnInitializedAsync();
         }

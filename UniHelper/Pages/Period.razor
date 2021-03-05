@@ -12,8 +12,8 @@
             {
                 <div class="data-header">
                     <MatIconButton Icon="add" OnClick="EnableSubjectAdding"></MatIconButton>
-                    <MatIconButton Icon="edit" OnClick="EnableEditing"></MatIconButton>
-                    <MatIconButton Icon="remove" OnClick="EnableRemoving"></MatIconButton>
+                    <MatIconButton Icon="edit" OnClick="OpenPeriodDialog"></MatIconButton>
+                    <MatIconButton Icon="remove" OnClick="OpenDeleteDialog"></MatIconButton>
                     <span class="spacer"></span>
                     <MatIconButton Icon="arrow_left" OnClick="OpenPeriodList"></MatIconButton>
                 </div>
@@ -49,41 +49,6 @@
                 <div class="@(PeriodData.IsCurrent ? "green" : "red")">
                     <strong>Is Current Period:</strong> @(PeriodData.IsCurrent ? "Yes" : "No")
                 </div>
-                <MatDivider></MatDivider>
-            }
-            else if (State == PageState.Editing)
-            {
-                <MatIconButton Icon="done" OnClick="() => DisableEditing(false)"></MatIconButton>
-                <MatIconButton Icon="cancel" OnClick="() => DisableEditing(true)"></MatIconButton>
-                <MatDivider></MatDivider>
-
-                <div>
-                    <EditForm EditContext="PeriodContext">
-                        <DataAnnotationsValidator></DataAnnotationsValidator>
-                        <div>
-                            <MatTextField @bind-Value="PeriodModel.Name" Label="Name" FullWidth="true"></MatTextField>
-                            <ValidationMessage For="() => PeriodModel.Name"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatDatePicker @bind-Value="PeriodModel.Start" Label="Start" FullWidth="true"></MatDatePicker>
-                            <ValidationMessage For="() => PeriodModel.Start"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatDatePicker @bind-Value="PeriodModel.End" Label="End" FullWidth="true"></MatDatePicker>
-                            <ValidationMessage For="() => PeriodModel.End"></ValidationMessage>
-                        </div>
-                    </EditForm>
-                </div>
-
-                <MatDivider></MatDivider>
-            }
-            else if (State == PageState.Removing)
-            {
-                <div>
-                    <strong>Are you sure about removing Period?</strong>
-                </div>
-                <MatIconButton Icon="done" OnClick="() => DisableRemoving(true)"></MatIconButton>
-                <MatIconButton Icon="cancel" OnClick="() => DisableRemoving(false)"></MatIconButton>
                 <MatDivider></MatDivider>
             }
             else if (State == PageState.Adding)
