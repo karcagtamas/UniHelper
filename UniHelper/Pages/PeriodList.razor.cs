@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
 using UniHelper.Enums;
 using UniHelper.Services;
+using UniHelper.Shared.Dialogs;
 using UniHelper.Shared.DTOs;
 using UniHelper.Shared.Models;
 
@@ -15,15 +16,12 @@ namespace UniHelper.Pages
     {
         [Inject]
         private IPeriodService PeriodService { get; set; }
-    
+
         [Inject]
         private NavigationManager NavigationManager { get; set; }
 
-        private PageState State { get; set; } = PageState.Display;
-        
-        private EditContext PeriodContext { get; set; }
-        
-        private PeriodModel Model { get; set; }
+        [Inject]
+        private IDialogService DialogService {get;set;}
 
         private List<PeriodDto> List { get; set; } = new();
 
@@ -46,33 +44,15 @@ namespace UniHelper.Pages
             NavigationManager.NavigateTo($"/periods/{e.Item.Id}");
         }
 
-        private void EnableAdding()
-        {
-            Model = new PeriodModel();
-            PeriodContext = new EditContext(Model);
-            State = PageState.Adding;
-            StateHasChanged();
-        }
-
-        private async void DisableAdding(bool discard)
-        {
-            if (!discard)
-            {
-                Model.Start = Model.Start.ToLocalTime();
-                Model.End = Model.End.ToLocalTime();
-                await PeriodService.Create(Model);
-                await Refresh();
-            }
-            
-            State = PageState.Display;
-            StateHasChanged();
-        }
-
         private async void ChangeCurrent(int id)
         {
             SelectedPeriod = id;
             await PeriodService.SetCurrent(id);
             await Refresh();
+        }
+
+        private void OpenDialog() {
+            DialogService.Show<PeriodDialog>();
         }
     }
 }

@@ -1,0 +1,25 @@
+<MudDialog>
+    <DialogContent>
+        <div>
+            <EditForm EditContext="PeriodContext">
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <div>
+                    <MudTextField @bind-Value="Model.Name" Label="Name" FullWidth="true" />
+                    <ValidationMessage For="() => Model.Name"></ValidationMessage>
+                </div>
+                <div>
+                    <MudDatePicker @bind-Value="Model.Start" Label="Start" Class="w-100"></MudDatePicker>
+                    <ValidationMessage For="() => Model.Start"></ValidationMessage>
+                </div>
+                <div>
+                    <MudDatePicker @bind-Value="Model.End" Label="End" Class="w-100"></MudDatePicker>
+                    <ValidationMessage For="() => Model.End"></ValidationMessage>
+                </div>
+            </EditForm>
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel"></MudButton>
+        <MudButton Color="Color.Primary" OnClick="Save"></MudButton>
+    </DialogActions>
+</MudDialog>

@@ -3,10 +3,9 @@
 @using UniHelper.Shared.DTOs
 
 <PageTitle Title="Period List"></PageTitle>
-@if (State == PageState.Display)
-{
+
     <div class="data-header">
-        <MudIconButton Icon="@Icons.Filled.Add" OnClick="EnableAdding"/>
+        <MudIconButton Icon="@Icons.Filled.Add"/>
         <span class="spacer"></span>
         @if (List != null && List.Count > 0)
         {
@@ -40,34 +39,4 @@
                 <MudTd DataLabel="Subjects">@context.Subjects?.Count</MudTd>
             </RowTemplate>
         </MudTable>
-
-        <MudDivider></MudDivider>
     }
-}
-else if (State == PageState.Adding)
-{
-    <MudIconButton Icon="@Icons.Filled.Done" OnClick="() => DisableAdding(false)"/>
-    <MudIconButton Icon="@Icons.Filled.Cancel" OnClick="() => DisableAdding(true)"/>
-
-    <MudDivider></MudDivider>
-
-    <div>
-        <EditForm EditContext="PeriodContext">
-            <DataAnnotationsValidator></DataAnnotationsValidator>
-            <div>
-                <MudTextField @bind-Value="Model.Name" Label="Name" FullWidth="true" />
-                <ValidationMessage For="() => Model.Name"></ValidationMessage>
-            </div>
-            <div>
-                <MudDatePicker @bind-Value="Model.Start" Label="Start" Class="w-100"></MudDatePicker>
-                <ValidationMessage For="() => Model.Start"></ValidationMessage>
-            </div>
-            <div>
-                <MudDatePicker @bind-Value="Model.End" Label="End" Class="w-100"></MudDatePicker>
-                <ValidationMessage For="() => Model.End"></ValidationMessage>
-            </div>
-        </EditForm>
-    </div>
-
-    <MudDivider></MudDivider>
-}
