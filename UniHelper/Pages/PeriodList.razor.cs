@@ -1,14 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
-using UniHelper.Enums;
 using UniHelper.Services;
 using UniHelper.Shared.Dialogs;
 using UniHelper.Shared.DTOs;
-using UniHelper.Shared.Models;
 
 namespace UniHelper.Pages
 {
@@ -21,7 +17,7 @@ namespace UniHelper.Pages
         private NavigationManager NavigationManager { get; set; }
 
         [Inject]
-        private IDialogService DialogService {get;set;}
+        private IDialogService DialogService { get; set; }
 
         private List<PeriodDto> List { get; set; } = new();
 
@@ -51,8 +47,17 @@ namespace UniHelper.Pages
             await Refresh();
         }
 
-        private void OpenDialog() {
-            DialogService.Show<PeriodDialog>();
+        private async void OpenDialog()
+        {
+            var parameters = new DialogParameters();
+            parameters.Add("Period", null);
+            var dialog = DialogService.Show<PeriodDialog>("Add Period", parameters);
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                await Refresh();
+            }
         }
     }
 }

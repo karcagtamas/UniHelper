@@ -10,7 +10,7 @@ namespace UniHelper.Shared.Dialogs
     public partial class PeriodDialog
     {
         [CascadingParameter]
-        MudDialogInstance Dialog { get; set; }
+        private MudDialogInstance Dialog { get; set; }
 
         [Inject]
         private IPeriodService PeriodService { get; set; }
@@ -30,8 +30,10 @@ namespace UniHelper.Shared.Dialogs
             {
                 Model.Start = Model.Start.ToLocalTime();
                 Model.End = Model.End.ToLocalTime();
-                await PeriodService.Create(Model);
-                Dialog.Close(DialogResult.Ok(true));
+                if (await PeriodService.Create(Model))
+                {
+                    Dialog.Close(DialogResult.Ok(true));
+                }
             }
         }
 
