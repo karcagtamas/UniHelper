@@ -11,45 +11,41 @@
             @if (State == PageState.Display)
             {
                 <div class="data-header">
-                    <MatIconButton Icon="add" OnClick="EnableSubjectAdding"></MatIconButton>
-                    <MatIconButton Icon="edit" OnClick="OpenPeriodDialog"></MatIconButton>
-                    <MatIconButton Icon="remove" OnClick="OpenDeleteDialog"></MatIconButton>
+                    <MudIconButton Icon="@Icons.Filled.Add" OnClick="OpenAddDialog" />
+                    <MudIconButton Icon="@Icons.Filled.Edit" OnClick="OpenPeriodDialog" />
+                    <MudIconButton Icon="@Icons.Filled.Remove" OnClick="OpenDeleteDialog" />
                     <span class="spacer"></span>
-                    <MatIconButton Icon="arrow_left" OnClick="OpenPeriodList"></MatIconButton>
+                    <MudIconButton Icon="@Icons.Filled.ArrowLeft" OnClick="OpenPeriodList" />
                 </div>
 
-                <MatDivider></MatDivider>
+                <MudDivider></MudDivider>
                 @if (PeriodData.Subjects != null && PeriodData.Subjects.Count > 0)
                 {
-                    <div id="subject-list">
-                        <div class="subject-data header-row">
-                            <div class="subject-cell title">Period Name</div>
-                            <div class="subject-cell title">Code</div>
-                            <div class="subject-cell title">Type</div>
-                            <div class="subject-cell title">Notes</div>
-                            <div class="subject-cell title">Tasks</div>
-                            <div class="subject-cell title">Courses</div>
-                        </div>
-                        @foreach (var subject in PeriodData.Subjects)
-                        {
-                            <div class="subject-data data-row @(subject.IsActive ? "" : "in-active")" @onclick="() => OpenSubject(subject.Id)">
-                                <div class="subject-cell title">@subject.LongName</div>
-                                <div class="subject-cell">@subject.Code</div>
-                                <div class="subject-cell">@subject.Type</div>
-                                <div class="subject-cell">@subject.Notes?.Count</div>
-                                <div class="subject-cell">@subject.Tasks?.Count</div>
-                                <div class="subject-cell">@subject.Courses?.Count</div>
-                            </div>
-                        }
-                    </div>
+                    <MudTable T="SubjectDto" Items="@PeriodData.Subjects" Class="mt-1" Dense="true" FixedHeader="true" Hover="true" OnRowClick="@((e) => OpenSubject(e))" RowClassFunc="@((e, i) => e.IsActive ? "" : "in-active")">
+                        <HeaderContent>
+                            <MudTh>Name</MudTh>
+                            <MudTh>Code</MudTh>
+                            <MudTh>Type</MudTh>
+                            <MudTh>Notes</MudTh>
+                            <MudTh>Tasks</MudTh>
+                            <MudTh>Courses</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Name">@context.LongName</MudTd>
+                            <MudTd DataLabel="Code">@context.Code</MudTd>
+                            <MudTd DataLabel="Type">@context.Type</MudTd>
+                            <MudTd DataLabel="Notes">@context.Notes?.Count</MudTd>
+                            <MudTd DataLabel="Tasks">@context.Tasks?.Count</MudTd>
+                            <MudTd DataLabel="Courses">@context.Courses?.Count</MudTd>
+                        </RowTemplate>
+                    </MudTable>
                 }
 
-                <MatDivider></MatDivider>
+                <MudDivider></MudDivider>
                 <div><strong>Interval:</strong> @PeriodData.Start.ToShortDateString() - @PeriodData.End.ToShortDateString()</div>
                 <div class="@(PeriodData.IsCurrent ? "green" : "red")">
                     <strong>Is Current Period:</strong> @(PeriodData.IsCurrent ? "Yes" : "No")
                 </div>
-                <MatDivider></MatDivider>
             }
             else if (State == PageState.Adding)
             {

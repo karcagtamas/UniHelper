@@ -113,5 +113,18 @@ namespace UniHelper.Pages
                 NavigationManager.NavigateTo("/periods");
             }
         }
+
+        private async void OpenAddDialog()
+        {
+            var parameters = new DialogParameters();
+            parameters.Add("Subject", null);
+            var dialog = DialogService.Show<PeriodDialog>("Add Subject", parameters);
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                await Refresh();
+            }
+        }
     }
 }
