@@ -42,40 +42,4 @@
     <div class="@(PeriodData.IsCurrent ? "green" : "red")">
         <strong>Is Current Period:</strong> @(PeriodData.IsCurrent ? "Yes" : "No")
     </div>
-
-    <!--
-    <MatIconButton Icon="done" OnClick="() => DisabledSubjectAdding(false)"></MatIconButton>
-    <MatIconButton Icon="cancel" OnClick="() => DisabledSubjectAdding(true)"></MatIconButton>
-    <MatDivider></MatDivider>
-    <div>
-        <EditForm EditContext="SubjectContext">
-            <DataAnnotationsValidator></DataAnnotationsValidator>
-            <div>
-                <MatTextField @bind-Value="SubjectModel.LongName" Label="Long Name" FullWidth="true"></MatTextField>
-                <ValidationMessage For="() => SubjectModel.LongName"></ValidationMessage>
-            </div>
-            <div>
-                <MatTextField @bind-Value="SubjectModel.ShortName" Label="Short Name" FullWidth="true"></MatTextField>
-                <ValidationMessage For="() => SubjectModel.ShortName"></ValidationMessage>
-            </div>
-            <div>
-                <MatTextField @bind-Value="SubjectModel.Code" Label="Code" FullWidth="true"></MatTextField>
-                <ValidationMessage For="() => SubjectModel.Code"></ValidationMessage>
-            </div>
-            <div>
-                <MatTextField @bind-Value="SubjectModel.Description" TextArea="true" Label="Description" FullWidth="true"></MatTextField>
-                <ValidationMessage For="() => SubjectModel.Description"></ValidationMessage>
-            </div>
-            <div>
-                <MatNumericUpDownField @bind-Value="SubjectModel.Credit" Minimum="1" Maximum="10" Label="Credit" FullWidth="true"></MatNumericUpDownField>
-                <ValidationMessage For="() => SubjectModel.Credit"></ValidationMessage>
-            </div>
-            <div>
-                <MatSelectItem @bind-Value="SubjectModel.Type" Label="Type" FullWidth="true" Items="Enum.GetValues(typeof(SubjectType)).Cast<SubjectType>().ToArray()"></MatSelectItem>
-                <ValidationMessage For="() => SubjectModel.Type"></ValidationMessage>
-            </div>
-        </EditForm>
-    </div>
-    <MatDivider></MatDivider>
-    -->
 }

@@ -117,7 +117,7 @@ namespace UniHelper.Pages
         private async void OpenAddDialog()
         {
             var parameters = new DialogParameters {{"Subject", null}};
-            var dialog = DialogService.Show<PeriodDialog>("Add Subject", parameters);
+            var dialog = DialogService.Show<SubjectDialog>("Add Subject", parameters);
             var result = await dialog.Result;
 
             if (!result.Cancelled)

@@ -1,0 +1,43 @@
+@using UniHelper.Shared.Enums
+<MudDialog>
+    <DialogContent>
+        <div>
+            <EditForm EditContext="SubjectContext">
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <div>
+                    <MudTextField @bind-Value="Model.LongName" Label="Long Name" FullWidth="true"></MudTextField>
+                    <ValidationMessage For="() => Model.LongName"></ValidationMessage>
+                </div>
+                <div>
+                    <MudTextField @bind-Value="Model.ShortName" Label="Short Name" FullWidth="true"></MudTextField>
+                    <ValidationMessage For="() => Model.ShortName"></ValidationMessage>
+                </div>
+                <div>
+                    <MudTextField @bind-Value="Model.Code" Label="Code" FullWidth="true"></MudTextField>
+                    <ValidationMessage For="() => Model.Code"></ValidationMessage>
+                </div>
+                <div>
+                    <MudTextField @bind-Value="Model.Description" Label="Description" FullWidth="true" Lines="3"></MudTextField>
+                    <ValidationMessage For="() => Model.Description"></ValidationMessage>
+                </div>
+                <div>
+                    <MudTextField @bind-Value="Model.Credit" Label="Credit" FullWidth="true"></MudTextField>
+                    <ValidationMessage For="() => Model.Credit"></ValidationMessage>
+                </div>
+                <div>
+                    <MudSelect T="SubjectType" Label="Type" FullWidth="true" @bind-Value="Model.Type" Dense="true">
+                        @foreach (var i in Enum.GetValues(typeof(SubjectType)).Cast<SubjectType>().ToArray())
+                        {
+                            <MudSelectItem Value="@i"> @i</MudSelectItem>
+                        }
+                    </MudSelect>
+                    <ValidationMessage For="() => Model.Type"></ValidationMessage>
+                </div>
+            </EditForm>
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Save">Save</MudButton>
+    </DialogActions>
+</MudDialog>
