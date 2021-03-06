@@ -20,12 +20,14 @@ namespace UniHelper.Shared.Dialogs
         private ISubjectService SubjectService { get; set; }
         private EditContext SubjectContext { get; set; }
         private SubjectModel Model { get; set; }
+        private bool IsEdit { get; set; }
 
         protected override Task OnInitializedAsync()
         {
             if (Subject != null)
             {
                 Model = new SubjectModel(Subject);
+                IsEdit = true;
             }
             else
             {
@@ -39,9 +41,19 @@ namespace UniHelper.Shared.Dialogs
         {
             if (SubjectContext.Validate())
             {
-                if (await SubjectService.Create(Model))
+                if (IsEdit)
                 {
-                    Dialog.Close(DialogResult.Ok(true));
+                    if (await SubjectService.Update(Subject.Id, Model))
+                    {
+                        Dialog.Close(DialogResult.Ok(true));
+                    }
+                }
+                else
+                {
+                    if (await SubjectService.Create(Model))
+                    {
+                        Dialog.Close(DialogResult.Ok(true));
+                    }
                 }
             }
         }

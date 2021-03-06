@@ -2,8 +2,10 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using MudBlazor;
 using UniHelper.Enums;
 using UniHelper.Services;
+using UniHelper.Shared.Dialogs;
 using UniHelper.Shared.DTOs;
 using UniHelper.Shared.Models;
 
@@ -23,12 +25,11 @@ namespace UniHelper.Pages
         [Inject]
         private NavigationManager NavigationManager { get; set; }
         
+        [Inject]
+        private IDialogService DialogService { get; set; }
+        
         private SubjectDto SubjectData { get; set; }
-        
-        private EditContext SubjectContext { get; set; }
-        
-        private SubjectModel SubjectModel { get; set; }
-        
+
         private EditContext CourseContext { get; set; }
         
         private CourseModel CourseModel { get; set; }
@@ -49,75 +50,62 @@ namespace UniHelper.Pages
         {
             return SubjectData?.LongName ?? "Subject";
         }
-        
-        private void EnableEditing()
-        {
-            SubjectModel = new SubjectModel(SubjectData);
-            SubjectContext = new EditContext(SubjectModel);
-            State = PageState.Editing;
-            StateHasChanged();
-        }
 
-        private void EnableRemoving()
+        private void OpenCourse(TableRowClickEventArgs<CourseDto> e)
         {
-            State = PageState.Removing;
-            StateHasChanged();
-        }
-
-        private async void DisableEditing(bool discard)
-        {
-            if (!discard)
-            {
-                await SubjectService.Update(SubjectData.Id, SubjectModel);
-                await GetData();
-            }
-
-            State = PageState.Display;
-            StateHasChanged();
-        }
-
-        private async void DisableRemoving(bool persist)
-        {
-            if (persist)
-            {
-                await SubjectService.Remove(SubjectData.Id);
-                NavigationManager.NavigateTo($"/periods/{SubjectData.PeriodId}");
-            }
-            else
-            {
-                State = PageState.Display;
-                StateHasChanged();
-            }
-        }
-        
-        private void EnableCourseAdding()
-        {
-            CourseModel = new CourseModel(SubjectData.Id);
-            CourseContext = new EditContext(CourseModel);
-            State = PageState.Adding;
-            StateHasChanged();
-        }
-
-        private async void DisabledCourseAdding(bool discard)
-        {
-            if (!discard)
-            {
-                await CourseService.Create(CourseModel);
-                await GetData();
-            }
-
-            State = PageState.Display;
-            StateHasChanged();
-        }
-        
-        private void OpenCourse(int id)
-        {
-            NavigationManager.NavigateTo($"/periods/subjects/courses/{id}");
+            NavigationManager.NavigateTo($"/periods/subjects/courses/{e.Item.Id}");
         }
 
         private void OpenPeriod()
         {
             NavigationManager.NavigateTo($"/periods/{SubjectData.PeriodId}");
         }
+        
+        private async void OpenSubjectDialog()
+        {
+            var parameters = new DialogParameters {{"Subject", SubjectData}};
+            var dialog = DialogService.Show<SubjectDialog>("Edit Subject", parameters);
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                await GetData();
+            }
+        }
+        
+        private async void OpenDeleteDialog()
+        {
+            var parameters = new DialogParameters
+            {
+                {
+                    "Input",
+                    new ConfirmDialogInput
+                    {
+                        Name = SubjectData.LongName,
+                        DeleteFunction = async () => await SubjectService.Remove(SubjectData.Id)
+                    }
+                }
+            };
+            var dialog = DialogService.Show<ConfirmDialog>("Confirm Delete", parameters);
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                NavigationManager.NavigateTo("/subjects");
+            }
+        }
+        
+        private async void OpenAddDialog()
+        {
+            var parameters = new DialogParameters {{"Course", null}};
+            var dialog = DialogService.Show<SubjectDialog>("Add Course", parameters);
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                await GetData();
+            }
+        }
+        
     }
 }

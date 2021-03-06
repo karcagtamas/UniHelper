@@ -10,27 +10,27 @@ namespace UniHelper.Shared.Dialogs
 {
     public partial class PeriodDialog
     {
-        [CascadingParameter]
-        private MudDialogInstance Dialog { get; set; }
+        [CascadingParameter] private MudDialogInstance Dialog { get; set; }
 
-        [Parameter]
-        public PeriodDto Period { get; set; }
+        [Parameter] public PeriodDto Period { get; set; }
 
-        [Inject]
-        private IPeriodService PeriodService { get; set; }
+        [Inject] private IPeriodService PeriodService { get; set; }
         private EditContext PeriodContext { get; set; }
         private PeriodModel Model { get; set; }
+        private bool IsEdit { get; set; }
 
         protected override Task OnInitializedAsync()
         {
             if (Period != null)
             {
                 Model = new PeriodModel(Period);
+                IsEdit = true;
             }
             else
             {
                 Model = new PeriodModel();
             }
+
             PeriodContext = new EditContext(Model);
             return base.OnInitializedAsync();
         }
@@ -41,9 +41,19 @@ namespace UniHelper.Shared.Dialogs
             {
                 Model.Start = Model.Start.ToLocalTime();
                 Model.End = Model.End.ToLocalTime();
-                if (await PeriodService.Create(Model))
+                if (IsEdit)
                 {
-                    Dialog.Close(DialogResult.Ok(true));
+                    if (await PeriodService.Update(Period.Id, Model))
+                    {
+                        Dialog.Close(DialogResult.Ok(true));
+                    }
+                }
+                else
+                {
+                    if (await PeriodService.Create(Model))
+                    {
+                        Dialog.Close(DialogResult.Ok(true));
+                    }
                 }
             }
         }

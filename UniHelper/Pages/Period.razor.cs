@@ -17,21 +17,12 @@ namespace UniHelper.Pages
 
         [Inject]
         private IPeriodService PeriodService { get; set; }
-
-        [Inject]
-        private ISubjectService SubjectService { get; set; }
-
+        
         [Inject]
         private NavigationManager NavigationManager { get; set; }
 
         [Inject]
         private IDialogService DialogService { get; set; }
-
-        private PageState State { get; set; } = PageState.Display;
-
-        private EditContext SubjectContext { get; set; }
-
-        private SubjectModel SubjectModel { get; set; }
 
         private PeriodDto PeriodData { get; set; }
 
@@ -48,26 +39,6 @@ namespace UniHelper.Pages
         private string GetTitle()
         {
             return PeriodData?.Name ?? "Period";
-        }
-
-        private void EnableSubjectAdding()
-        {
-            SubjectModel = new SubjectModel(PeriodData.Id);
-            SubjectContext = new EditContext(SubjectModel);
-            State = PageState.Adding;
-            StateHasChanged();
-        }
-
-        private async void DisabledSubjectAdding(bool discard)
-        {
-            if (!discard)
-            {
-                await SubjectService.Create(SubjectModel);
-                await GetData();
-            }
-
-            State = PageState.Display;
-            StateHasChanged();
         }
 
         private void OpenSubject(TableRowClickEventArgs<SubjectDto> e)
