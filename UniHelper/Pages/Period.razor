@@ -1,88 +1,81 @@
 @page "/periods/{Id:int}"
 @using UniHelper.Enums
 @using UniHelper.Shared.Enums
+@using UniHelper.Shared.DTOs
 
 <PageTitle Title="@GetTitle()"></PageTitle>
 
 @if (PeriodData != null)
 {
-    <div id="data">
-        <div>
-            @if (State == PageState.Display)
-            {
-                <div class="data-header">
-                    <MudIconButton Icon="@Icons.Filled.Add" OnClick="OpenAddDialog" />
-                    <MudIconButton Icon="@Icons.Filled.Edit" OnClick="OpenPeriodDialog" />
-                    <MudIconButton Icon="@Icons.Filled.Remove" OnClick="OpenDeleteDialog" />
-                    <span class="spacer"></span>
-                    <MudIconButton Icon="@Icons.Filled.ArrowLeft" OnClick="OpenPeriodList" />
-                </div>
-
-                <MudDivider></MudDivider>
-                @if (PeriodData.Subjects != null && PeriodData.Subjects.Count > 0)
-                {
-                    <MudTable T="SubjectDto" Items="@PeriodData.Subjects" Class="mt-1" Dense="true" FixedHeader="true" Hover="true" OnRowClick="@((e) => OpenSubject(e))" RowClassFunc="@((e, i) => e.IsActive ? "" : "in-active")">
-                        <HeaderContent>
-                            <MudTh>Name</MudTh>
-                            <MudTh>Code</MudTh>
-                            <MudTh>Type</MudTh>
-                            <MudTh>Notes</MudTh>
-                            <MudTh>Tasks</MudTh>
-                            <MudTh>Courses</MudTh>
-                        </HeaderContent>
-                        <RowTemplate>
-                            <MudTd DataLabel="Name">@context.LongName</MudTd>
-                            <MudTd DataLabel="Code">@context.Code</MudTd>
-                            <MudTd DataLabel="Type">@context.Type</MudTd>
-                            <MudTd DataLabel="Notes">@context.Notes?.Count</MudTd>
-                            <MudTd DataLabel="Tasks">@context.Tasks?.Count</MudTd>
-                            <MudTd DataLabel="Courses">@context.Courses?.Count</MudTd>
-                        </RowTemplate>
-                    </MudTable>
-                }
-
-                <MudDivider></MudDivider>
-                <div><strong>Interval:</strong> @PeriodData.Start.ToShortDateString() - @PeriodData.End.ToShortDateString()</div>
-                <div class="@(PeriodData.IsCurrent ? "green" : "red")">
-                    <strong>Is Current Period:</strong> @(PeriodData.IsCurrent ? "Yes" : "No")
-                </div>
-            }
-            else if (State == PageState.Adding)
-            {
-                <MatIconButton Icon="done" OnClick="() => DisabledSubjectAdding(false)"></MatIconButton>
-                <MatIconButton Icon="cancel" OnClick="() => DisabledSubjectAdding(true)"></MatIconButton>
-                <MatDivider></MatDivider>
-                <div>
-                    <EditForm EditContext="SubjectContext">
-                        <DataAnnotationsValidator></DataAnnotationsValidator>
-                        <div>
-                            <MatTextField @bind-Value="SubjectModel.LongName" Label="Long Name" FullWidth="true"></MatTextField>
-                            <ValidationMessage For="() => SubjectModel.LongName"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatTextField @bind-Value="SubjectModel.ShortName" Label="Short Name" FullWidth="true"></MatTextField>
-                            <ValidationMessage For="() => SubjectModel.ShortName"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatTextField @bind-Value="SubjectModel.Code" Label="Code" FullWidth="true"></MatTextField>
-                            <ValidationMessage For="() => SubjectModel.Code"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatTextField @bind-Value="SubjectModel.Description" TextArea="true" Label="Description" FullWidth="true"></MatTextField>
-                            <ValidationMessage For="() => SubjectModel.Description"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatNumericUpDownField @bind-Value="SubjectModel.Credit" Minimum="1" Maximum="10" Label="Credit" FullWidth="true"></MatNumericUpDownField>
-                            <ValidationMessage For="() => SubjectModel.Credit"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatSelectItem @bind-Value="SubjectModel.Type" Label="Type" FullWidth="true" Items="Enum.GetValues(typeof(SubjectType)).Cast<SubjectType>().ToArray()"></MatSelectItem>
-                            <ValidationMessage For="() => SubjectModel.Type"></ValidationMessage>
-                        </div>
-                    </EditForm>
-                </div>
-                <MatDivider></MatDivider>
-            }
-        </div>
+    <div class="data-header">
+        <MudIconButton Icon="@Icons.Filled.Add" OnClick="OpenAddDialog"/>
+        <MudIconButton Icon="@Icons.Filled.Edit" OnClick="OpenPeriodDialog"/>
+        <MudIconButton Icon="@Icons.Filled.Remove" OnClick="OpenDeleteDialog"/>
+        <span class="spacer"></span>
+        <MudIconButton Icon="@Icons.Filled.ArrowLeft" OnClick="OpenPeriodList"/>
     </div>
+    <MudDivider></MudDivider>
+    @if (PeriodData.Subjects != null && PeriodData.Subjects.Count > 0)
+    {
+        <MudTable T="SubjectDto" Items="@PeriodData.Subjects" Class="mt-1 mb-3" Dense="true" FixedHeader="true" Hover="true" OnRowClick="@((e) => OpenSubject(e))" RowClassFunc="@((e, i) => e.IsActive ? "" : "in-active")">
+            <HeaderContent>
+                <MudTh>Name</MudTh>
+                <MudTh>Code</MudTh>
+                <MudTh>Type</MudTh>
+                <MudTh>Notes</MudTh>
+                <MudTh>Tasks</MudTh>
+                <MudTh>Courses</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Name">@context.LongName</MudTd>
+                <MudTd DataLabel="Code">@context.Code</MudTd>
+                <MudTd DataLabel="Type">@context.Type</MudTd>
+                <MudTd DataLabel="Notes">@context.Notes?.Count</MudTd>
+                <MudTd DataLabel="Tasks">@context.Tasks?.Count</MudTd>
+                <MudTd DataLabel="Courses">@context.Courses?.Count</MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
+
+    <MudDivider></MudDivider>
+    <div><strong>Interval:</strong> @PeriodData.Start.ToShortDateString() - @PeriodData.End.ToShortDateString()</div>
+    <div class="@(PeriodData.IsCurrent ? "green" : "red")">
+        <strong>Is Current Period:</strong> @(PeriodData.IsCurrent ? "Yes" : "No")
+    </div>
+
+    <!--
+    <MatIconButton Icon="done" OnClick="() => DisabledSubjectAdding(false)"></MatIconButton>
+    <MatIconButton Icon="cancel" OnClick="() => DisabledSubjectAdding(true)"></MatIconButton>
+    <MatDivider></MatDivider>
+    <div>
+        <EditForm EditContext="SubjectContext">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <div>
+                <MatTextField @bind-Value="SubjectModel.LongName" Label="Long Name" FullWidth="true"></MatTextField>
+                <ValidationMessage For="() => SubjectModel.LongName"></ValidationMessage>
+            </div>
+            <div>
+                <MatTextField @bind-Value="SubjectModel.ShortName" Label="Short Name" FullWidth="true"></MatTextField>
+                <ValidationMessage For="() => SubjectModel.ShortName"></ValidationMessage>
+            </div>
+            <div>
+                <MatTextField @bind-Value="SubjectModel.Code" Label="Code" FullWidth="true"></MatTextField>
+                <ValidationMessage For="() => SubjectModel.Code"></ValidationMessage>
+            </div>
+            <div>
+                <MatTextField @bind-Value="SubjectModel.Description" TextArea="true" Label="Description" FullWidth="true"></MatTextField>
+                <ValidationMessage For="() => SubjectModel.Description"></ValidationMessage>
+            </div>
+            <div>
+                <MatNumericUpDownField @bind-Value="SubjectModel.Credit" Minimum="1" Maximum="10" Label="Credit" FullWidth="true"></MatNumericUpDownField>
+                <ValidationMessage For="() => SubjectModel.Credit"></ValidationMessage>
+            </div>
+            <div>
+                <MatSelectItem @bind-Value="SubjectModel.Type" Label="Type" FullWidth="true" Items="Enum.GetValues(typeof(SubjectType)).Cast<SubjectType>().ToArray()"></MatSelectItem>
+                <ValidationMessage For="() => SubjectModel.Type"></ValidationMessage>
+            </div>
+        </EditForm>
+    </div>
+    <MatDivider></MatDivider>
+    -->
 }

@@ -49,8 +49,7 @@ namespace UniHelper.Pages
 
         private async void OpenDialog()
         {
-            var parameters = new DialogParameters();
-            parameters.Add("Period", null);
+            var parameters = new DialogParameters {{"Period", null}};
             var dialog = DialogService.Show<PeriodDialog>("Add Period", parameters);
             var result = await dialog.Result;
 

@@ -29,10 +29,6 @@ namespace UniHelper.Pages
 
         private PageState State { get; set; } = PageState.Display;
 
-        private EditContext PeriodContext { get; set; }
-
-        private PeriodModel PeriodModel { get; set; }
-
         private EditContext SubjectContext { get; set; }
 
         private SubjectModel SubjectModel { get; set; }
@@ -74,9 +70,9 @@ namespace UniHelper.Pages
             StateHasChanged();
         }
 
-        private void OpenSubject(int id)
+        private void OpenSubject(TableRowClickEventArgs<SubjectDto> e)
         {
-            NavigationManager.NavigateTo($"/periods/subjects/{id}");
+            NavigationManager.NavigateTo($"/periods/subjects/{e.Item.Id}");
         }
 
         private void OpenPeriodList()
@@ -86,8 +82,7 @@ namespace UniHelper.Pages
 
         private async void OpenPeriodDialog()
         {
-            var parameters = new DialogParameters();
-            parameters.Add("Period", PeriodData);
+            var parameters = new DialogParameters {{"Period", PeriodData}};
             var dialog = DialogService.Show<PeriodDialog>("Edit Period", parameters);
             var result = await dialog.Result;
 
@@ -99,13 +94,18 @@ namespace UniHelper.Pages
 
         private async void OpenDeleteDialog()
         {
-            var parameters = new DialogParameters();
-            parameters.Add("Input", new ConfirmDialogInput
+            var parameters = new DialogParameters
             {
-                Name = PeriodData.Name,
-                DeleteFunction = async () => { return await PeriodService.Remove(PeriodData.Id); }
-            });
-            var dialog = DialogService.Show<PeriodDialog>("Edit Period", parameters);
+                {
+                    "Input",
+                    new ConfirmDialogInput
+                    {
+                        Name = PeriodData.Name,
+                        DeleteFunction = async () => await PeriodService.Remove(PeriodData.Id)
+                    }
+                }
+            };
+            var dialog = DialogService.Show<ConfirmDialog>("Confirm Delete", parameters);
             var result = await dialog.Result;
 
             if (!result.Cancelled)
@@ -116,14 +116,13 @@ namespace UniHelper.Pages
 
         private async void OpenAddDialog()
         {
-            var parameters = new DialogParameters();
-            parameters.Add("Subject", null);
+            var parameters = new DialogParameters {{"Subject", null}};
             var dialog = DialogService.Show<PeriodDialog>("Add Subject", parameters);
             var result = await dialog.Result;
 
             if (!result.Cancelled)
             {
-                await Refresh();
+                await GetData();
             }
         }
     }

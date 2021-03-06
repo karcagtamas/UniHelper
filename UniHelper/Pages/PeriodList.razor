@@ -4,7 +4,7 @@
 <PageTitle Title="Period List"></PageTitle>
 
     <div class="data-header">
-        <MudIconButton Icon="@Icons.Filled.Add"/>
+        <MudIconButton Icon="@Icons.Filled.Add" OnClick="OpenDialog"/>
         <span class="spacer"></span>
         @if (List != null && List.Count > 0)
         {

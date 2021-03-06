@@ -1,5 +1,10 @@
 <MatPortalHost></MatPortalHost>
 <MudThemeProvider Theme="_myTheme"/>
+<MudDialogProvider
+    CloseButton="true" 
+    DisableBackdropClick="true" 
+    Position="DialogPosition.Center" />
+<MudSnackbarProvider/>
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
@@ -31,72 +36,86 @@
             Default = new Default
             {
                 FontFamily = FontFamily,
-                FontSize = "13px"
+                FontSize = "13px",
+                LineHeight = 1.3
             },
             Body1 = new Body1
             {
                 FontFamily = FontFamily,
-                FontSize = "13px"
+                FontSize = "13px",
+                LineHeight = 1.3
             },
             Body2 = new Body2
             {
                 FontFamily = FontFamily,
-                FontSize = "13px"
+                FontSize = "13px",
+                LineHeight = 1.3
             },
             Button = new Button
             {
                 FontFamily = FontFamily,
-                FontSize = "13px"
+                FontSize = "13px",
+                LineHeight = 1.3
             },
             Caption = new Caption
             {
                 FontFamily = FontFamily,
-                FontSize = "13px"
+                FontSize = "13px",
+                LineHeight = 1.3
             },
             H1 = new H1
             {
                 FontFamily = FontFamily,
-                FontSize = "24px"
+                FontSize = "24px",
+                LineHeight = 1.3
             },
             H2 = new H2
             {
                 FontFamily = FontFamily,
-                FontSize = "22px"
+                FontSize = "22px",
+                LineHeight = 1.3
             },
             H3 = new H3
             {
                 FontFamily = FontFamily,
-                FontSize = "20px"
+                FontSize = "20px",
+                LineHeight = 1.3
             },
             H4 = new H4
             {
                 FontFamily = FontFamily,
-                FontSize = "18px"
+                FontSize = "18px",
+                LineHeight = 1.3
             },
             H5 = new H5
             {
                 FontFamily = FontFamily,
-                FontSize = "16px"
+                FontSize = "16px",
+                LineHeight = 1.3
             },
             H6 = new H6
             {
                 FontFamily = FontFamily,
-                FontSize = "14px"
+                FontSize = "14px",
+                LineHeight = 1.3
             },
             Subtitle1 = new Subtitle1
             {
                 FontFamily = FontFamily,
-                FontSize = "10px"
+                FontSize = "10px",
+                LineHeight = 1.3
             },
             Subtitle2 = new Subtitle2
             {
                 FontFamily = FontFamily,
-                FontSize = "10px"
+                FontSize = "10px",
+                LineHeight = 1.3
             },
             Overline = new Overline
             {
                 FontFamily = FontFamily,
-                FontSize = "13px"
+                FontSize = "13px",
+                LineHeight = 1.3
             }
         }
     };

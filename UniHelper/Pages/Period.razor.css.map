@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["Period.razor.scss","../Assets/colors.scss"],"names":[],"mappings":"AAEA;EACE;EACA;;AAEA;EACE;;;AAIJ;EACE;EACA;EACA;;AAEA;EACE;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;;AAGF;EACE,kBC3BY;ED4BZ;EACA;EACA;;AAIA;EACE,kBCpCW;EDqCX;EACA;EACA;;AAIJ;EACE;EACA;EACA;EACA;;AAEA;EACE","file":"Period.razor.css"}
+{"version":3,"sourceRoot":"","sources":["Period.razor.scss"],"names":[],"mappings":"AAEA;EACE;EACA;;AAEA;EACE","file":"Period.razor.css"}
