@@ -6,4 +6,48 @@ html, body, #app {
   height: 100%;
 }
 
+.task-solved {
+  background-color: gray;
+}
+
+.task-low {
+  background-color: lightskyblue !important;
+  transition-duration: 0.5s;
+}
+.task-low:hover {
+  opacity: 0.8;
+  transition-duration: 0.5s;
+}
+
+.task-normal {
+  background-color: lightyellow !important;
+  transition-duration: 0.5s;
+}
+.task-normal:hover {
+  opacity: 0.8;
+  transition-duration: 0.5s;
+}
+
+.task-important {
+  background-color: #f08080 !important;
+  transition-duration: 0.5s;
+}
+.task-important:hover {
+  opacity: 0.8;
+  transition-duration: 0.5s;
+}
+
+.task-high {
+  background-color: #ffb654 !important;
+  transition-duration: 0.5s;
+}
+.task-high:hover {
+  opacity: 0.8;
+  transition-duration: 0.5s;
+}
+
+.task-ended {
+  border: 3px solid lightcoral;
+}
+
 /*# sourceMappingURL=app.css.map */

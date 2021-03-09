@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -24,7 +25,8 @@ namespace UniHelper.Pages
 
         [Inject]
         private IDialogService DialogService { get; set; }
-        private List<TaskDto> TaskList { get; set; }
+
+        private List<TaskDto> TaskList { get; set; } = new();
 
         protected override async Task OnInitializedAsync()
         {
@@ -33,8 +35,13 @@ namespace UniHelper.Pages
 
         private async Task GetLists()
         {
-            TaskList = new List<TaskDto>();
-            TaskList.AddRange(await GlobalTaskService.GetList());
+            var list = new List<TaskDto>();
+            list.AddRange(await GlobalTaskService.GetList());
+            list.AddRange(await PeriodTaskService.GetList());
+            list.AddRange(await SubjectTaskService.GetList());
+            list = list.OrderBy(x => x.IsSolved).ThenBy(x => x.DueDate).ThenByDescending(x => x.Priority).ToList();
+            
+            TaskList = list;
             StateHasChanged();
         }
 

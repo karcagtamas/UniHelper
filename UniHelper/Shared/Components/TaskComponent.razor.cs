@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -11,26 +12,21 @@ namespace UniHelper.Shared.Components
 {
     public partial class TaskComponent
     {
-        [Parameter]
-        public TaskDto TaskData { get; set; }
+        [Parameter] public TaskDto TaskData { get; set; }
 
-        [Parameter]
-        public EventCallback OnRemove { get; set; }
+        [Parameter] public EventCallback OnRemove { get; set; }
 
-        [Parameter]
-        public EventCallback OnEdit { get; set; }
+        [Parameter] public EventCallback OnEdit { get; set; }
 
-        [Inject]
-        private IGlobalTaskService GlobalTaskService { get; set; }
+        [Inject] private IGlobalTaskService GlobalTaskService { get; set; }
 
-        [Inject]
-        private IPeriodTaskService PeriodTaskService { get; set; }
+        [Inject] private IPeriodTaskService PeriodTaskService { get; set; }
 
-        [Inject]
-        private ISubjectTaskService SubjectTaskService { get; set; }
+        [Inject] private ISubjectTaskService SubjectTaskService { get; set; }
 
-        [Inject]
-        private IDialogService DialogService { get; set; }
+        [Inject] private IDialogService DialogService { get; set; }
+
+        private string _defaultClass = "d-flex flex-column align-center justify-center mud-width-full py-8";
 
         private async void OpenDeleteDialog()
         {
@@ -68,7 +64,8 @@ namespace UniHelper.Shared.Components
             }
         }
 
-        private async void OpenEditDialog() {
+        private async void OpenEditDialog()
+        {
             var parameters = new DialogParameters {{"TaskData", TaskData}};
             var dialog = DialogService.Show<TaskDialog>("Edit Task", parameters);
             var result = await dialog.Result;
@@ -77,6 +74,41 @@ namespace UniHelper.Shared.Components
             {
                 await OnEdit.InvokeAsync();
             }
+        }
+
+        private string GetClass()
+        {
+            var val = "";
+
+            if (TaskData.IsSolved)
+            {
+                val += " task-solved";
+            }
+            else
+            {
+                switch (TaskData.Priority)
+                {
+                    case TaskPriority.High:
+                        val += " task-high";
+                        break;
+                    case TaskPriority.Important:
+                        val += " task-important";
+                        break;
+                    case TaskPriority.Normal:
+                        val += " task-normal";
+                        break;
+                    case TaskPriority.Low:
+                        val += " task-low";
+                        break;
+                }
+                
+                if (DateTime.Now > TaskData.DueDate)
+                {
+                    val += " task-ended";
+                }
+            }
+            
+            return _defaultClass + val;
         }
     }
 }

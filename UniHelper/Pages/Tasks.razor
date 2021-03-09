@@ -9,7 +9,7 @@
         @foreach (var task in TaskList)
         {
             <MudItem xs="6">
-                <TaskComponent TaskData="task"></TaskComponent>
+                <TaskComponent TaskData="task" OnEdit="GetLists" OnRemove="GetLists"></TaskComponent>
             </MudItem>
         }
     </MudGrid>

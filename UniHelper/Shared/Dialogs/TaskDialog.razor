@@ -45,6 +45,10 @@
                 </MudSelect>
                 <ValidationMessage For="() => Model.Priority"></ValidationMessage>
             </div>
+            <div>
+                <MudSwitch @bind-Checked="Model.IsSolved" Label="Is Solved" Color="Color.Primary" />
+                <ValidationMessage For="() => Model.IsSolved"></ValidationMessage>
+            </div>
         </EditForm>
     </DialogContent>
     <DialogActions>

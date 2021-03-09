@@ -16,8 +16,8 @@
       <option name="outputFromStdout" value="false" />
       <option name="program" value="sass" />
       <option name="runOnExternalChanges" value="true" />
-      <option name="scopeName" value="All Places" />
-      <option name="trackOnlyRoot" value="true" />
+      <option name="scopeName" value="All Changed Files" />
+      <option name="trackOnlyRoot" value="false" />
       <option name="workingDir" value="$FileDir$" />
       <envs />
     </TaskOptions>
