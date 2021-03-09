@@ -1,0 +1,46 @@
+@using UniHelper.Shared.Enums
+<MudDialog>
+    <DialogContent>
+        <div>
+            <EditForm EditContext="CourseContext">
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <div>
+                    <MatTextField @bind-Value="Model.Place" Label="Place" FullWidth="true"></MatTextField>
+                    <ValidationMessage For="() => Model.Place"></ValidationMessage>
+                </div>
+                <div>
+                    <MatSelectItem @bind-Value="Model.Type" Label="Type" FullWidth="true"
+                        Items="Enum.GetValues(typeof(CourseType)).Cast<CourseType>().ToArray()"></MatSelectItem>
+                    <ValidationMessage For="() => Model.Type"></ValidationMessage>
+                </div>
+                <div>
+                    <MatNumericUpDownField @bind-Value="Model.Number" Minimum="1" Maximum="16" Label="Number"
+                        FullWidth="true"></MatNumericUpDownField>
+                    <ValidationMessage For="() => Model.Number"></ValidationMessage>
+                </div>
+                <div>
+                    <MatNumericUpDownField @bind-Value="Model.Length" Minimum="1" Maximum="8" Label="Length"
+                        FullWidth="true"></MatNumericUpDownField>
+                    <ValidationMessage For="() => Model.Length"></ValidationMessage>
+                </div>
+                <div>
+                    <MatSelectItem @bind-Value="Model.Day" Label="Day" FullWidth="true"
+                        Items="Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().ToArray()"></MatSelectItem>
+                    <ValidationMessage For="() => Model.Day"></ValidationMessage>
+                </div>
+                <div>
+                    <MatTextField @bind-Value="Model.Teachers" Label="Teachers" FullWidth="true"></MatTextField>
+                    <ValidationMessage For="() => Model.Teachers"></ValidationMessage>
+                </div>
+                <div>
+                    <MatSlideToggle @bind-Value="Model.IsSelected" Label="Is Selected"></MatSlideToggle>
+                    <ValidationMessage For="() => Model.IsSelected"></ValidationMessage>
+                </div>
+            </EditForm>
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Save">Save</MudButton>
+    </DialogActions>
+</MudDialog>

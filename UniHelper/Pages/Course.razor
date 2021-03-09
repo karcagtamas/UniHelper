@@ -1,104 +1,43 @@
 @page "/periods/subjects/courses/{Id:int}"
-@using UniHelper.Enums
-@using UniHelper.Shared.Enums
 
 <PageTitle Title="@GetTitle()"></PageTitle>
 
 @if (CourseData != null)
 {
-    <div id="data">
-        <div>
-            @if (State == PageState.Display)
-            {
-                <div class="data-header">
-                    <MatIconButton Icon="edit" OnClick="EnableEditing"></MatIconButton>
-                    <MatIconButton Icon="remove" OnClick="EnableRemoving"></MatIconButton>
-                    <span class="spacer"></span>
-                    <MatIconButton Icon="arrow_left" OnClick="OpenSubject"></MatIconButton>
-                </div>
+    <div class="data-header">
+        <MudIconButton Icon="@Icons.Filled.Edit" OnClick="OpenCourseDialog"></MudIconButton>
+        <MudIconButton Icon="@Icons.Filled.Remove" OnClick="OpenDeleteDialog"></MudIconButton>
+        <span class="spacer"></span>
+        <MudIconButton Icon="@Icons.Filled.ArrowLeft" OnClick="OpenSubject"></MudIconButton>
+    </div>
                 
-                <MatDivider></MatDivider>
+    <MudDivider />
 
-                <div>
-                    <strong>Place:</strong> @CourseData.Place
-                </div>
-                <div>
-                    <strong>Type:</strong> @CourseData.Type
-                </div>
-                <div>
-                    <strong>Number:</strong> @CourseData.Number
-                </div>
-                <div>
-                    <strong>Length:</strong> @CourseData.Length
-                </div>
-                @if (Interval != null)
-                {
-                    <div>
-                        <strong>Interval:</strong> @Interval.Start - @Interval.End
-                    </div>
-                }
-                <div>
-                    <strong>Day:</strong> @CourseData.Day
-                </div>
-                <div>
-                    <strong>Teachers:</strong> @CourseData.Teachers
-                </div>
-                <div class="@(CourseData.IsSelected ? "green" : "red")">
-                    <strong>Is Selected:</strong> @(CourseData.IsSelected ? "Yes" : "No")
-                </div>
-                <MatDivider></MatDivider>
-            }
-            else if (State == PageState.Editing)
-            {
-                <MatIconButton Icon="done" OnClick="() => DisableEditing(false)"></MatIconButton>
-                <MatIconButton Icon="cancel" OnClick="() => DisableEditing(true)"></MatIconButton>
-                <MatDivider></MatDivider>
-
-                <div>
-                    <EditForm EditContext="CourseContext">
-                        <DataAnnotationsValidator></DataAnnotationsValidator>
-                        <div>
-                            <MatTextField @bind-Value="CourseModel.Place" Label="Place" FullWidth="true"></MatTextField>
-                            <ValidationMessage For="() => CourseModel.Place"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatSelectItem @bind-Value="CourseModel.Type" Label="Type" FullWidth="true" Items="Enum.GetValues(typeof(CourseType)).Cast<CourseType>().ToArray()"></MatSelectItem>
-                            <ValidationMessage For="() => CourseModel.Type"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatNumericUpDownField @bind-Value="CourseModel.Number" Minimum="1" Maximum="16" Label="Number" FullWidth="true"></MatNumericUpDownField>
-                            <ValidationMessage For="() => CourseModel.Number"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatNumericUpDownField @bind-Value="CourseModel.Length" Minimum="1" Maximum="8" Label="Length" FullWidth="true"></MatNumericUpDownField>
-                            <ValidationMessage For="() => CourseModel.Length"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatSelectItem @bind-Value="CourseModel.Day" Label="Day" FullWidth="true" Items="Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().ToArray()"></MatSelectItem>
-                            <ValidationMessage For="() => CourseModel.Day"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatTextField @bind-Value="CourseModel.Teachers" Label="Teachers" FullWidth="true"></MatTextField>
-                            <ValidationMessage For="() => CourseModel.Teachers"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatSlideToggle @bind-Value="CourseModel.IsSelected" Label="Is Selected"></MatSlideToggle>
-                            <ValidationMessage For="() => CourseModel.IsSelected"></ValidationMessage>
-                        </div>
-                    </EditForm>
-                </div>
-
-                <MatDivider></MatDivider>
-            }
-            else if (State == PageState.Removing)
-            {
-                <div>
-                    <strong>Are you sure about removing Course?</strong>
-                </div>
-                <MatIconButton Icon="done" OnClick="() => DisableRemoving(true)"></MatIconButton>
-                <MatIconButton Icon="cancel" OnClick="() => DisableRemoving(false)"></MatIconButton>
-                <MatDivider></MatDivider>
-            }
+    <div>
+        <strong>Place:</strong> @CourseData.Place
+    </div>
+    <div>
+        <strong>Type:</strong> @CourseData.Type
+    </div>
+    <div>
+        <strong>Number:</strong> @CourseData.Number
+    </div>
+    <div>
+        <strong>Length:</strong> @CourseData.Length
+    </div>
+    @if (Interval != null)
+    {
+        <div>
+            <strong>Interval:</strong> @Interval.Start - @Interval.End
         </div>
+    }
+    <div>
+        <strong>Day:</strong> @CourseData.Day
+    </div>
+    <div>
+        <strong>Teachers:</strong> @CourseData.Teachers
+    </div>
+    <div class="@(CourseData.IsSelected ? "green" : "red")">
+        <strong>Is Selected:</strong> @(CourseData.IsSelected ? "Yes" : "No")
     </div>
 }

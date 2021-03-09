@@ -7,7 +7,6 @@ using UniHelper.Enums;
 using UniHelper.Services;
 using UniHelper.Shared.Dialogs;
 using UniHelper.Shared.DTOs;
-using UniHelper.Shared.Models;
 
 namespace UniHelper.Pages
 {
@@ -20,21 +19,12 @@ namespace UniHelper.Pages
         private ISubjectService SubjectService { get; set; }
         
         [Inject]
-        private ICourseService CourseService { get; set; }
-        
-        [Inject]
         private NavigationManager NavigationManager { get; set; }
         
         [Inject]
         private IDialogService DialogService { get; set; }
         
         private SubjectDto SubjectData { get; set; }
-
-        private EditContext CourseContext { get; set; }
-        
-        private CourseModel CourseModel { get; set; }
-
-        private PageState State { get; set; } = PageState.Display;
         
         protected override async Task OnInitializedAsync()
         {
@@ -91,14 +81,14 @@ namespace UniHelper.Pages
 
             if (!result.Cancelled)
             {
-                NavigationManager.NavigateTo("/subjects");
+                NavigationManager.NavigateTo($"/periods/{SubjectData.PeriodId}");
             }
         }
         
         private async void OpenAddDialog()
         {
             var parameters = new DialogParameters {{"Course", null}};
-            var dialog = DialogService.Show<SubjectDialog>("Add Course", parameters);
+            var dialog = DialogService.Show<CourseDialog>("Add Course", parameters);
             var result = await dialog.Result;
 
             if (!result.Cancelled)
@@ -106,6 +96,5 @@ namespace UniHelper.Pages
                 await GetData();
             }
         }
-        
     }
 }

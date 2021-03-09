@@ -1,104 +1,61 @@
 @page "/periods/subjects/{Id:int}"
-@using UniHelper.Enums
-@using UniHelper.Shared.Enums
 @using UniHelper.Shared.DTOs
 
 <PageTitle Title="@GetTitle()"></PageTitle>
 
 @if (SubjectData != null)
 {
-    <div id="data">
-        <div>
-            @if (State == PageState.Display)
-            {
-                <div class="data-header">
-                    <MudIconButton Icon="@Icons.Filled.Add" OnClick="OpenAddDialog" />
-                    <MudIconButton Icon="@Icons.Filled.Edit" OnClick="OpenSubjectDialog" />
-                    <MudIconButton Icon="@Icons.Filled.Remove" OnClick="OpenDeleteDialog" />
-                    <span class="spacer"></span>
-                    <MudIconButton Icon="@Icons.Filled.ArrowLeft" OnClick="OpenPeriod" />
-                </div>
+    <div class="data-header">
+        <MudIconButton Icon="@Icons.Filled.Add" OnClick="OpenAddDialog" />
+        <MudIconButton Icon="@Icons.Filled.Edit" OnClick="OpenSubjectDialog" />
+        <MudIconButton Icon="@Icons.Filled.Remove" OnClick="OpenDeleteDialog" />
+        <span class="spacer"></span>
+        <MudIconButton Icon="@Icons.Filled.ArrowLeft" OnClick="OpenPeriod" />
+    </div>
 
-                <MudDivider />
-                @if (SubjectData.Courses != null && SubjectData.Courses.Count > 0)
-                {
-                    <MudTable T="CourseDto" Items="@SubjectData.Courses" Class="mt-1 mb-3" Dense="true" FixedHeader="true" Hover="true" OnRowClick="@((e) => OpenCourse(e))" RowClassFunc="@((e, i) => e.IsSelected ? "" : "un-selected")">
-                        <HeaderContent>
-                            <MudTh>Place</MudTh>
-                            <MudTh>Type</MudTh>
-                            <MudTh>Number</MudTh>
-                            <MudTh>Length</MudTh>
-                            <MudTh>Day</MudTh>
-                            <MudTh>Teachers</MudTh>
-                        </HeaderContent>
-                        <RowTemplate>
-                            <MudTd DataLabel="Place">@context.Place</MudTd>
-                            <MudTd DataLabel="Type">@context.Type</MudTd>
-                            <MudTd DataLabel="Number">@context.Number</MudTd>
-                            <MudTd DataLabel="Length">@context.Length</MudTd>
-                            <MudTd DataLabel="Day">@context.Day</MudTd>
-                            <MudTd DataLabel="Teachers">@context.Teachers</MudTd>
-                        </RowTemplate>
-                    </MudTable>
-                }
+    <MudDivider />
+    @if (SubjectData.Courses != null && SubjectData.Courses.Count > 0)
+    {
+        <MudTable T="CourseDto" Items="@SubjectData.Courses" Class="mt-1 mb-3" Dense="true" FixedHeader="true" Hover="true" OnRowClick="@((e) => OpenCourse(e))" RowClassFunc="@((e, i) => e.IsSelected ? "" : "un-selected")">
+            <HeaderContent>
+                <MudTh>Place</MudTh>
+                <MudTh>Type</MudTh>
+                <MudTh>Number</MudTh>
+                <MudTh>Length</MudTh>
+                <MudTh>Day</MudTh>
+                <MudTh>Teachers</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Place">@context.Place</MudTd>
+                <MudTd DataLabel="Type">@context.Type</MudTd>
+                <MudTd DataLabel="Number">@context.Number</MudTd>
+                <MudTd DataLabel="Length">@context.Length</MudTd>
+                <MudTd DataLabel="Day">@context.Day</MudTd>
+                <MudTd DataLabel="Teachers">@context.Teachers</MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
 
-                <MudDivider />
-                <div>
-                    <strong>Short Name:</strong> @SubjectData.ShortName
-                </div>
-                <div>
-                    <strong>Code:</strong> @SubjectData.Code
-                </div>
-                <div>
-                    <strong>Description:</strong> @SubjectData.Description
-                </div>
-                <div>
-                    <strong>Credit:</strong> @SubjectData.Credit
-                </div>
-                <div class="@(SubjectData.Result != null ? "green" : "")">
-                    <strong>Result:</strong> @SubjectData.Result
-                </div>
-                <div class="@(SubjectData.IsActive ? "green" : "red")">
-                    <strong>Is Active:</strong> @(SubjectData.IsActive ? "Yes" : "No")
-                </div>
-                <div>
-                    <strong>Type:</strong> @SubjectData.Type
-                </div>
-            }
-            else if (State == PageState.Adding)
-            {
-                <MatDivider></MatDivider>
-                <div>
-                    <EditForm EditContext="CourseContext">
-                        <DataAnnotationsValidator></DataAnnotationsValidator>
-                        <div>
-                            <MatTextField @bind-Value="CourseModel.Place" Label="Place" FullWidth="true"></MatTextField>
-                            <ValidationMessage For="() => CourseModel.Place"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatSelectItem @bind-Value="CourseModel.Type" Label="Type" FullWidth="true" Items="Enum.GetValues(typeof(CourseType)).Cast<CourseType>().ToArray()"></MatSelectItem>
-                            <ValidationMessage For="() => CourseModel.Type"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatNumericUpDownField @bind-Value="CourseModel.Number" Minimum="1" Maximum="16" Label="Number" FullWidth="true"></MatNumericUpDownField>
-                            <ValidationMessage For="() => CourseModel.Number"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatNumericUpDownField @bind-Value="CourseModel.Length" Minimum="1" Maximum="8" Label="Length" FullWidth="true"></MatNumericUpDownField>
-                            <ValidationMessage For="() => CourseModel.Length"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatSelectItem @bind-Value="CourseModel.Day" Label="Day" FullWidth="true" Items="Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().ToArray()"></MatSelectItem>
-                            <ValidationMessage For="() => CourseModel.Day"></ValidationMessage>
-                        </div>
-                        <div>
-                            <MatTextField @bind-Value="CourseModel.Teachers" Label="Teachers" FullWidth="true"></MatTextField>
-                            <ValidationMessage For="() => CourseModel.Teachers"></ValidationMessage>
-                        </div>
-                    </EditForm>
-                </div>
-                <MatDivider></MatDivider>
-            }
-        </div>
+    <MudDivider />
+    <div>
+        <strong>Short Name:</strong> @SubjectData.ShortName
+    </div>
+    <div>
+        <strong>Code:</strong> @SubjectData.Code
+    </div>
+    <div>
+        <strong>Description:</strong> @SubjectData.Description
+    </div>
+    <div>
+        <strong>Credit:</strong> @SubjectData.Credit
+    </div>
+    <div class="@(SubjectData.Result != null ? "green" : "")">
+        <strong>Result:</strong> @SubjectData.Result
+    </div>
+    <div class="@(SubjectData.IsActive ? "green" : "red")">
+        <strong>Is Active:</strong> @(SubjectData.IsActive ? "Yes" : "No")
+    </div>
+    <div>
+        <strong>Type:</strong> @SubjectData.Type
     </div>
 }
