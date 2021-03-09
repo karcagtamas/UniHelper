@@ -1,4 +1,4 @@
-namespace UniHelper.Enums
+namespace UniHelper.Shared.Enums
 {
     public enum TaskType
     {

@@ -9,7 +9,7 @@
         @foreach (var task in TaskList)
         {
             <MudItem xs="6">
-                <MudPaper Class="mud-width-full py-8">@task.Text</MudPaper>
+                <TaskComponent TaskData="task"></TaskComponent>
             </MudItem>
         }
     </MudGrid>

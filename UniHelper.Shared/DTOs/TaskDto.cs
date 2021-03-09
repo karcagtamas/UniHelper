@@ -10,5 +10,6 @@ namespace UniHelper.Shared.DTOs
         public DateTime DueDate { get; set; }
         public TaskPriority Priority { get; set; }
         public bool IsSolved { get; set; }
+        public TaskType Type { get; set; }
     }
 }

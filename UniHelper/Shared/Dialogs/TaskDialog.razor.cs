@@ -2,9 +2,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
-using UniHelper.Enums;
 using UniHelper.Services;
 using UniHelper.Shared.DTOs;
+using UniHelper.Shared.Enums;
 using UniHelper.Shared.Models;
 
 namespace UniHelper.Shared.Dialogs
@@ -36,13 +36,14 @@ namespace UniHelper.Shared.Dialogs
             {
                 Model = new TaskModel(TaskData);
                 IsEdit = true;
+                AddType = TaskData.Type;
             }
             else
             {
                 Model = new TaskModel();
+                AddType = TaskType.Global;
             }
             TaskContext = new EditContext(Model);
-            AddType = TaskType.Global;
             return base.OnInitializedAsync();
         }
 

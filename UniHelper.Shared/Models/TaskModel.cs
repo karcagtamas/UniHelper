@@ -10,18 +10,24 @@ namespace UniHelper.Shared.Models
         [Required]
         [MaxLength(200)]
         public string Text { get; set; }
-        
+
         [Required]
         public DateTime DueDate { get; set; }
-        
+
         [Required]
         public TaskPriority Priority { get; set; }
-        
+
         [Required]
         public bool IsSolved { get; set; }
 
-        public TaskModel() {}
+        public TaskModel() { }
 
-        public TaskModel(TaskDto task) {}
+        public TaskModel(TaskDto task)
+        {
+            Text = task.Text;
+            DueDate = task.DueDate;
+            Priority = task.Priority;
+            IsSolved = task.IsSolved;
+        }
     }
 }
