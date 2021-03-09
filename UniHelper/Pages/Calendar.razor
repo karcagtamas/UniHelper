@@ -4,13 +4,13 @@
     <PageTitle Title="Calendar"></PageTitle>
     <span class="spacer"></span>
     <div>
-        <MatSlideToggle TValue="bool" Value="RemoveEmptyCols" ValueChanged="ChangeEmptyColFilter" Label="Remove empty columns"></MatSlideToggle>
+        <MudSwitch T="bool" Checked="RemoveEmptyCols" CheckedChanged="ChangeEmptyColFilter" Label="Remove empty columns" Color="Color.Primary" />
     </div>
     <div>
-        <MatSlideToggle TValue="bool" Value="RemoveWeekendCols" ValueChanged="ChangeWeekendFilter" Label="Remove weekend columns"></MatSlideToggle>
+        <MudSwitch T="bool" Checked="RemoveWeekendCols" CheckedChanged="ChangeWeekendFilter" Label="Remove weekend columns" Color="Color.Primary" />
     </div>
     <div>
-        <MatSlideToggle TValue="bool" Value="RemoveEmptyFirstAndLastRows" ValueChanged="ChangeEmptyFirstAndLastRowFilter" Label="Remove empty Start and End rows"></MatSlideToggle>
+        <MudSwitch T="bool" Checked="RemoveEmptyFirstAndLastRows" CheckedChanged="ChangeEmptyFirstAndLastRowFilter" Label="Remove empty Start and End rows"  Color="Color.Primary" />
     </div>
 </div>
 
