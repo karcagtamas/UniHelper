@@ -1,1 +1,4 @@
-<MudPaper Class="mud-width-full py-8">@TaskData.Text</MudPaper>
+<MudPaper Class="d-flex flex-column align-center justify-center mud-width-full py-8">
+    <MudText Typo="Typo.h3">@TaskData.Text</MudText>
+    <MudText Typo="Typo.body1">@TaskData.DueDate.ToShortDateString()</MudText>
+</MudPaper>
