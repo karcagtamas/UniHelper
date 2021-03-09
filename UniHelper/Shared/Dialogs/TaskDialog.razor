@@ -5,7 +5,7 @@
         <EditForm EditContext="TaskContext">
             <DataAnnotationsValidator></DataAnnotationsValidator>
             <div>
-                <MudRadioGroup @bind-SelectedOption="AddType">
+                <MudRadioGroup T="TaskType" SelectedOption="AddType" SelectedOptionChanged="TypeChanged">
                     @foreach (var type in Enum.GetValues(typeof(TaskType)).Cast<TaskType>())
                     {
                         <MudRadio Option="@type" Color="Color.Primary">@type</MudRadio>
@@ -16,15 +16,38 @@
             {
                 <div>
                     <MudSelect @bind-Value="SelectedId" Label="Period" FullWidth="true" Dense="true">
-                        <MudSelectItem TValue="int" Value="@(0)"></MudSelectItem>
+                        @if (Periods != null)
+                        {
+                            @foreach (var period in Periods)
+                            {
+                                <MudSelectItem Value="period.Id">@period.Name</MudSelectItem>
+                            }
+                        }
                     </MudSelect>
                 </div>
             }
             else if (AddType == TaskType.Subject)
             {
                 <div>
+                    <MudSelect T="int" Value="ParentSelectedId" ValueChanged="ParentIdChanged" Label="Period" FullWidth="true" Dense="true">
+                        @if (Periods != null)
+                        {
+                            @foreach (var period in Periods)
+                            {
+                                <MudSelectItem Value="period.Id">@period.Name</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
+                </div>
+                <div>
                     <MudSelect @bind-Value="SelectedId" Label="Subject" FullWidth="true" Dense="true">
-                        <MudSelectItem TValue="int" Value="@(0)"></MudSelectItem>
+                        @if (Subjects != null)
+                        {
+                            @foreach (var subject in Subjects)
+                            {
+                                <MudSelectItem Value="subject.Id">@subject.ShortName</MudSelectItem>
+                            }
+                        }
                     </MudSelect>
                 </div>
             }
