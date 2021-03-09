@@ -1,0 +1,50 @@
+@using UniHelper.Enums
+@using UniHelper.Shared.Enums
+
+<MudDialog>
+    <DialogContent>
+             <EditForm EditContext="TaskContext">
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <div>
+                    <MudRadioGroup @bind-SelectedOption="AddType">
+                        @foreach (var type in Enum.GetValues(typeof(TaskType)).Cast<TaskType>()) 
+                        {
+                            <MudRadio Option="@type" Color="Color.Primary">@type</MudRadio>
+                        }
+                    </MudRadioGroup>
+                </div>
+                @if (AddType == TaskType.Period)
+                {
+                    <div>
+                        <MatSelect @bind-Value="SelectedId" Label="Period" FullWidth="true">
+                            <MatOption TValue="int" Value="@(0)"></MatOption>
+                        </MatSelect>
+                    </div>
+                }
+                else if (AddType == TaskType.Subject)
+                {
+                    <div>
+                        <MatSelect @bind-Value="SelectedId" Label="Subject" FullWidth="true">
+                            <MatOption TValue="int" Value="@(0)"></MatOption>
+                        </MatSelect>
+                    </div>
+                }
+                <div>
+                    <MatTextField @bind-Value="Model.Text" Label="Task" FullWidth="true"></MatTextField>
+                    <ValidationMessage For="() => Model.Text"></ValidationMessage>
+                </div>
+                <div>
+                    <MatDatePicker @bind-Value="Model.DueDate" Label="Due Date" FullWidth="true"></MatDatePicker>
+                    <ValidationMessage For="() => Model.DueDate"></ValidationMessage>
+                </div>
+                <div>
+                    <MatSelectItem @bind-Value="Model.Priority" Label="Priority" FullWidth="true" Items="Enum.GetValues(typeof(TaskPriority)).Cast<TaskPriority>().ToArray()"></MatSelectItem>
+                    <ValidationMessage For="() => Model.Priority"></ValidationMessage>
+                </div>
+            </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Save">Save</MudButton>
+    </DialogActions>
+</MudDialog>

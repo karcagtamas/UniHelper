@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using UniHelper.Shared.DTOs;
 using UniHelper.Shared.Enums;
 
 namespace UniHelper.Shared.Models
@@ -18,5 +19,9 @@ namespace UniHelper.Shared.Models
         
         [Required]
         public bool IsSolved { get; set; }
+
+        public TaskModel() {}
+
+        public TaskModel(TaskDto task) {}
     }
 }
