@@ -5,35 +5,41 @@
             <EditForm EditContext="CourseContext">
                 <DataAnnotationsValidator></DataAnnotationsValidator>
                 <div>
-                    <MatTextField @bind-Value="Model.Place" Label="Place" FullWidth="true"></MatTextField>
+                    <MudTextField @bind-Value="Model.Place" Label="Place" FullWidth="true"/>
                     <ValidationMessage For="() => Model.Place"></ValidationMessage>
                 </div>
                 <div>
-                    <MatSelectItem @bind-Value="Model.Type" Label="Type" FullWidth="true"
-                        Items="Enum.GetValues(typeof(CourseType)).Cast<CourseType>().ToArray()"></MatSelectItem>
+                    <MudSelect @bind-Value="Model.Type" Label="Type" FullWidth="true" Dense="true">
+                        @foreach (var type in Enum.GetValues(typeof(CourseType)).Cast<CourseType>().ToArray())
+                        {
+                            <MudSelectItem Value="type"/>
+                        }
+                    </MudSelect>
                     <ValidationMessage For="() => Model.Type"></ValidationMessage>
                 </div>
                 <div>
-                    <MatNumericUpDownField @bind-Value="Model.Number" Minimum="1" Maximum="16" Label="Number"
-                        FullWidth="true"></MatNumericUpDownField>
+                    <MudTextField @bind-Value="Model.Number" Label="Number" FullWidth="true"/>
                     <ValidationMessage For="() => Model.Number"></ValidationMessage>
                 </div>
                 <div>
-                    <MatNumericUpDownField @bind-Value="Model.Length" Minimum="1" Maximum="8" Label="Length"
-                        FullWidth="true"></MatNumericUpDownField>
+                    <MudTextField @bind-Value="Model.Length" Label="Length" FullWidth="true"/>
                     <ValidationMessage For="() => Model.Length"></ValidationMessage>
                 </div>
                 <div>
-                    <MatSelectItem @bind-Value="Model.Day" Label="Day" FullWidth="true"
-                        Items="Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().ToArray()"></MatSelectItem>
+                    <MudSelect @bind-Value="Model.Day" Label="Day" FullWidth="true" Dense="true">
+                        @foreach (var day in Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().ToArray())
+                        {
+                            <MudSelectItem Value="day"/>
+                        }
+                    </MudSelect>
                     <ValidationMessage For="() => Model.Day"></ValidationMessage>
                 </div>
                 <div>
-                    <MatTextField @bind-Value="Model.Teachers" Label="Teachers" FullWidth="true"></MatTextField>
+                    <MudTextField @bind-Value="Model.Teachers" Label="Teachers" FullWidth="true"/>
                     <ValidationMessage For="() => Model.Teachers"></ValidationMessage>
                 </div>
                 <div>
-                    <MatSlideToggle @bind-Value="Model.IsSelected" Label="Is Selected"></MatSlideToggle>
+                    <MudSwitch @bind-Checked="Model.IsSelected" Label="Is Selected" Color="Color.Primary"/>
                     <ValidationMessage For="() => Model.IsSelected"></ValidationMessage>
                 </div>
             </EditForm>

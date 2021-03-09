@@ -15,21 +15,24 @@ namespace UniHelper.Backend.Mappers
                 .ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Text))
                 .ForMember(dest => dest.DueDate, opt => opt.MapFrom(src => src.DueDate))
                 .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => (TaskPriority) src.Priority))
-                .ForMember(dest => dest.IsSolved, opt => opt.MapFrom(src => src.IsSolved));
+                .ForMember(dest => dest.IsSolved, opt => opt.MapFrom(src => src.IsSolved))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => TaskType.Global));
 
             this.CreateMap<PeriodTask, TaskDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Text))
                 .ForMember(dest => dest.DueDate, opt => opt.MapFrom(src => src.DueDate))
                 .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => (TaskPriority) src.Priority))
-                .ForMember(dest => dest.IsSolved, opt => opt.MapFrom(src => src.IsSolved));
+                .ForMember(dest => dest.IsSolved, opt => opt.MapFrom(src => src.IsSolved))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => TaskType.Period));
 
             this.CreateMap<SubjectTask, TaskDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Text))
                 .ForMember(dest => dest.DueDate, opt => opt.MapFrom(src => src.DueDate))
                 .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => (TaskPriority) src.Priority))
-                .ForMember(dest => dest.IsSolved, opt => opt.MapFrom(src => src.IsSolved));
+                .ForMember(dest => dest.IsSolved, opt => opt.MapFrom(src => src.IsSolved))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => TaskType.Subject));
 
             this.CreateMap<GlobalTaskModel, GlobalTask>()
                 .ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Text))

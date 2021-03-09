@@ -14,10 +14,10 @@ namespace UniHelper.Shared.Models
         public bool IsCurrent { get; set; }
         
         [Required]
-        public DateTime Start { get; set; }
+        public DateTime? Start { get; set; }
         
         [Required]
-        public DateTime End { get; set; }
+        public DateTime? End { get; set; }
         
         public PeriodModel() {}
 

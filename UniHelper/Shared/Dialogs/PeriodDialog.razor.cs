@@ -39,8 +39,8 @@ namespace UniHelper.Shared.Dialogs
         {
             if (PeriodContext.Validate())
             {
-                Model.Start = Model.Start.ToLocalTime();
-                Model.End = Model.End.ToLocalTime();
+                /*Model.Start = Model.Start.ToLocalTime();
+                Model.End = Model.End.ToLocalTime();*/
                 if (IsEdit)
                 {
                     if (await PeriodService.Update(Period.Id, Model))

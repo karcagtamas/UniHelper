@@ -35,6 +35,7 @@ namespace UniHelper.Pages
         {
             TaskList = new List<TaskDto>();
             TaskList.AddRange(await GlobalTaskService.GetList());
+            StateHasChanged();
         }
 
         private async void OpenAddDialog()

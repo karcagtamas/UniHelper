@@ -12,7 +12,7 @@ namespace UniHelper.Shared.Models
         public string Text { get; set; }
 
         [Required]
-        public DateTime DueDate { get; set; }
+        public DateTime? DueDate { get; set; }
 
         [Required]
         public TaskPriority Priority { get; set; }

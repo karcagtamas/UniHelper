@@ -8,11 +8,11 @@
                     <ValidationMessage For="() => Model.Name"></ValidationMessage>
                 </div>
                 <div>
-                    <MudDatePicker @bind-Value="Model.Start" Label="Start" Class="w-100"></MudDatePicker>
+                    <MudDatePicker @bind-Date="Model.Start" Label="Start" Class="w-100"></MudDatePicker>
                     <ValidationMessage For="() => Model.Start"></ValidationMessage>
                 </div>
                 <div>
-                    <MudDatePicker @bind-Value="Model.End" Label="End" Class="w-100"></MudDatePicker>
+                    <MudDatePicker @bind-Date="Model.End" Label="End" Class="w-100"></MudDatePicker>
                     <ValidationMessage For="() => Model.End"></ValidationMessage>
                 </div>
             </EditForm>
