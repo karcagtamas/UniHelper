@@ -17,10 +17,10 @@ namespace UniHelper.Shared.Dialogs
 
         [Inject]
         private IGlobalTaskService GlobalTaskService { get; set; }
-        
+
         [Inject]
         private IPeriodTaskService PeriodTaskService { get; set; }
-        
+
         [Inject]
         private ISubjectTaskService SubjectTaskService { get; set; }
 
@@ -50,18 +50,55 @@ namespace UniHelper.Shared.Dialogs
         {
             if (TaskContext.Validate())
             {
-                if (IsEdit)
+                if (AddType == TaskType.Global)
                 {
-                    if (await GlobalTaskService.Update(TaskData.Id, (GlobalTaskModel)Model))
+                    if (IsEdit)
                     {
-                        Dialog.Close(DialogResult.Ok(true));
+                        if (await GlobalTaskService.Update(TaskData.Id, new GlobalTaskModel(Model)))
+                        {
+                            Dialog.Close(DialogResult.Ok(true));
+                        }
+                    }
+                    else
+                    {
+                        if (await GlobalTaskService.Create(new GlobalTaskModel(Model)))
+                        {
+                            Dialog.Close(DialogResult.Ok(true));
+                        }
                     }
                 }
-                else
+                else if (AddType == TaskType.Period)
                 {
-                    if (await GlobalTaskService.Create((GlobalTaskModel)Model))
+                    if (IsEdit)
                     {
-                        Dialog.Close(DialogResult.Ok(true));
+                        if (await PeriodTaskService.Update(TaskData.Id, new PeriodTaskModel(SelectedId, Model)))
+                        {
+                            Dialog.Close(DialogResult.Ok(true));
+                        }
+                    }
+                    else
+                    {
+                        if (await PeriodTaskService.Create(new PeriodTaskModel(SelectedId, Model)))
+                        {
+                            Dialog.Close(DialogResult.Ok(true));
+                        }
+                    }
+                }
+                else if (AddType == TaskType.Subject)
+                {
+                    if (IsEdit)
+                    {
+                        if (await SubjectTaskService.Update(TaskData.Id, new SubjectTaskModel(SelectedId, Model)))
+                        {
+                            Dialog.Close(DialogResult.Ok(true));
+                        }
+                    }
+                    else
+                    {
+                        if (await SubjectTaskService.Create(new SubjectTaskModel(SelectedId, Model)))
+                        {
+                            Dialog.Close(DialogResult.Ok(true));
+                        }
                     }
                 }
             }

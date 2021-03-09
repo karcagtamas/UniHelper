@@ -1,9 +1,16 @@
 @page "/tasks"
-@using UniHelper.Enums
-@using UniHelper.Shared.Enums
 
 <PageTitle Title="Tasks"></PageTitle>
 
 <div>
     <MudIconButton Icon="@Icons.Filled.Add" OnClick="OpenAddDialog"></MudIconButton>
+
+    <MudGrid>
+        @foreach (var task in TaskList)
+        {
+            <MudItem xs="6">
+                <MudPaper Class="mud-width-full py-8">@task.Text</MudPaper>
+            </MudItem>
+        }
+    </MudGrid>
 </div>
