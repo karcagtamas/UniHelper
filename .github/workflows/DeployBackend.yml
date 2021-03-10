@@ -39,4 +39,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASS }}
-          script: cp -R /var/www/unihelper-backend/UniHelper.Backend/bin/Release/net5.0/publish/* /var/www/unihelper-backend/ && rm -Rf /var/www/unihelper-backend/UniHelper.Backend
+          script: mv /var/www/unihelper-backend/UniHelper.Backend /var/www/unihelper-backend/UniHelper && cp -R /var/www/unihelper-backend/UniHelper/bin/Release/net5.0/publish/* /var/www/unihelper-backend/ && rm -Rf /var/www/unihelper-backend/UniHelper
