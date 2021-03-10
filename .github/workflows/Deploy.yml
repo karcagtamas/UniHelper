@@ -15,6 +15,14 @@ jobs:
       - name: Publish
         run: dotnet publish -c Release
         working-directory: UniHelper
+      - name: Clear
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASS }}
+          script: rm -Rf /var/www/unihelper/*
       - name: Copy
         uses: appleboy/scp-action@master
         with:
@@ -22,5 +30,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASS }}
-          source: "./UniHelper/bin/Release/net5.0/publish/*"
+          source: "./UniHelper/bin/Release/net5.0/publish"
           target: "/var/www/unihelper/"
