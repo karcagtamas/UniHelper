@@ -29,20 +29,12 @@ namespace UniHelper.Backend
         {
             services.AddCors(opt =>
             {
-                opt.AddPolicy("TestPolicy", builder =>
+                opt.AddPolicy("CorsPolicy", builder =>
                 {
                     builder.AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials()
-                        .WithOrigins("https://localhost:5001", "http://localhost:5000");
-                });
-                
-                opt.AddPolicy("ReleasePolicy", builder =>
-                {
-                    builder.AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials()
-                        .WithOrigins("https://localhost:5001", "http://localhost:5000");
+                        .WithOrigins(Configuration.GetValue("SecureClientUrl", "https://localhost:5001"), Configuration.GetValue("ClientUrl", "http://localhost:5000"));
                 });
             });
 
@@ -87,7 +79,7 @@ namespace UniHelper.Backend
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "UniHelper.Backend", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "UniHelper.Backend", Version = "v1" });
             });
         }
 
@@ -108,7 +100,7 @@ namespace UniHelper.Backend
 
             app.UseAuthorization();
 
-            app.UseCors(env.IsDevelopment() ? "TestPolicy" : "ReleasePolicy");
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

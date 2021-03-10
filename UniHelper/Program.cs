@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
 using UniHelper.Services;
-using UniHelper.Shared.DTOs;
 
 namespace UniHelper
 {
@@ -22,7 +21,7 @@ namespace UniHelper
 
             builder.Services.AddOptions();
             builder.Services.AddScoped(
-                sp => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
+                sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddMatBlazor();
             builder.Services.AddScoped<IHelperService, HelperService>();
             builder.Services.AddScoped<IHttpService, HttpService>();
@@ -39,21 +38,8 @@ namespace UniHelper
             builder.Services.AddScoped<ILessonHourService, LessonHourService>();
             builder.Services.AddMudServices();
 
-            if (builder.HostEnvironment.IsDevelopment())
-            {
-                ApplicationSettings.BaseUrl = "https://localhost:8001";
-                ApplicationSettings.BaseApiUrl = ApplicationSettings.BaseUrl += "/api";
-            }
-
-            builder.Services.AddMatToaster(config =>
-            {
-                config.Position = MatToastPosition.BottomRight;
-                config.PreventDuplicates = true;
-                config.NewestOnTop = true;
-                config.ShowCloseButton = true;
-                config.MaximumOpacity = 95;
-                config.VisibleStateDuration = 3000;
-            });
+            ApplicationSettings.BaseUrl = builder.Configuration.GetSection("SecureApi").Value;
+            ApplicationSettings.BaseApiUrl = ApplicationSettings.BaseUrl += "/api";
 
             await builder.Build().RunAsync();
         }
