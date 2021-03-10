@@ -20,6 +20,5 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{  secrets.USERNAME }}
-          source: "./bin/publish/*"
+          source: "./UniHelper/bin/publish/*"
           target: "/var/www/unihelper/"
-        working-directory: UniHelper
