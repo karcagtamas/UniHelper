@@ -17,6 +17,9 @@ jobs:
         working-directory: UniHelper
       - name: Copy
         uses: appleboy/scp-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HOST: ${{ secrets.HOST }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
