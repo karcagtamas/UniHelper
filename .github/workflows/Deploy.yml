@@ -19,6 +19,7 @@ jobs:
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: ${{  secrets.USERNAME }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
           source: "./UniHelper/bin/publish/*"
           target: "/var/www/unihelper/"
