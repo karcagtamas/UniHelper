@@ -1,0 +1,17 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: dotnet build
+        working-directory: UniHelper
+      - name: Publish
+        run: dotnet publish
+        working-directory: UniHelper
