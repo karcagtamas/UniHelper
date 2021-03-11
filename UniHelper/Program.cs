@@ -38,7 +38,7 @@ namespace UniHelper
             builder.Services.AddScoped<ILessonHourService, LessonHourService>();
             builder.Services.AddMudServices();
 
-            ApplicationSettings.BaseUrl = builder.Configuration.GetSection("SecureApi").Value;
+            ApplicationSettings.BaseUrl = builder.Configuration.GetSection("Api").Value;
             ApplicationSettings.BaseApiUrl = ApplicationSettings.BaseUrl += "/api";
 
             builder.Services.AddMatToaster(config =>
