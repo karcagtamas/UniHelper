@@ -10,11 +10,12 @@ namespace UniHelper.Backend
     /// </summary>
     public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContext>
     {
+        /// <inheritdoc />
         public DatabaseContext CreateDbContext(string[] args)
         {
             IConfiguration config = new ConfigurationBuilder()
                 .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../UniHelper.Backend"))
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.Development.json")
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
