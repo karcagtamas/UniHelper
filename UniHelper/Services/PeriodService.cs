@@ -28,7 +28,7 @@ namespace UniHelper.Services
             var pathParams = new HttpPathParameters();
             pathParams.Add("current", -1);
             
-            var settings = new HttpSettings(Url + "/" + this.Entity, null, pathParams);
+            var settings = new HttpSettings(Url + "/" + this.Entity, null, pathParams, "Set current period");
 
             var body = new HttpBody<int>(id);
 
