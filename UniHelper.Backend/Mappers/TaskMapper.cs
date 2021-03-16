@@ -38,7 +38,8 @@ namespace UniHelper.Backend.Mappers
                 .ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Text))
                 .ForMember(dest => dest.DueDate, opt => opt.MapFrom(src => src.DueDate))
                 .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => (int) src.Priority))
-                .ForMember(dest => dest.IsSolved, opt => opt.MapFrom(src => src.IsSolved));
+                .ForMember(dest => dest.IsSolved, opt => opt.MapFrom(src => src.IsSolved))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
 
             this.CreateMap<PeriodTaskModel, PeriodTask>()
                 .ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Text))

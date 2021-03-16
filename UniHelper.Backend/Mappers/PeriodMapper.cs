@@ -17,7 +17,8 @@ namespace UniHelper.Backend.Mappers
                 .ForMember(dest => dest.End, opt => opt.MapFrom(src => src.End))
                 .ForMember(dest => dest.Subjects, opt => opt.MapFrom(src => src.Subjects))
                 .ForMember(dest => dest.Tasks, opt => opt.MapFrom(src => src.Tasks))
-                .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes));
+                .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
 
             this.CreateMap<PeriodModel, Period>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))

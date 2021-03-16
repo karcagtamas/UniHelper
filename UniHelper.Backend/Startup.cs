@@ -64,6 +64,7 @@ namespace UniHelper.Backend
                 x.AddProfile(new NoteMapper());
                 x.AddProfile(new TaskMapper());
                 x.AddProfile(new LessonHourMapper());
+                x.AddProfile(new UserMapper());
             });
 
             var mapper = mapperConfig.CreateMapper();

@@ -34,7 +34,8 @@ namespace UniHelper.Backend.Mappers
                 .ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Text))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.LastUpdated, opt => opt.MapFrom(src => src.LastUpdated))
-                .ForMember(dest => dest.IsClosed, opt => opt.MapFrom(src => src.IsClosed));
+                .ForMember(dest => dest.IsClosed, opt => opt.MapFrom(src => src.IsClosed))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
             
             this.CreateMap<PeriodNoteModel, PeriodNote>()
                 .ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Text))

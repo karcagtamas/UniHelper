@@ -17,6 +17,7 @@ namespace UniHelper.Backend
         public DbSet<GlobalNote> GlobalNotes { get; set; }
         public DbSet<GlobalTask> GlobalTasks { get; set; }
         public DbSet<LessonHour> LessonHours { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
@@ -35,28 +36,46 @@ namespace UniHelper.Backend
                 .WithMany(x => x.Notes)
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
-            
+
             builder.Entity<SubjectTask>()
                 .HasOne(x => x.Subject)
                 .WithMany(x => x.Tasks)
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
-            
+
             builder.Entity<Subject>()
                 .HasOne(x => x.Period)
                 .WithMany(x => x.Subjects)
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
-            
+
             builder.Entity<PeriodNote>()
                 .HasOne(x => x.Period)
                 .WithMany(x => x.Notes)
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
-            
+
             builder.Entity<PeriodTask>()
                 .HasOne(x => x.Period)
                 .WithMany(x => x.Tasks)
+                .OnDelete(DeleteBehavior.ClientCascade)
+                .IsRequired();
+
+            builder.Entity<GlobalTask>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Tasks)
+                .OnDelete(DeleteBehavior.ClientCascade)
+                .IsRequired();
+
+            builder.Entity<GlobalNote>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Notes)
+                .OnDelete(DeleteBehavior.ClientCascade)
+                .IsRequired();
+
+            builder.Entity<Period>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Periods)
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
 

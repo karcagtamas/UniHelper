@@ -9,21 +9,25 @@ namespace UniHelper.Backend.Entities
     {
         [Key]
         public int Id { get; set; }
-        
+
         [Required]
         [MaxLength(20)]
         public string Name { get; set; }
-        
+
         [Required]
         public bool IsCurrent { get; set; }
-        
+
         [Required]
         public DateTime Start { get; set; }
-        
+
         [Required]
         public DateTime End { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
         public virtual ICollection<Subject> Subjects { get; set; }
         public virtual ICollection<PeriodNote> Notes { get; set; }
         public virtual ICollection<PeriodTask> Tasks { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -2,7 +2,8 @@ namespace UniHelper.Shared.Models
 {
     public class GlobalTaskModel : TaskModel
     {
-        public GlobalTaskModel() {}
+        public int UserId { get; set; }
+        public GlobalTaskModel() { }
 
         public GlobalTaskModel(TaskModel model)
         {

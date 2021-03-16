@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace UniHelper.Backend.Entities
 {
     /// <summary>
@@ -5,6 +7,9 @@ namespace UniHelper.Backend.Entities
     /// </summary>
     public class GlobalNote : Note
     {
-        
+        [Required]
+        public int UserId { get; set; }
+
+        public virtual User User { get; set; }
     }
 }
