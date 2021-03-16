@@ -1,6 +1,8 @@
+using System.Text;
 using AutoMapper;
 using Karcags.Common.Middlewares;
 using Karcags.Common.Tools.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using UniHelper.Backend.Mappers;
 using UniHelper.Backend.Services;
@@ -56,6 +59,21 @@ namespace UniHelper.Backend
             services.AddDbContextPool<DatabaseContext>(options =>
                 options.UseLazyLoadingProxies().UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    };
+                });
+            
             var mapperConfig = new MapperConfiguration(x =>
             {
                 x.AddProfile(new PeriodMapper());
@@ -88,6 +106,7 @@ namespace UniHelper.Backend
             services.AddScoped<ICalendarService, CalendarService>();
             services.AddScoped<ILessonHourService, LessonHourService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -113,6 +132,8 @@ namespace UniHelper.Backend
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UniHelper.Backend v1"));
             }
+
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
 

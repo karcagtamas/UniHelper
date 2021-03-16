@@ -9,13 +9,10 @@ namespace UniHelper.Backend.Services
     public interface IUserService : IRepository<User>
     {
         /// <summary>
-        /// Login
+        /// Get User by Name
         /// </summary>
-        void Login();
-
-        /// <summary>
-        /// Registration
-        /// </summary>
-        void Registration();
+        /// <param name="username">User name</param>
+        /// <returns>User</returns>
+        User GetByName(string username);
     }
 }

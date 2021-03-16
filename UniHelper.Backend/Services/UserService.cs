@@ -1,3 +1,4 @@
+using System.Linq;
 using AutoMapper;
 using Karcags.Common.Tools;
 using Karcags.Common.Tools.Services;
@@ -16,20 +17,14 @@ namespace UniHelper.Backend.Services
         /// <param name="logger">Logger Service</param>
         /// <param name="utils">Utils Service</param>
         /// <param name="mapper">Mapper</param>
-        protected UserService(DbContext context, ILoggerService logger, IUtilsService utils, IMapper mapper) : base(context, logger, utils, mapper, "User")
+        protected UserService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper) : base(context, logger, utils, mapper, "User")
         {
         }
 
         /// <inheritdoc />
-        public void Login()
+        public User GetByName(string username)
         {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc />
-        public void Registration()
-        {
-            throw new System.NotImplementedException();
+            return GetList(x => x.UserName.Equals(username)).FirstOrDefault();
         }
     }
 }
