@@ -7,10 +7,16 @@ using UniHelper.Shared.Models;
 
 namespace UniHelper.Backend.Controllers
 {
+    /// <summary>
+    /// Global Task Controller
+    /// </summary>
     [Route("/api/global-tasks")]
     [ApiController]
     public class GlobalTaskController : MyController<GlobalTask, GlobalTaskModel, TaskDto>
     {
+        /// <summary>
+        /// Global Task Controller
+        /// </summary>
         public GlobalTaskController(IGlobalTaskService service) : base(service)
         {
         }
