@@ -8,6 +8,9 @@ using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Pages
 {
+    /// <summary>
+    /// Period List Page
+    /// </summary>
     public partial class PeriodList
     {
         [Inject]
@@ -23,6 +26,10 @@ namespace UniHelper.Pages
 
         private int SelectedPeriod { get; set; } = -1;
 
+        /// <summary>
+        /// Init Period List
+        /// </summary>
+        /// <returns>Async task</returns>
         protected override async Task OnInitializedAsync()
         {
             await Refresh();

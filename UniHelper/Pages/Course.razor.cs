@@ -1,18 +1,21 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
-using UniHelper.Enums;
 using UniHelper.Services;
 using UniHelper.Shared.Dialogs;
 using UniHelper.Shared.DTOs;
-using UniHelper.Shared.Models;
 
 namespace UniHelper.Pages
 {
+    /// <summary>
+    /// Course page
+    /// </summary>
     public partial class Course
     {
+        /// <summary>
+        /// Course Id
+        /// </summary>
+        /// <value>Id number</value>
         [Parameter]
         public int Id { get; set; }
         
@@ -32,6 +35,10 @@ namespace UniHelper.Pages
         
         private LessonHourIntervalDto Interval { get; set; }
         
+        /// <summary>
+        /// Init Course
+        /// </summary>
+        /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
             await GetData();

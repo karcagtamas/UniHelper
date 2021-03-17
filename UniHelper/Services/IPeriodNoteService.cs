@@ -4,6 +4,9 @@ using UniHelper.Shared.Models;
 
 namespace UniHelper.Services
 {
+    /// <summary>
+    /// Period Note Service
+    /// </summary>
     public interface IPeriodNoteService : ICommonService<PeriodNoteModel, NoteDto>
     {
         

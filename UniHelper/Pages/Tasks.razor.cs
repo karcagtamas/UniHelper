@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
-using UniHelper.Enums;
 using UniHelper.Services;
 using UniHelper.Shared.Dialogs;
 using UniHelper.Shared.DTOs;
-using UniHelper.Shared.Models;
 
 namespace UniHelper.Pages
 {
+    /// <summary>
+    /// Tasks Page
+    /// </summary>
     public partial class Tasks
     {
         [Inject]
@@ -28,6 +28,10 @@ namespace UniHelper.Pages
 
         private List<TaskDto> TaskList { get; set; } = new();
 
+        /// <summary>
+        /// Init Tasks
+        /// </summary>
+        /// <returns>Async Task</returns>
         protected override async Task OnInitializedAsync()
         {
             await GetLists();

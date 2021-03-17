@@ -1,0 +1,16 @@
+@page "/login"
+
+<MudPaper>
+    <EditForm EditContext="LoginContext">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <div>
+            <MudTextField @bind-Value="Model.UserName" Label="User Name" FullWidth="true" />
+            <ValidationMessage For="() => Model.UserName"></ValidationMessage>
+        </div>
+        <div>
+            <MudTextField @bind-Value="Model.Password" Label="Password" FullWidth="true" />
+            <ValidationMessage For="() => Model.Password"></ValidationMessage>
+        </div>
+        <MudButton OnClick="SignIn">Login</MudButton>
+    </EditForm>
+</MudPaper>

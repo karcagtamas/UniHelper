@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
@@ -11,6 +10,9 @@ using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Pages
 {
+    /// <summary>
+    /// Calendar Page
+    /// </summary>
     public partial class Calendar
     {
         [Inject] private ICalendarService CalendarService { get; set; }
@@ -29,6 +31,10 @@ namespace UniHelper.Pages
         private bool RemoveWeekendCols { get; set; } = true;
         private bool RemoveEmptyFirstAndLastRows { get; set; } = true;
 
+        /// <summary>
+        /// Init Calendar
+        /// </summary>
+        /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
             await Refresh();
@@ -129,7 +135,7 @@ namespace UniHelper.Pages
             }
 
             foundNotEmpty = false;
-            
+
             while (!foundNotEmpty && Rows.Count > 0)
             {
                 int last = Rows.Count - 1;
