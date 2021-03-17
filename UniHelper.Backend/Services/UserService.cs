@@ -17,7 +17,7 @@ namespace UniHelper.Backend.Services
         /// <param name="logger">Logger Service</param>
         /// <param name="utils">Utils Service</param>
         /// <param name="mapper">Mapper</param>
-        protected UserService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper) : base(context, logger, utils, mapper, "User")
+        public UserService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper) : base(context, logger, utils, mapper, "User")
         {
         }
 

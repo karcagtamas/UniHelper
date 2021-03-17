@@ -1,5 +1,6 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Configuration;
@@ -15,13 +16,13 @@ namespace UniHelper.Backend.Services
         private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
 
-        public const int SALT_BYTE_SIZE = 24;
-        public const int HASH_BYTE_SIZE = 24;
-        public const int PBKDF2_ITERATIONS = 1000;
+        private const int SaltByteSize = 24;
+        private const int HashByteSize = 24;
+        private const int Pbkdf2Iterations = 1000;
 
-        public const int ITERATION_INDEX = 0;
-        public const int SALT_INDEX = 1;
-        public const int PBKDF2_INDEX = 2;
+        private const int IterationIndex = 0;
+        private const int SaltIndex = 1;
+        private const int Pbkdf2Index = 2;
 
         /// <summary>
         /// Authentication Service
@@ -33,7 +34,7 @@ namespace UniHelper.Backend.Services
             _configuration = configuration;
             _userService = userService;
         }
-        
+
         /// <inheritdoc />
         public string Login(LoginModel model)
         {
@@ -44,7 +45,11 @@ namespace UniHelper.Backend.Services
                 return "";
             }
 
-            return ValidatePassword(model.Password, user.Password) ? Token() : "";
+            user.LastLogin = DateTime.Now;
+
+            _userService.Update(user);
+
+            return ValidatePassword(model.Password, user.Password) ? Token(user) : "";
         }
 
         /// <inheritdoc />
@@ -59,21 +64,29 @@ namespace UniHelper.Backend.Services
                 LastLogin = DateTime.Now,
                 Registration = DateTime.Now
             };
-            
+
             _userService.Add(user);
         }
 
         /// <inheritdoc />
-        public string Token()
+        public string Token(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
+                new Claim("lastlogin", user.LastLogin.ToString("yyyy-MM-dd")),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
             var token = new JwtSecurityToken(
-                _configuration["Jwt:Issuer"], 
-                _configuration["Jwt:Issuer"], 
-                null,
-                expires: DateTime.Now.AddMinutes(120), 
+                _configuration["Jwt:Issuer"],
+                _configuration["Jwt:Issuer"],
+                claims,
+                expires: DateTime.Now.AddMinutes(120),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
@@ -82,11 +95,11 @@ namespace UniHelper.Backend.Services
         private string HashPassword(string password)
         {
             var cryptoServiceProvider = new RNGCryptoServiceProvider();
-            var salt = new byte[SALT_BYTE_SIZE];
+            var salt = new byte[SaltByteSize];
             cryptoServiceProvider.GetBytes(salt);
 
-            var hash = Pbkdf2(password, salt, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
-            return PBKDF2_ITERATIONS + ":" + Convert.ToBase64String(salt) + ":" + Convert.ToBase64String(hash);
+            var hash = Pbkdf2(password, salt, Pbkdf2Iterations, HashByteSize);
+            return Pbkdf2Iterations + ":" + Convert.ToBase64String(salt) + ":" + Convert.ToBase64String(hash);
         }
 
         private byte[] Pbkdf2(string password, byte[] salt, int iterations, int outputBytes)
@@ -99,10 +112,10 @@ namespace UniHelper.Backend.Services
         {
             char[] delimiter = {':'};
             string[] split = passwordHash.Split(delimiter);
-            int iterations = Int32.Parse(split[ITERATION_INDEX]);
+            int iterations = Int32.Parse(split[IterationIndex]);
 
-            byte[] salt = Convert.FromBase64String(split[SALT_INDEX]);
-            byte[] hash = Convert.FromBase64String(split[PBKDF2_INDEX]);
+            byte[] salt = Convert.FromBase64String(split[SaltIndex]);
+            byte[] hash = Convert.FromBase64String(split[Pbkdf2Index]);
 
             byte[] testHash = Pbkdf2(password, salt, iterations, hash.Length);
 

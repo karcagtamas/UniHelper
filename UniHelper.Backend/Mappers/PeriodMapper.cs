@@ -5,11 +5,17 @@ using UniHelper.Shared.Models;
 
 namespace UniHelper.Backend.Mappers
 {
+    /// <summary>
+    /// Period Mapper
+    /// </summary>
     public class PeriodMapper : Profile
     {
+        /// <summary>
+        /// Init Period Mapper
+        /// </summary>
         public PeriodMapper()
         {
-            this.CreateMap<Period, PeriodDto>()
+            CreateMap<Period, PeriodDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.IsCurrent, opt => opt.MapFrom(src => src.IsCurrent))
@@ -20,7 +26,7 @@ namespace UniHelper.Backend.Mappers
                 .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes))
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
 
-            this.CreateMap<PeriodModel, Period>()
+            CreateMap<PeriodModel, Period>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.IsCurrent, opt => opt.MapFrom(src => src.IsCurrent))
                 .ForMember(dest => dest.Start, opt => opt.MapFrom(src => src.Start))

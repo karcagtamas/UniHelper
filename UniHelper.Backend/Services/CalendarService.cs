@@ -5,15 +5,21 @@ using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Backend.Services
 {
+    /// <inheritdoc />
     public class CalendarService : ICalendarService
     {
         private readonly IPeriodService _periodService;
 
+        /// <summary>
+        /// Init Calendar service
+        /// </summary>
+        /// <param name="periodService">Period Service</param>
         public CalendarService(IPeriodService periodService)
         {
             _periodService = periodService;
         }
 
+        /// <inheritdoc />
         public CalendarDto GetInterval(int periodId)
         {
             var current = _periodService.Get(periodId);
@@ -64,6 +70,8 @@ namespace UniHelper.Backend.Services
             return calendar;
         }
 
+
+        /// <inheritdoc />
         public CalendarDto GetCurrentInterval()
         {
             var current = _periodService.GetCurrent();

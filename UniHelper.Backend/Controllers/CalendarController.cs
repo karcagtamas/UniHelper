@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniHelper.Backend.Services;
 using UniHelper.Shared.DTOs;
@@ -9,6 +10,7 @@ namespace UniHelper.Backend.Controllers
     /// </summary>
     [Route("/api/calendar")]
     [ApiController]
+    [Authorize]
     public class CalendarController
     {
         private readonly ICalendarService _calendarService;

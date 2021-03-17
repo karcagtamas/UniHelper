@@ -1,3 +1,4 @@
+using UniHelper.Backend.Entities;
 using UniHelper.Shared.Models;
 
 namespace UniHelper.Backend.Services
@@ -21,7 +22,8 @@ namespace UniHelper.Backend.Services
         /// <summary>
         /// Token generate
         /// </summary>
+        /// <param name="user">Logged in user</param>
         /// <returns>Token</returns>
-        string Token();
+        string Token(User user);
     }
 }

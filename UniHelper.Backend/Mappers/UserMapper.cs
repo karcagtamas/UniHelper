@@ -5,11 +5,17 @@ using UniHelper.Shared.Models;
 
 namespace UniHelper.Backend.Mappers
 {
+    /// <summary>
+    /// User Mapper
+    /// </summary>
     public class UserMapper : Profile
     {
+        /// <summary>
+        /// Init User Mapper
+        /// </summary>
         public UserMapper()
         {
-            this.CreateMap<User, UserDto>()
+            CreateMap<User, UserDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
@@ -17,7 +23,7 @@ namespace UniHelper.Backend.Mappers
                 .ForMember(dest => dest.Registration, opt => opt.MapFrom(src => src.Registration))
                 .ForMember(dest => dest.LastLogin, opt => opt.MapFrom(src => src.LastLogin));
 
-            this.CreateMap<UserModel, User>()
+            CreateMap<UserModel, User>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))

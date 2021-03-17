@@ -10,6 +10,7 @@ namespace UniHelper.Backend.Controllers
     /// </summary>
     [Route("/api/auth")]
     [ApiController]
+    [Authorize]
     public class AuthenticationController
     {
         private readonly IAuthenticationService _authenticationService;
@@ -29,7 +30,7 @@ namespace UniHelper.Backend.Controllers
         /// </summary>
         [AllowAnonymous]
         [HttpPost("registration")]
-        public void Registration(RegistrationModel model)
+        public void Registration([FromBody] RegistrationModel model)
         {
             _authenticationService.Registration(model);
         }
@@ -41,20 +42,9 @@ namespace UniHelper.Backend.Controllers
         /// </summary>
         [AllowAnonymous]
         [HttpPost("login")]
-        public string Login(LoginModel model)
+        public string Login([FromBody] LoginModel model)
         {
             return _authenticationService.Login(model);
-        }
-
-        /// <summary>
-        /// Generate Token
-        /// </summary>
-        /// <returns>Token</returns>
-        [AllowAnonymous]
-        [HttpGet("token")]
-        public string Token()
-        {
-            return _authenticationService.Token();
         }
     }
 }
