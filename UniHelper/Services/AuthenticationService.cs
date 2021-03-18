@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Karcags.Blazor.Common.Http;
 using Karcags.Blazor.Common.Models;
@@ -22,16 +23,18 @@ namespace UniHelper.Services
         }
 
         /// <inheritdoc />
-        public async Task<string> Login(LoginModel model)
+        public async Task<bool> Login(LoginModel model)
         {
             var pathParams = new HttpPathParameters();
             pathParams.Add("login", -1);
 
-            var settings = new HttpSettings(Url, null, pathParams);
+            var settings = new HttpSettings(Url, null, pathParams, "Login");
 
             var body = new HttpBody<LoginModel>(model);
 
-            return await _httpService.CreateString(settings, body);
+            var token = await _httpService.CreateString(settings, body);
+
+            return !String.IsNullOrEmpty(token);
         }
 
         /// <inheritdoc />
@@ -40,7 +43,7 @@ namespace UniHelper.Services
             var pathParams = new HttpPathParameters();
             pathParams.Add("registration", -1);
 
-            var settings = new HttpSettings(Url, null, pathParams);
+            var settings = new HttpSettings(Url, null, pathParams, "Registration");
 
             var body = new HttpBody<RegistrationModel>(model);
 

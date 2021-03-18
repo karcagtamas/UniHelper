@@ -1,11 +1,14 @@
-﻿@inherits LayoutComponentBase
+﻿@using UniHelper.Shared.Dialogs
+@inherits LayoutComponentBase
+@inject IDialogService DialogService
 
 <MudLayout>
     <MudAppBar Elevation="1" Dense="true">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText Typo="Typo.h1" Class="ml-3">UniHelper</MudText>
         <MudAppBarSpacer />
-        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Material.Filled.Person" Color="Color.Inherit" Edge="Edge.End" OnClick="OpenProfileDialog" />
+        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" OnClick="OpenAboutDialog" />
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
         <NavMenu/>
@@ -24,4 +27,13 @@
         _drawerOpen = !_drawerOpen;
     }
 
+    private void OpenProfileDialog()
+    {
+        DialogService.Show<ProfileDialog>();
+    }
+
+    private void OpenAboutDialog()
+    {
+        DialogService.Show<AboutDialog>();
+    }
 }

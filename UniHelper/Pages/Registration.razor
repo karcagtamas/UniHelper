@@ -1,0 +1,35 @@
+@page "/registration"
+
+<div class="h-100 d-flex p-1 justify-content-center align-items-center">
+    <MudPaper Class="p-3" Elevation="3">
+        <PageTitle Title="Registration"/>
+        <div class="mb-3">
+            <EditForm EditContext="RegistrationContext">
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <div>
+                    <MudTextField @bind-Value="Model.UserName" Label="User Name" FullWidth="true" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Person"/>
+                    <ValidationMessage For="() => Model.UserName"/>
+                </div>
+                <div>
+                    <MudTextField @bind-Value="Model.Email" Label="E-mail Address" FullWidth="true" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Email"/>
+                    <ValidationMessage For="() => Model.Email"/>
+                </div>
+                <div>
+                    <MudTextField @bind-Value="Model.FullName" Label="Full Name" FullWidth="true" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Person"/>
+                    <ValidationMessage For="() => Model.FullName"/>
+                </div>
+                <div>
+                    <MudTextField @bind-Value="Model.Password" InputType="@_passwordInput" Label="Password" FullWidth="true" Adornment="Adornment.End" AdornmentIcon="@_passwordInputIcon" OnAdornmentClick="SwitchPassword"/>
+                    <ValidationMessage For="() => Model.Password"/>
+                </div>
+                <div>
+                    <MudTextField @bind-Value="Model.RePassword" InputType="@_passwordInput" Label="Password Again" FullWidth="true" Adornment="Adornment.End" AdornmentIcon="@_passwordInputIcon" OnAdornmentClick="SwitchPassword"/>
+                    <ValidationMessage For="() => Model.RePassword"/>
+                </div>
+            </EditForm>
+        </div>
+        <div class="text-center">
+            <MudButton OnClick="SignUp" Color="Color.Primary">Registration</MudButton>
+        </div>
+    </MudPaper>
+</div>

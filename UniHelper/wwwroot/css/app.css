@@ -50,4 +50,8 @@ html, body, #app {
   border: 3px solid lightcoral;
 }
 
+.validation-message {
+  color: darkred;
+}
+
 /*# sourceMappingURL=app.css.map */

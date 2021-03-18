@@ -1,21 +1,20 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
+using UniHelper.Models;
 using UniHelper.Services;
 using UniHelper.Shared.Models;
 
 namespace UniHelper.Pages
 {
     /// <summary>
-    /// Login Page
+    /// Registration Page
     /// </summary>
-    public partial class Login
+    public partial class Registration
     {
-        
-        [Inject]
-        private IAuthenticationService AuthenticationService { get; set; }
-        private EditContext LoginContext { get; set; }
-        private LoginModel Model { get; set; }
+        [Inject] private IAuthenticationService AuthenticationService { get; set; }
+        private EditContext RegistrationContext { get; set; }
+        private RegistrationInputModel Model { get; set; }
 
         private bool _isShow = false;
         private InputType _passwordInput = InputType.Password;
@@ -26,16 +25,22 @@ namespace UniHelper.Pages
         /// </summary>
         protected override void OnInitialized()
         {
-            Model = new LoginModel();
-            LoginContext = new EditContext(Model);
+            Model = new RegistrationInputModel();
+            RegistrationContext = new EditContext(Model);
             base.OnInitialized();
         }
 
-        private async void SignIn() 
+        private async void SignUp()
         {
-            if (LoginContext.Validate())
+            if (RegistrationContext.Validate())
             {
-                await AuthenticationService.Login(Model);
+                await AuthenticationService.Registration(new RegistrationModel
+                {
+                    Email = Model.Email,
+                    FullName = Model.FullName,
+                    Password = Model.Password,
+                    UserName = Model.UserName
+                });
             }
         }
 

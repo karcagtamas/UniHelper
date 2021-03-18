@@ -13,7 +13,7 @@ namespace UniHelper.Services
         /// </summary>
         /// <param name="model">Login Model</param>
         /// <returns>Token</returns>
-        Task<string> Login(LoginModel model);
+        Task<bool> Login(LoginModel model);
 
         /// <summary>
         /// Registration
