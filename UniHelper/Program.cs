@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Karcags.Blazor.Common.Http;
 using Karcags.Blazor.Common.Models;
 using Karcags.Blazor.Common.Services;
-using MatBlazor;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor;
@@ -13,8 +12,15 @@ using UniHelper.Services;
 
 namespace UniHelper
 {
+    /// <summary>
+    /// Client Program
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Main Program
+        /// </summary>
+        /// <param name="args">Program Args</param>
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -22,7 +28,7 @@ namespace UniHelper
 
             builder.Services.AddOptions();
             builder.Services.AddScoped(
-                sp => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
+                sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<IHelperService, HelperService>();
             builder.Services.AddScoped<IHttpService, HttpService>();
             builder.Services.AddScoped<IPeriodService, PeriodService>();
@@ -37,6 +43,7 @@ namespace UniHelper
             builder.Services.AddScoped<ICalendarService, CalendarService>();
             builder.Services.AddScoped<ILessonHourService, LessonHourService>();
             builder.Services.AddScoped<IToasterService, ToasterService>();
+            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             builder.Services.AddMudServices(config =>
             {
                 config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomRight;
