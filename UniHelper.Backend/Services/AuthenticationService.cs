@@ -36,20 +36,26 @@ namespace UniHelper.Backend.Services
         }
 
         /// <inheritdoc />
-        public string Login(LoginModel model)
+        public StorageUser Login(LoginModel model)
         {
             var user = _userService.GetByName(model.UserName);
 
             if (user == null)
             {
-                return "";
+                return null;
             }
 
             user.LastLogin = DateTime.Now;
 
             _userService.Update(user);
 
-            return ValidatePassword(model.Password, user.Password) ? Token(user) : "";
+            return ValidatePassword(model.Password, user.Password)
+                ? new StorageUser
+                {
+                    Token = Token(user), UserName = user.UserName, Id = user.Id, Email = user.Email,
+                    FullName = user.FullName
+                }
+                : null;
         }
 
         /// <inheritdoc />

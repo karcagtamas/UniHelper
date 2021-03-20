@@ -12,7 +12,7 @@ namespace UniHelper.Backend.Services
         /// Login
         /// </summary>
         /// <returns>Token</returns>
-        string Login(LoginModel model);
+        StorageUser Login(LoginModel model);
         
         /// <summary>
         /// Registration

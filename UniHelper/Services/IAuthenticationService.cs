@@ -21,5 +21,22 @@ namespace UniHelper.Services
         /// <param name="model">Registration Model</param>
         /// <returns>It was success or not</returns>
         Task<bool> Registration(RegistrationModel model);
+        
+        /// <summary>
+        /// Somebody is logged in
+        /// </summary>
+        /// <returns>True if is logged in</returns>
+        public bool IsLoggedIn();
+
+        /// <summary>
+        /// Log out current user
+        /// </summary>
+        public void Logout();
+
+        /// <summary>
+        /// Initialize Service
+        /// </summary>
+        /// <returns></returns>
+        void Initialize();
     }
 }

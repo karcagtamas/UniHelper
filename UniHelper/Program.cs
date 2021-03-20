@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Blazored.LocalStorage;
 using Karcags.Blazor.Common.Http;
 using Karcags.Blazor.Common.Models;
 using Karcags.Blazor.Common.Services;
@@ -28,9 +29,8 @@ namespace UniHelper
 
             builder.Services.AddOptions();
             builder.Services.AddScoped(
-                sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+                sp => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
             builder.Services.AddScoped<IHelperService, HelperService>();
-            builder.Services.AddScoped<IHttpService, HttpService>();
             builder.Services.AddScoped<IPeriodService, PeriodService>();
             builder.Services.AddScoped<ISubjectService, SubjectService>();
             builder.Services.AddScoped<ICourseService, CourseService>();
@@ -44,6 +44,13 @@ namespace UniHelper
             builder.Services.AddScoped<ILessonHourService, LessonHourService>();
             builder.Services.AddScoped<IToasterService, ToasterService>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+            builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
+            builder.Services.AddHttpService(config =>
+            {
+                config.IsTokenBearer = true;
+                config.UnauthorizedPath = "/logout";
+                config.TokenName = "token";
+            });
             builder.Services.AddMudServices(config =>
             {
                 config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomRight;
@@ -56,6 +63,11 @@ namespace UniHelper
                 config.SnackbarConfiguration.ShowTransitionDuration = 500;
                 config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
             });
+
+            var host = builder.Build();
+
+            var authService = host.Services.GetRequiredService<IAuthenticationService>();
+            authService.Initialize();
 
             ApplicationSettings.BaseUrl = builder.Configuration.GetSection("Api").Value;
             ApplicationSettings.BaseApiUrl = ApplicationSettings.BaseUrl += "/api";

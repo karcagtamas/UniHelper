@@ -1,4 +1,6 @@
 @page "/periods/{Id:int}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
 @using UniHelper.Shared.DTOs
 
 <PageTitle Title="@GetTitle()"></PageTitle>

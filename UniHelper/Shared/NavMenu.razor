@@ -1,10 +1,19 @@
-﻿<MudNavMenu Class="pt-3">
+﻿@using UniHelper.Services
+@inject IAuthenticationService AuthenticationService
+
+<MudNavMenu Class="pt-3">
     <MudText Typo="Typo.h2" Class="text-center">Menu</MudText>
     <MudDivider Class="my-2" />
-    <MudNavLink Href="/" Icon="@Icons.Filled.Home">Home</MudNavLink>
-    <MudNavLink Href="/periods" Icon="@Icons.Filled.ListAlt">Periods</MudNavLink>
-    <MudNavLink Href="/calendar" Icon="@Icons.Filled.CalendarToday">Calendar</MudNavLink>
-    <MudNavLink Href="/tasks" Icon="@Icons.Filled.Assignment">Tasks</MudNavLink>
-    <MudNavLink Href="/login" Icon="@Icons.Filled.Login">Login</MudNavLink>
-    <MudNavLink Href="/registration" Icon="@Icons.Filled.PersonAdd">Registration</MudNavLink>
+    @if (AuthenticationService.IsLoggedIn())
+    {
+        <MudNavLink Href="/" Icon="@Icons.Filled.Home">Home</MudNavLink>
+        <MudNavLink Href="/periods" Icon="@Icons.Filled.ListAlt">Periods</MudNavLink>
+        <MudNavLink Href="/calendar" Icon="@Icons.Filled.CalendarToday">Calendar</MudNavLink>
+        <MudNavLink Href="/tasks" Icon="@Icons.Filled.Assignment">Tasks</MudNavLink>
+    }
+    else
+    {
+        <MudNavLink Href="/login" Icon="@Icons.Filled.Login">Login</MudNavLink>
+        <MudNavLink Href="/registration" Icon="@Icons.Filled.PersonAdd">Registration</MudNavLink>
+    }
 </MudNavMenu>

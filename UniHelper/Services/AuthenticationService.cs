@@ -1,7 +1,9 @@
 using System;
 using System.Threading.Tasks;
+using Blazored.LocalStorage;
 using Karcags.Blazor.Common.Http;
 using Karcags.Blazor.Common.Models;
+using Microsoft.AspNetCore.Components;
 using UniHelper.Shared.Models;
 
 namespace UniHelper.Services
@@ -10,16 +12,26 @@ namespace UniHelper.Services
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IHttpService _httpService;
+        private readonly ILocalStorageService _localStorageService;
+        private readonly NavigationManager _navigationManager;
 
         private string Url { get; set; } = ApplicationSettings.BaseApiUrl + "/auth";
+
+        public StorageUser User { get; set; }
 
         /// <summary>
         /// Init Authentication Service
         /// </summary>
         /// <param name="httpService">HTTP Service</param>
-        public AuthenticationService(IHttpService httpService)
+        /// <param name="localStorageService">Local Storage Service</param>
+        /// <param name="navigationManager">Navigation Manager</param>
+        public AuthenticationService(IHttpService httpService, ILocalStorageService localStorageService,
+            NavigationManager navigationManager)
         {
             _httpService = httpService;
+            _localStorageService = localStorageService;
+            _navigationManager = navigationManager;
+            Initialize();
         }
 
         /// <inheritdoc />
@@ -32,9 +44,13 @@ namespace UniHelper.Services
 
             var body = new HttpBody<LoginModel>(model);
 
-            var token = await _httpService.CreateString(settings, body);
+            User = await _httpService.CreateWithResult<StorageUser, LoginModel>(settings, body);
 
-            return !String.IsNullOrEmpty(token);
+            if (User == null) return false;
+            
+            await _localStorageService.SetItemAsync("user", User);
+            await _localStorageService.SetItemAsync("token", User.Token);
+            return true;
         }
 
         /// <inheritdoc />
@@ -48,6 +64,27 @@ namespace UniHelper.Services
             var body = new HttpBody<RegistrationModel>(model);
 
             return await _httpService.Create(settings, body);
+        }
+
+        /// <inheritdoc />
+        public bool IsLoggedIn()
+        {
+            return User != null;
+        }
+
+        /// <inheritdoc />
+        public async void Logout()
+        {
+            User = null;
+            await _localStorageService.RemoveItemAsync("user");
+            await _localStorageService.RemoveItemAsync("token");
+            _navigationManager.NavigateTo("login");
+        }
+
+        /// <inheritdoc />
+        public async void Initialize()
+        {
+            User = await _localStorageService.GetItemAsync<StorageUser>("user");
         }
     }
 }

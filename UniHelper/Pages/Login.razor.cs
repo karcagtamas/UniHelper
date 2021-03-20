@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
+using UniHelper.Helpers;
 using UniHelper.Services;
 using UniHelper.Shared.Models;
 
@@ -14,6 +15,9 @@ namespace UniHelper.Pages
         
         [Inject]
         private IAuthenticationService AuthenticationService { get; set; }
+        
+        [Inject]
+        private NavigationManager NavigationManager { get; set; }
         private EditContext LoginContext { get; set; }
         private LoginModel Model { get; set; }
 
@@ -31,12 +35,12 @@ namespace UniHelper.Pages
             base.OnInitialized();
         }
 
-        private async void SignIn() 
+        private async void SignIn()
         {
-            if (LoginContext.Validate())
-            {
-                await AuthenticationService.Login(Model);
-            }
+            if (!LoginContext.Validate()) return;
+            if (!await AuthenticationService.Login(Model)) return;
+            var returnUrl = NavigationManager.QueryString("returnUrl") ?? "/";
+            NavigationManager.NavigateTo(returnUrl);
         }
 
         private void SwitchPassword()

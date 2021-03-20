@@ -42,7 +42,7 @@ namespace UniHelper.Backend.Controllers
         /// </summary>
         [AllowAnonymous]
         [HttpPost("login")]
-        public string Login([FromBody] LoginModel model)
+        public StorageUser Login([FromBody] LoginModel model)
         {
             return _authenticationService.Login(model);
         }
