@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MudBlazor;
 using MudBlazor.Services;
 using UniHelper.Services;
+using UniHelper.Shared.Models;
 
 namespace UniHelper
 {
@@ -45,6 +46,7 @@ namespace UniHelper
             builder.Services.AddScoped<IToasterService, ToasterService>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
+            builder.Services.AddSingleton<IStoreService, StoreService>();
             builder.Services.AddHttpService(config =>
             {
                 config.IsTokenBearer = true;
@@ -66,8 +68,9 @@ namespace UniHelper
 
             var host = builder.Build();
 
-            var authService = host.Services.GetRequiredService<IAuthenticationService>();
-            authService.Initialize();
+            var storeService = host.Services.GetRequiredService<IStoreService>();
+            var localStorageService = host.Services.GetRequiredService<ILocalStorageService>();
+            storeService.Add("user", await localStorageService.GetItemAsync<StorageUser>("user"));
 
             ApplicationSettings.BaseUrl = builder.Configuration.GetSection("Api").Value;
             ApplicationSettings.BaseApiUrl = ApplicationSettings.BaseUrl += "/api";

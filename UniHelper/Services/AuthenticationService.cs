@@ -14,10 +14,9 @@ namespace UniHelper.Services
         private readonly IHttpService _httpService;
         private readonly ILocalStorageService _localStorageService;
         private readonly NavigationManager _navigationManager;
+        private readonly IStoreService _storeService;
 
         private string Url { get; set; } = ApplicationSettings.BaseApiUrl + "/auth";
-
-        public StorageUser User { get; set; }
 
         /// <summary>
         /// Init Authentication Service
@@ -25,13 +24,14 @@ namespace UniHelper.Services
         /// <param name="httpService">HTTP Service</param>
         /// <param name="localStorageService">Local Storage Service</param>
         /// <param name="navigationManager">Navigation Manager</param>
+        /// <param name="storeService">Store Service</param>
         public AuthenticationService(IHttpService httpService, ILocalStorageService localStorageService,
-            NavigationManager navigationManager)
+            NavigationManager navigationManager, IStoreService storeService)
         {
             _httpService = httpService;
             _localStorageService = localStorageService;
             _navigationManager = navigationManager;
-            Initialize();
+            _storeService = storeService;
         }
 
         /// <inheritdoc />
@@ -44,12 +44,13 @@ namespace UniHelper.Services
 
             var body = new HttpBody<LoginModel>(model);
 
-            User = await _httpService.CreateWithResult<StorageUser, LoginModel>(settings, body);
+            var user = await _httpService.CreateWithResult<StorageUser, LoginModel>(settings, body);
 
-            if (User == null) return false;
+            if (user == null) return false;
             
-            await _localStorageService.SetItemAsync("user", User);
-            await _localStorageService.SetItemAsync("token", User.Token);
+            await _localStorageService.SetItemAsync("user", user);
+            await _localStorageService.SetItemAsync("token", user.Token);
+            _storeService.Add("user", user);
             return true;
         }
 
@@ -69,22 +70,26 @@ namespace UniHelper.Services
         /// <inheritdoc />
         public bool IsLoggedIn()
         {
-            return User != null;
+            return _storeService.IsExists("user");
         }
 
         /// <inheritdoc />
         public async void Logout()
         {
-            User = null;
             await _localStorageService.RemoveItemAsync("user");
             await _localStorageService.RemoveItemAsync("token");
+            _storeService.Remove("user");
             _navigationManager.NavigateTo("login");
         }
 
-        /// <inheritdoc />
-        public async void Initialize()
+        private async Task<StorageUser> GetUser()
         {
-            User = await _localStorageService.GetItemAsync<StorageUser>("user");
+            return await _localStorageService.GetItemAsync<StorageUser>("user");
+        }
+
+        private async Task<string> GetToken()
+        {
+            return await _localStorageService.GetItemAsync<string>("token");
         }
     }
 }

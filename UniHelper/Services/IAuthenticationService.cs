@@ -32,11 +32,5 @@ namespace UniHelper.Services
         /// Log out current user
         /// </summary>
         public void Logout();
-
-        /// <summary>
-        /// Initialize Service
-        /// </summary>
-        /// <returns></returns>
-        void Initialize();
     }
 }

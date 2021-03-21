@@ -31,7 +31,8 @@ namespace UniHelper.Helpers
         protected override void Render(RenderTreeBuilder builder)
         {
             var authorize = Attribute.GetCustomAttribute(RouteData.PageType, typeof(AuthorizeAttribute)) != null;
-            if (authorize && !AuthenticationService.IsLoggedIn())
+            var loggedIn = AuthenticationService.IsLoggedIn();
+            if (authorize && !loggedIn)
             {
                 var returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
                 NavigationManager.NavigateTo($"login?returnUrl={returnUrl}");
