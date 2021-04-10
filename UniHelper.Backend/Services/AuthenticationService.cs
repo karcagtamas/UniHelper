@@ -52,8 +52,13 @@ namespace UniHelper.Backend.Services
             return ValidatePassword(model.Password, user.Password)
                 ? new StorageUser
                 {
-                    Token = Token(user), UserName = user.UserName, Id = user.Id, Email = user.Email,
-                    FullName = user.FullName
+                    Token = Token(user), 
+                    UserName = user.UserName, 
+                    Id = user.Id, 
+                    Email = user.Email,
+                    FullName = user.FullName,
+                    LastLogin = user.LastLogin,
+                    Registration = user.Registration
                 }
                 : null;
         }

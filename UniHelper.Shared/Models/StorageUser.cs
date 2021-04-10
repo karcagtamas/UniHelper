@@ -1,3 +1,5 @@
+using System;
+
 namespace UniHelper.Shared.Models
 {
     /// <summary>
@@ -29,5 +31,16 @@ namespace UniHelper.Shared.Models
         /// Token
         /// </summary>
         public string Token { get; set; }
+        
+        
+        /// <summary>
+        /// Last Login
+        /// </summary>
+        public DateTime LastLogin { get; set; }
+        
+        /// <summary>
+        /// Registration
+        /// </summary>
+        public DateTime Registration { get; set; }
     }
 }
