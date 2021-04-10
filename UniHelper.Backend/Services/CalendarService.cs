@@ -42,9 +42,9 @@ namespace UniHelper.Backend.Services
                 dayList.Add(new DayDto {Tiles = new List<TileDto>(), DayOfWeek = x});
             });
             
-            current.Subjects.ToList().ForEach(sub =>
+            current.Subjects.Where(x => x.IsActive).ToList().ForEach(sub =>
             {
-                sub.Courses.ToList().ForEach(cour =>
+                sub.Courses.Where(x => x.IsSelected).ToList().ForEach(cour =>
                 {
                     var dayId = dayList.FindIndex(x => (int) x.DayOfWeek == cour.Day);
 
