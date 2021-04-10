@@ -13,8 +13,7 @@ namespace UniHelper.Pages
     public partial class Registration
     {
         [Inject] private IAuthenticationService AuthenticationService { get; set; }
-        [Inject]
-        private NavigationManager NavigationManager { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
         private EditContext RegistrationContext { get; set; }
         private RegistrationInputModel Model { get; set; }
 

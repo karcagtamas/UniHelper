@@ -8,20 +8,25 @@ using UniHelper.Shared.Models;
 
 namespace UniHelper.Shared.Dialogs
 {
+    /// <summary>
+    /// Subject Dialog
+    /// </summary>
     public partial class SubjectDialog
     {
-        [CascadingParameter]
-        private MudDialogInstance Dialog { get; set; }
+        [CascadingParameter] private MudDialogInstance Dialog { get; set; }
 
+        /// <summary>
+        /// Subject Data
+        /// </summary>
         [Parameter]
         public SubjectDto Subject { get; set; }
 
-        [Inject]
-        private ISubjectService SubjectService { get; set; }
+        [Inject] private ISubjectService SubjectService { get; set; }
         private EditContext SubjectContext { get; set; }
         private SubjectModel Model { get; set; }
         private bool IsEdit { get; set; }
 
+        /// <inheritdoc />
         protected override Task OnInitializedAsync()
         {
             if (Subject != null)
@@ -33,6 +38,7 @@ namespace UniHelper.Shared.Dialogs
             {
                 Model = new SubjectModel();
             }
+
             SubjectContext = new EditContext(Model);
             return base.OnInitializedAsync();
         }

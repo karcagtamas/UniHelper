@@ -14,7 +14,7 @@ namespace UniHelper.Services
         /// <summary>
         /// Init Global Task Service
         /// </summary>
-        /// <param name="httpService">HTTP Servce</param>
+        /// <param name="httpService">HTTP Service</param>
         public GlobalTaskService(IHttpService httpService) : base(ApplicationSettings.BaseApiUrl, "global-tasks", httpService)
         {
         }

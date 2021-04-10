@@ -12,12 +12,9 @@ namespace UniHelper.Pages
     /// </summary>
     public partial class Login
     {
-        
-        [Inject]
-        private IAuthenticationService AuthenticationService { get; set; }
-        
-        [Inject]
-        private NavigationManager NavigationManager { get; set; }
+        [Inject] private IAuthenticationService AuthenticationService { get; set; }
+
+        [Inject] private NavigationManager NavigationManager { get; set; }
         private EditContext LoginContext { get; set; }
         private LoginModel Model { get; set; }
 

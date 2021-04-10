@@ -13,14 +13,11 @@ namespace UniHelper.Pages
     /// </summary>
     public partial class PeriodList
     {
-        [Inject]
-        private IPeriodService PeriodService { get; set; }
+        [Inject] private IPeriodService PeriodService { get; set; }
 
-        [Inject]
-        private NavigationManager NavigationManager { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
-        [Inject]
-        private IDialogService DialogService { get; set; }
+        [Inject] private IDialogService DialogService { get; set; }
 
         private List<PeriodDto> List { get; set; } = new();
 

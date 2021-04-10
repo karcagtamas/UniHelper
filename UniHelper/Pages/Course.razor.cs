@@ -18,23 +18,19 @@ namespace UniHelper.Pages
         /// <value>Id number</value>
         [Parameter]
         public int Id { get; set; }
-        
-        [Inject]
-        private ICourseService CourseService { get; set; }
-        
-        [Inject]
-        private ILessonHourService LessonHourService { get; set; }
-        
-        [Inject]
-        private NavigationManager NavigationManager { get; set; }
 
-        [Inject]
-        private IDialogService DialogService { get; set; }
-        
+        [Inject] private ICourseService CourseService { get; set; }
+
+        [Inject] private ILessonHourService LessonHourService { get; set; }
+
+        [Inject] private NavigationManager NavigationManager { get; set; }
+
+        [Inject] private IDialogService DialogService { get; set; }
+
         private CourseDto CourseData { get; set; }
-        
+
         private LessonHourIntervalDto Interval { get; set; }
-        
+
         /// <summary>
         /// Init Course
         /// </summary>
@@ -72,7 +68,7 @@ namespace UniHelper.Pages
                 await GetData();
             }
         }
-        
+
         private async void OpenDeleteDialog()
         {
             var parameters = new DialogParameters

@@ -14,17 +14,13 @@ namespace UniHelper.Pages
     /// </summary>
     public partial class Tasks
     {
-        [Inject]
-        private IGlobalTaskService GlobalTaskService { get; set; }
-        
-        [Inject]
-        private IPeriodTaskService PeriodTaskService { get; set; }
-        
-        [Inject]
-        private ISubjectTaskService SubjectTaskService { get; set; }
+        [Inject] private IGlobalTaskService GlobalTaskService { get; set; }
 
-        [Inject]
-        private IDialogService DialogService { get; set; }
+        [Inject] private IPeriodTaskService PeriodTaskService { get; set; }
+
+        [Inject] private ISubjectTaskService SubjectTaskService { get; set; }
+
+        [Inject] private IDialogService DialogService { get; set; }
 
         private List<TaskDto> TaskList { get; set; } = new();
 
@@ -44,7 +40,7 @@ namespace UniHelper.Pages
             list.AddRange(await PeriodTaskService.GetList());
             list.AddRange(await SubjectTaskService.GetList());
             list = list.OrderBy(x => x.IsSolved).ThenBy(x => x.DueDate).ThenByDescending(x => x.Priority).ToList();
-            
+
             TaskList = list;
             StateHasChanged();
         }

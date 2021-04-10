@@ -5,15 +5,26 @@ using MudBlazor;
 
 namespace UniHelper.Services
 {
+    /// <summary>
+    /// Toaster Service
+    /// </summary>
     public class ToasterService : IToasterService
     {
         private readonly ISnackbar _snackbar;
 
+        /// <summary>
+        /// Init Toaster Service
+        /// </summary>
+        /// <param name="snackbar">Snackbar service</param>
         public ToasterService(ISnackbar snackbar)
         {
             _snackbar = snackbar;
         }
 
+        /// <summary>
+        /// Open toaster
+        /// </summary>
+        /// <param name="settings">Toaster Settings</param>
         public void Open(ToasterSettings settings)
         {
             _snackbar.Add(GenerateString(settings), GetType(settings));

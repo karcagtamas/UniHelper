@@ -9,7 +9,7 @@ namespace UniHelper.Shared.Dialogs
     public partial class AboutDialog
     {
         [CascadingParameter] private MudDialogInstance Dialog { get; set; }
-        
+
         private void Cancel()
         {
             Dialog.Cancel();

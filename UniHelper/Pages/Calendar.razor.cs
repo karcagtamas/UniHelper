@@ -92,7 +92,7 @@ namespace UniHelper.Pages
         private void FilterWeekendCols()
         {
             if (!RemoveWeekendCols) return;
-            DayOfWeek[] weekendDays = new[] { DayOfWeek.Saturday, DayOfWeek.Sunday };
+            DayOfWeek[] weekendDays = {DayOfWeek.Saturday, DayOfWeek.Sunday};
 
             weekendDays.ToList().ForEach(day =>
             {

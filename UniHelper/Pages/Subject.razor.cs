@@ -19,17 +19,14 @@ namespace UniHelper.Pages
         [Parameter]
         public int Id { get; set; }
 
-        [Inject]
-        private ISubjectService SubjectService { get; set; }
-        
-        [Inject]
-        private NavigationManager NavigationManager { get; set; }
-        
-        [Inject]
-        private IDialogService DialogService { get; set; }
-        
+        [Inject] private ISubjectService SubjectService { get; set; }
+
+        [Inject] private NavigationManager NavigationManager { get; set; }
+
+        [Inject] private IDialogService DialogService { get; set; }
+
         private SubjectDto SubjectData { get; set; }
-        
+
         /// <summary>
         /// Init Subject
         /// </summary>
@@ -58,7 +55,7 @@ namespace UniHelper.Pages
         {
             NavigationManager.NavigateTo($"/periods/{SubjectData.PeriodId}");
         }
-        
+
         private async void OpenSubjectDialog()
         {
             var parameters = new DialogParameters {{"Subject", SubjectData}};
@@ -70,7 +67,7 @@ namespace UniHelper.Pages
                 await GetData();
             }
         }
-        
+
         private async void OpenDeleteDialog()
         {
             var parameters = new DialogParameters
@@ -92,7 +89,7 @@ namespace UniHelper.Pages
                 NavigationManager.NavigateTo($"/periods/{SubjectData.PeriodId}");
             }
         }
-        
+
         private async void OpenAddDialog()
         {
             var parameters = new DialogParameters {{"Course", null}};

@@ -19,14 +19,11 @@ namespace UniHelper.Pages
         [Parameter]
         public int Id { get; set; }
 
-        [Inject]
-        private IPeriodService PeriodService { get; set; }
-        
-        [Inject]
-        private NavigationManager NavigationManager { get; set; }
+        [Inject] private IPeriodService PeriodService { get; set; }
 
-        [Inject]
-        private IDialogService DialogService { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
+
+        [Inject] private IDialogService DialogService { get; set; }
 
         private PeriodDto PeriodData { get; set; }
 

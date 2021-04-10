@@ -14,7 +14,7 @@ namespace UniHelper.Services
         /// <summary>
         /// Init Course Service
         /// </summary>
-        /// <param name="httpService">HTTP Servce</param>
+        /// <param name="httpService">HTTP Service</param>
         public CourseService(IHttpService httpService) : base(ApplicationSettings.BaseApiUrl, "courses", httpService)
         {
         }

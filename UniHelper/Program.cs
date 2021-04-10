@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using MudBlazor;
 using MudBlazor.Services;
 using UniHelper.Services;
-using UniHelper.Shared.Models;
 
 namespace UniHelper
 {

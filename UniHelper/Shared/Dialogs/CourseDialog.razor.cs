@@ -8,17 +8,25 @@ using UniHelper.Shared.Models;
 
 namespace UniHelper.Shared.Dialogs
 {
+    /// <summary>
+    /// Course Dialog
+    /// </summary>
     public partial class CourseDialog
     {
         [CascadingParameter] private MudDialogInstance Dialog { get; set; }
 
-        [Parameter] public CourseDto Course { get; set; }
+        /// <summary>
+        /// Course Data
+        /// </summary>
+        [Parameter]
+        public CourseDto Course { get; set; }
 
         [Inject] private ICourseService CourseService { get; set; }
         private EditContext CourseContext { get; set; }
         private CourseModel Model { get; set; }
         private bool IsEdit { get; set; }
 
+        /// <inheritdoc />
         protected override Task OnInitializedAsync()
         {
             if (Course != null)

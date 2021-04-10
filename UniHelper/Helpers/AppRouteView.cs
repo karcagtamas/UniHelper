@@ -16,13 +16,13 @@ namespace UniHelper.Helpers
         /// Navigation Manager
         /// </summary>
         [Inject]
-        public NavigationManager NavigationManager { get; set; }
+        private NavigationManager NavigationManager { get; set; }
         
         /// <summary>
         /// Authentication Service
         /// </summary>
         [Inject]
-        public IAuthenticationService AuthenticationService { get; set; }
+        private IAuthenticationService AuthenticationService { get; set; }
 
         /// <summary>
         /// Render Page

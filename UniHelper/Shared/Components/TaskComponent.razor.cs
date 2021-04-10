@@ -10,12 +10,24 @@ using UniHelper.Shared.Enums;
 
 namespace UniHelper.Shared.Components
 {
+    /// <summary>
+    /// Task Component
+    /// </summary>
     public partial class TaskComponent
     {
+        /// <summary>
+        /// Task Data
+        /// </summary>
         [Parameter] public TaskDto TaskData { get; set; }
 
+        /// <summary>
+        /// On Remove event
+        /// </summary>
         [Parameter] public EventCallback OnRemove { get; set; }
 
+        /// <summary>
+        /// On Edit event
+        /// </summary>
         [Parameter] public EventCallback OnEdit { get; set; }
 
         [Inject] private IGlobalTaskService GlobalTaskService { get; set; }
@@ -30,18 +42,18 @@ namespace UniHelper.Shared.Components
 
         private async void OpenDeleteDialog()
         {
-            Func<Task<bool>> f = () => { return Task.FromResult(false); };
-            if (TaskData.Type == TaskType.Global)
+            Func<Task<bool>> f = () => Task.FromResult(false);
+            switch (TaskData.Type)
             {
-                f = async () => await GlobalTaskService.Remove(TaskData.Id);
-            }
-            else if (TaskData.Type == TaskType.Period)
-            {
-                f = async () => await PeriodTaskService.Remove(TaskData.Id);
-            }
-            else if (TaskData.Type == TaskType.Subject)
-            {
-                f = async () => await SubjectTaskService.Remove(TaskData.Id);
+                case TaskType.Global:
+                    f = async () => await GlobalTaskService.Remove(TaskData.Id);
+                    break;
+                case TaskType.Period:
+                    f = async () => await PeriodTaskService.Remove(TaskData.Id);
+                    break;
+                case TaskType.Subject:
+                    f = async () => await SubjectTaskService.Remove(TaskData.Id);
+                    break;
             }
 
             var parameters = new DialogParameters

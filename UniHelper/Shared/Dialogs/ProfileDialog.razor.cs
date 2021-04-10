@@ -6,7 +6,7 @@ using UniHelper.Shared.Models;
 namespace UniHelper.Shared.Dialogs
 {
     /// <summary>
-    /// About Dialog
+    /// Profile Dialog
     /// </summary>
     public partial class ProfileDialog
     {

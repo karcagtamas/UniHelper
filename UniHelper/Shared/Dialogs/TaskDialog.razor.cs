@@ -11,26 +11,28 @@ using UniHelper.Shared.Models;
 
 namespace UniHelper.Shared.Dialogs
 {
+    /// <summary>
+    /// Task Dialog
+    /// </summary>
     public partial class TaskDialog
     {
         [CascadingParameter] private MudDialogInstance Dialog { get; set; }
 
-        [Parameter] public TaskDto TaskData { get; set; }
+        /// <summary>
+        /// Task Data
+        /// </summary>
+        [Parameter]
+        public TaskDto TaskData { get; set; }
 
-        [Inject]
-        private IGlobalTaskService GlobalTaskService { get; set; }
+        [Inject] private IGlobalTaskService GlobalTaskService { get; set; }
 
-        [Inject]
-        private IPeriodTaskService PeriodTaskService { get; set; }
+        [Inject] private IPeriodTaskService PeriodTaskService { get; set; }
 
-        [Inject]
-        private ISubjectTaskService SubjectTaskService { get; set; }
-        
-        [Inject]
-        private IPeriodService PeriodService { get; set; }
-        
-        [Inject]
-        private ISubjectService SubjectService { get; set; }
+        [Inject] private ISubjectTaskService SubjectTaskService { get; set; }
+
+        [Inject] private IPeriodService PeriodService { get; set; }
+
+        [Inject] private ISubjectService SubjectService { get; set; }
 
         private TaskType AddType { get; set; }
         private EditContext TaskContext { get; set; }
@@ -42,6 +44,7 @@ namespace UniHelper.Shared.Dialogs
         private List<SubjectDto> SourceSubjects { get; set; }
         private List<SubjectDto> Subjects { get; set; }
 
+        /// <inheritdoc />
         protected override Task OnInitializedAsync()
         {
             if (TaskData != null)
@@ -55,6 +58,7 @@ namespace UniHelper.Shared.Dialogs
                 Model = new TaskModel();
                 AddType = TaskType.Global;
             }
+
             TaskContext = new EditContext(Model);
             return base.OnInitializedAsync();
         }
@@ -73,6 +77,7 @@ namespace UniHelper.Shared.Dialogs
                     SourceSubjects = await SubjectService.GetList();
                     break;
             }
+
             AddType = type;
             StateHasChanged();
         }
@@ -84,6 +89,7 @@ namespace UniHelper.Shared.Dialogs
             {
                 Subjects = SourceSubjects.Where(x => x.PeriodId == id).ToList();
             }
+
             ParentSelectedId = id;
             StateHasChanged();
         }
@@ -96,7 +102,7 @@ namespace UniHelper.Shared.Dialogs
             }
 
             if (!TaskContext.Validate()) return;
-            
+
             switch (AddType)
             {
                 case TaskType.Global when IsEdit:
