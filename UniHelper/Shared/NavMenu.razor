@@ -1,5 +1,6 @@
 ﻿@using UniHelper.Services
 @inject IAuthenticationService AuthenticationService
+@inject IStoreService StoreService
 
 <MudNavMenu Class="pt-3">
     <MudText Typo="Typo.h2" Class="text-center">Menu</MudText>
@@ -10,6 +11,8 @@
         <MudNavLink Href="/periods" Icon="@Icons.Filled.ListAlt">Periods</MudNavLink>
         <MudNavLink Href="/calendar" Icon="@Icons.Filled.CalendarToday">Calendar</MudNavLink>
         <MudNavLink Href="/tasks" Icon="@Icons.Filled.Assignment">Tasks</MudNavLink>
+        <MudDivider />
+        <MudNavLink Href="/logout" Icon="@Icons.Filled.Logout">Logout</MudNavLink>
     }
     else
     {
@@ -17,3 +20,22 @@
         <MudNavLink Href="/registration" Icon="@Icons.Filled.PersonAdd">Registration</MudNavLink>
     }
 </MudNavMenu>
+
+@code {
+
+    private bool _isLoggedIn = false;
+
+    /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        _isLoggedIn = AuthenticationService.IsLoggedIn();
+        StoreService.Changed += StoreChanged;
+    }
+
+    private void StoreChanged(object sender, EventArgs args)
+    {
+        _isLoggedIn = AuthenticationService.IsLoggedIn();
+        StateHasChanged();
+    }
+
+}

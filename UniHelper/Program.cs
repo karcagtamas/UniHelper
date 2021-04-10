@@ -46,7 +46,6 @@ namespace UniHelper
             builder.Services.AddScoped<IToasterService, ToasterService>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
-            builder.Services.AddSingleton<IStoreService, StoreService>();
             builder.Services.AddHttpService(config =>
             {
                 config.IsTokenBearer = true;
@@ -67,10 +66,11 @@ namespace UniHelper
             });
 
             var host = builder.Build();
-
-            var storeService = host.Services.GetRequiredService<IStoreService>();
+            
             var localStorageService = host.Services.GetRequiredService<ILocalStorageService>();
-            storeService.Add("user", await localStorageService.GetItemAsync<StorageUser>("user"));
+            var storeService = new StoreService(localStorageService);
+            await storeService.Init();
+            builder.Services.AddSingleton<IStoreService>(storeService);
 
             ApplicationSettings.BaseUrl = builder.Configuration.GetSection("Api").Value;
             ApplicationSettings.BaseApiUrl = ApplicationSettings.BaseUrl += "/api";

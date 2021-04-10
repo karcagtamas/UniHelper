@@ -138,10 +138,10 @@ namespace UniHelper.Backend
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
-
-            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

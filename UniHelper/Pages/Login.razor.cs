@@ -33,6 +33,10 @@ namespace UniHelper.Pages
             Model = new LoginModel();
             LoginContext = new EditContext(Model);
             base.OnInitialized();
+            if (AuthenticationService.IsLoggedIn())
+            {
+                NavigationManager.NavigateTo("/");
+            }
         }
 
         private async void SignIn()

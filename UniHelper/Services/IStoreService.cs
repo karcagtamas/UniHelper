@@ -1,3 +1,5 @@
+using System;
+
 namespace UniHelper.Services
 {
     /// <summary>
@@ -5,6 +7,11 @@ namespace UniHelper.Services
     /// </summary>
     public interface IStoreService
     {
+        /// <summary>
+        /// Changed event
+        /// </summary>
+        event EventHandler Changed;
+        
         /// <summary>
         /// Get value from Store
         /// </summary>

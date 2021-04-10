@@ -32,10 +32,18 @@ namespace UniHelper.Helpers
         {
             var authorize = Attribute.GetCustomAttribute(RouteData.PageType, typeof(AuthorizeAttribute)) != null;
             var loggedIn = AuthenticationService.IsLoggedIn();
+
             if (authorize && !loggedIn)
             {
                 var returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
-                NavigationManager.NavigateTo($"login?returnUrl={returnUrl}");
+                if (returnUrl.Contains("login"))
+                {
+                    base.Render(builder);
+                }
+                else
+                {
+                    NavigationManager.NavigateTo($"login?returnUrl={returnUrl}");
+                }
             }
             else
             {

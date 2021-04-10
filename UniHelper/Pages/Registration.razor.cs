@@ -13,10 +13,12 @@ namespace UniHelper.Pages
     public partial class Registration
     {
         [Inject] private IAuthenticationService AuthenticationService { get; set; }
+        [Inject]
+        private NavigationManager NavigationManager { get; set; }
         private EditContext RegistrationContext { get; set; }
         private RegistrationInputModel Model { get; set; }
 
-        private bool _isShow = false;
+        private bool _isShow;
         private InputType _passwordInput = InputType.Password;
         private string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
 
@@ -28,6 +30,10 @@ namespace UniHelper.Pages
             Model = new RegistrationInputModel();
             RegistrationContext = new EditContext(Model);
             base.OnInitialized();
+            if (AuthenticationService.IsLoggedIn())
+            {
+                NavigationManager.NavigateTo("/");
+            }
         }
 
         private async void SignUp()
