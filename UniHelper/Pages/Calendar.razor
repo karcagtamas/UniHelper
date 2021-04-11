@@ -52,7 +52,7 @@
                                 <div class="tile">
                                     @if (cell.Tile != null)
                                     {
-                                        <div class="tile-element @(cell.IsHovered ? "hovered" : "")" @onmouseover="(e) => OnHover(e, cell, true)" @onmouseout="(e) => OnHover(e, cell, false)">
+                                        <div class="tile-element @(cell.IsHovered ? "hovered" : "")" @onclick="(() => OnClick(cell))" @onmouseover="(e) => OnHover(e, cell, true)" @onmouseout="(e) => OnHover(e, cell, false)">
                                             <div class="tile-title">@cell.Tile.SubjectShortName</div>
                                             <div class="tile-info">@cell.Tile.Place</div>
                                         </div>

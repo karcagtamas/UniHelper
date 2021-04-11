@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using MudBlazor;
 using UniHelper.Models;
 using UniHelper.Services;
+using UniHelper.Shared.Dialogs;
 using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Pages
@@ -18,6 +20,8 @@ namespace UniHelper.Pages
         [Inject] private ICalendarService CalendarService { get; set; }
 
         [Inject] private ILessonHourService LessonHourService { get; set; }
+
+        [Inject] private IDialogService DialogService { get; set; }
 
         private CalendarDto CalendarData { get; set; }
         private List<LessonHourDto> LessonHours { get; set; } = new();
@@ -313,6 +317,19 @@ namespace UniHelper.Pages
                     }
                 });
             });
+        }
+
+        private async void OnClick(CalendarCell cell)
+        {
+            var parameters = new DialogParameters {{"Cell", cell}};
+            var dialog =
+                DialogService.Show<CellInformationDialog>(cell.Tile.SubjectLongName, parameters, new DialogOptions
+                {
+                    MaxWidth = MaxWidth.Small,
+                    FullWidth = true
+                });
+
+            var result = await dialog.Result;
         }
 
         private void ChangeEmptyColFilter(bool value)
