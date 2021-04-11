@@ -45,6 +45,7 @@ namespace UniHelper
             builder.Services.AddScoped<IToasterService, ToasterService>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
+            builder.Services.AddScoped<ITaskService, TaskService>();
             builder.Services.AddHttpService(config =>
             {
                 config.IsTokenBearer = true;

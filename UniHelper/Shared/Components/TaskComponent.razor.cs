@@ -18,17 +18,20 @@ namespace UniHelper.Shared.Components
         /// <summary>
         /// Task Data
         /// </summary>
-        [Parameter] public TaskDto TaskData { get; set; }
+        [Parameter]
+        public TaskDto TaskData { get; set; }
 
         /// <summary>
         /// On Remove event
         /// </summary>
-        [Parameter] public EventCallback OnRemove { get; set; }
+        [Parameter]
+        public EventCallback OnRemove { get; set; }
 
         /// <summary>
         /// On Edit event
         /// </summary>
-        [Parameter] public EventCallback OnEdit { get; set; }
+        [Parameter]
+        public EventCallback OnEdit { get; set; }
 
         [Inject] private IGlobalTaskService GlobalTaskService { get; set; }
 
@@ -37,6 +40,8 @@ namespace UniHelper.Shared.Components
         [Inject] private ISubjectTaskService SubjectTaskService { get; set; }
 
         [Inject] private IDialogService DialogService { get; set; }
+
+        [Inject] private ITaskService TaskService { get; set; }
 
         private string _defaultClass = "d-flex flex-column align-center justify-center mud-width-full py-8";
 
@@ -78,7 +83,8 @@ namespace UniHelper.Shared.Components
 
         private async void OpenEditDialog()
         {
-            var parameters = new DialogParameters {{"TaskData", TaskData}};
+            var parameters = new DialogParameters
+                {{"TaskData", TaskData}, {"InitId", await TaskService.GetParentIdList(TaskData.Id, TaskData.Type)}};
             var dialog = DialogService.Show<TaskDialog>("Edit Task", parameters);
             var result = await dialog.Result;
 
@@ -113,13 +119,13 @@ namespace UniHelper.Shared.Components
                         val += " task-low";
                         break;
                 }
-                
+
                 if (DateTime.Now > TaskData.DueDate)
                 {
                     val += " task-ended";
                 }
             }
-            
+
             return _defaultClass + val;
         }
     }

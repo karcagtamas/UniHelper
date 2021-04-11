@@ -47,7 +47,7 @@ namespace UniHelper.Pages
 
         private async void OpenAddDialog()
         {
-            var parameters = new DialogParameters {{"TaskData", null}};
+            var parameters = new DialogParameters {{"TaskData", null}, {"InitId", new List<int>()}};
             var dialog = DialogService.Show<TaskDialog>("Add Task", parameters);
             var result = await dialog.Result;
 

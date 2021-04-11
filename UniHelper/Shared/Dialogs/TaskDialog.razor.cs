@@ -24,6 +24,12 @@ namespace UniHelper.Shared.Dialogs
         [Parameter]
         public TaskDto TaskData { get; set; }
 
+        /// <summary>
+        /// Init Selected Id
+        /// </summary>
+        [Parameter]
+        public List<int> InitId { get; set; }
+
         [Inject] private IGlobalTaskService GlobalTaskService { get; set; }
 
         [Inject] private IPeriodTaskService PeriodTaskService { get; set; }
@@ -45,25 +51,42 @@ namespace UniHelper.Shared.Dialogs
         private List<SubjectDto> Subjects { get; set; }
 
         /// <inheritdoc />
-        protected override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             if (TaskData != null)
             {
                 Model = new TaskModel(TaskData);
+                TaskContext = new EditContext(Model);
                 IsEdit = true;
                 AddType = TaskData.Type;
+
+                if (InitId != null && InitId.Count > 0)
+                {
+                    if (TaskData.Type == TaskType.Period)
+                    {
+                        await TypeChanged(TaskType.Period, false);
+                        SelectedId = InitId[0];
+                    }
+                    else if (TaskData.Type == TaskType.Subject)
+                    {
+                        await TypeChanged(TaskType.Subject, false);
+                        ParentIdChanged(InitId[0]);
+                        SelectedId = InitId[1];
+                    }
+                }
             }
             else
             {
                 Model = new TaskModel();
+                TaskContext = new EditContext(Model);
                 AddType = TaskType.Global;
             }
 
-            TaskContext = new EditContext(Model);
-            return base.OnInitializedAsync();
+            await base.OnInitializedAsync();
+            StateHasChanged();
         }
 
-        private async void TypeChanged(TaskType type)
+        private async Task TypeChanged(TaskType type, bool refreshState)
         {
             Periods = new List<PeriodDto>();
             SourceSubjects = new List<SubjectDto>();
@@ -79,7 +102,11 @@ namespace UniHelper.Shared.Dialogs
             }
 
             AddType = type;
-            StateHasChanged();
+
+            if (refreshState)
+            {
+                StateHasChanged();
+            }
         }
 
         private void ParentIdChanged(int id)

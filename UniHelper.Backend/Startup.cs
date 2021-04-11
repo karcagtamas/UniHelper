@@ -107,6 +107,7 @@ namespace UniHelper.Backend
             services.AddScoped<ILessonHourService, LessonHourService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<ITaskService, TaskService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
