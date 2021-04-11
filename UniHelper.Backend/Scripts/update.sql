@@ -33,3 +33,6 @@ INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
 VALUES ('20210316210350_UserUpdate', '5.0.4');
 
 COMMIT;
+
+INSERT INTO UniHelper.Users (Id, FullName, UserName, Password, Email, Registration, LastLogin) VALUES (1, 'Karcag Tamas', 'karcagtamas', '1000:tSPRY0o9d8UyVEGH6Wctw42c+nNRCc1N:2buv3hlszeUnYlcve33cVSEPfPvHJLzE', 'karcagtamas@outlook.com', '2021-03-16 22:08:30.000000', '2021-04-11 20:03:47.508005');
+INSERT INTO UniHelper.Users (Id, FullName, UserName, Password, Email, Registration, LastLogin) VALUES (2, 'Test User', 'testuser', '1000:tSPRY0o9d8UyVEGH6Wctw42c+nNRCc1N:2buv3hlszeUnYlcve33cVSEPfPvHJLzE', 'karcagtamas@gmail.com', '2021-03-17 17:00:46.521764', '2021-03-17 17:00:46.521675');
