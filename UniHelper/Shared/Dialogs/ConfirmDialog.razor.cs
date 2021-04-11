@@ -3,12 +3,16 @@ using MudBlazor;
 
 namespace UniHelper.Shared.Dialogs
 {
+    /// <summary>
+    /// Confirm Dialog
+    /// </summary>
     public partial class ConfirmDialog
     {
+        [CascadingParameter] private MudDialogInstance Dialog { get; set; }
 
-        [CascadingParameter]
-        private MudDialogInstance Dialog { get; set; }
-
+        /// <summary>
+        /// Dialog Input
+        /// </summary>
         [Parameter]
         public ConfirmDialogInput Input { get; set; }
 

@@ -8,17 +8,25 @@ using UniHelper.Shared.Models;
 
 namespace UniHelper.Shared.Dialogs
 {
+    /// <summary>
+    /// Period Dialog
+    /// </summary>
     public partial class PeriodDialog
     {
         [CascadingParameter] private MudDialogInstance Dialog { get; set; }
 
-        [Parameter] public PeriodDto Period { get; set; }
+        /// <summary>
+        /// Period Data
+        /// </summary>
+        [Parameter]
+        public PeriodDto Period { get; set; }
 
         [Inject] private IPeriodService PeriodService { get; set; }
         private EditContext PeriodContext { get; set; }
         private PeriodModel Model { get; set; }
         private bool IsEdit { get; set; }
 
+        /// <inheritdoc />
         protected override Task OnInitializedAsync()
         {
             if (Period != null)

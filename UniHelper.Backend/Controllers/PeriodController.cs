@@ -1,4 +1,5 @@
 using Karcags.Common.Tools.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniHelper.Backend.Entities;
 using UniHelper.Backend.Services;
@@ -12,6 +13,7 @@ namespace UniHelper.Backend.Controllers
     /// </summary>
     [Route("api/periods")]
     [ApiController]
+    [Authorize]
     public class PeriodController : MyController<Period, PeriodModel, PeriodDto>
     {
         private readonly IPeriodService _service;

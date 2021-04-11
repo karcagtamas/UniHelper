@@ -1,0 +1,25 @@
+<MudDialog>
+    <TitleContent>
+        <PageTitle Title="Profile"/>
+    </TitleContent>
+    <DialogContent>
+        <div class="p-1">
+            <strong>User Name:</strong> @User.UserName
+        </div>
+        <div class="p-1">
+            <strong>Full Name:</strong> @User.FullName
+        </div>
+        <div class="p-1">
+            <strong>E-mail:</strong> @User.Email
+        </div>
+        <div class="p-1">
+            <strong>Registration:</strong> @User.Registration.ToShortDateString()
+        </div>
+        <div class="p-1">
+            <strong>Last Login:</strong> @User.LastLogin.ToShortDateString()
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>

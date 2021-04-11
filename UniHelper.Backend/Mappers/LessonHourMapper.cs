@@ -5,8 +5,14 @@ using UniHelper.Shared.Models;
 
 namespace UniHelper.Backend.Mappers
 {
+    /// <summary>
+    /// Lesson Hour Mapper
+    /// </summary>
     public class LessonHourMapper : Profile
     {
+        /// <summary>
+        /// Init Lesson Hour Mapper
+        /// </summary>
         public LessonHourMapper()
         {
             CreateMap<LessonHour, LessonHourDto>()
@@ -14,7 +20,7 @@ namespace UniHelper.Backend.Mappers
                 .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
                 .ForMember(dest => dest.Start, opt => opt.MapFrom(src => src.Start))
                 .ForMember(dest => dest.End, opt => opt.MapFrom(src => src.End));
-            
+
             CreateMap<LessonHourModel, LessonHour>()
                 .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
                 .ForMember(dest => dest.Start, opt => opt.MapFrom(src => src.Start))

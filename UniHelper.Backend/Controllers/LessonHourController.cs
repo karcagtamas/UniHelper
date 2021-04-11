@@ -1,5 +1,6 @@
 using Karcags.Common.Tools;
 using Karcags.Common.Tools.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniHelper.Backend.Entities;
 using UniHelper.Backend.Services;
@@ -13,6 +14,7 @@ namespace UniHelper.Backend.Controllers
     /// </summary>
     [ApiController]
     [Route("/api/lesson-hours")]
+    [Authorize]
     public class LessonHourController : MyController<LessonHour, LessonHourModel, LessonHourDto>
     {
         private readonly ILessonHourService _service;

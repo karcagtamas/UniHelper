@@ -68,6 +68,9 @@ namespace UniHelper.Backend.Entities
         [Required]
         public bool IsActive { get; set; }
         
+        /// <summary>
+        /// Subject Type
+        /// </summary>
         [Required]
         public int Type { get; set; }
         

@@ -8,21 +8,25 @@ using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Pages
 {
+    /// <summary>
+    /// Period List Page
+    /// </summary>
     public partial class PeriodList
     {
-        [Inject]
-        private IPeriodService PeriodService { get; set; }
+        [Inject] private IPeriodService PeriodService { get; set; }
 
-        [Inject]
-        private NavigationManager NavigationManager { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
-        [Inject]
-        private IDialogService DialogService { get; set; }
+        [Inject] private IDialogService DialogService { get; set; }
 
         private List<PeriodDto> List { get; set; } = new();
 
         private int SelectedPeriod { get; set; } = -1;
 
+        /// <summary>
+        /// Init Period List
+        /// </summary>
+        /// <returns>Async task</returns>
         protected override async Task OnInitializedAsync()
         {
             await Refresh();

@@ -15,7 +15,7 @@ namespace UniHelper.Backend.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.2");
+                .HasAnnotation("ProductVersion", "5.0.4");
 
             modelBuilder.Entity("UniHelper.Backend.Entities.Course", b =>
                 {
@@ -76,7 +76,12 @@ namespace UniHelper.Backend.Migrations
                         .HasMaxLength(240)
                         .HasColumnType("varchar(240) CHARACTER SET utf8mb4");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("GlobalNotes");
                 });
@@ -101,7 +106,12 @@ namespace UniHelper.Backend.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200) CHARACTER SET utf8mb4");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("GlobalTasks");
                 });
@@ -246,7 +256,12 @@ namespace UniHelper.Backend.Migrations
                     b.Property<DateTime>("Start")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Periods");
                 });
@@ -417,6 +432,41 @@ namespace UniHelper.Backend.Migrations
                     b.ToTable("SubjectTasks");
                 });
 
+            modelBuilder.Entity("UniHelper.Backend.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("varchar(120) CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime>("Registration")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80) CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("UniHelper.Backend.Entities.Course", b =>
                 {
                     b.HasOne("UniHelper.Backend.Entities.Subject", "Subject")
@@ -426,6 +476,39 @@ namespace UniHelper.Backend.Migrations
                         .IsRequired();
 
                     b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("UniHelper.Backend.Entities.GlobalNote", b =>
+                {
+                    b.HasOne("UniHelper.Backend.Entities.User", "User")
+                        .WithMany("Notes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UniHelper.Backend.Entities.GlobalTask", b =>
+                {
+                    b.HasOne("UniHelper.Backend.Entities.User", "User")
+                        .WithMany("Tasks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UniHelper.Backend.Entities.Period", b =>
+                {
+                    b.HasOne("UniHelper.Backend.Entities.User", "User")
+                        .WithMany("Periods")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UniHelper.Backend.Entities.PeriodNote", b =>
@@ -497,6 +580,15 @@ namespace UniHelper.Backend.Migrations
                     b.Navigation("Courses");
 
                     b.Navigation("Notes");
+
+                    b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("UniHelper.Backend.Entities.User", b =>
+                {
+                    b.Navigation("Notes");
+
+                    b.Navigation("Periods");
 
                     b.Navigation("Tasks");
                 });

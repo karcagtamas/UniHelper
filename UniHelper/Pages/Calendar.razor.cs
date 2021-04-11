@@ -1,21 +1,27 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using MudBlazor;
 using UniHelper.Models;
 using UniHelper.Services;
+using UniHelper.Shared.Dialogs;
 using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Pages
 {
+    /// <summary>
+    /// Calendar Page
+    /// </summary>
     public partial class Calendar
     {
         [Inject] private ICalendarService CalendarService { get; set; }
 
         [Inject] private ILessonHourService LessonHourService { get; set; }
+
+        [Inject] private IDialogService DialogService { get; set; }
 
         private CalendarDto CalendarData { get; set; }
         private List<LessonHourDto> LessonHours { get; set; } = new();
@@ -29,6 +35,10 @@ namespace UniHelper.Pages
         private bool RemoveWeekendCols { get; set; } = true;
         private bool RemoveEmptyFirstAndLastRows { get; set; } = true;
 
+        /// <summary>
+        /// Init Calendar
+        /// </summary>
+        /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
             await Refresh();
@@ -86,7 +96,7 @@ namespace UniHelper.Pages
         private void FilterWeekendCols()
         {
             if (!RemoveWeekendCols) return;
-            DayOfWeek[] weekendDays = new[] { DayOfWeek.Saturday, DayOfWeek.Sunday };
+            DayOfWeek[] weekendDays = {DayOfWeek.Saturday, DayOfWeek.Sunday};
 
             weekendDays.ToList().ForEach(day =>
             {
@@ -129,7 +139,7 @@ namespace UniHelper.Pages
             }
 
             foundNotEmpty = false;
-            
+
             while (!foundNotEmpty && Rows.Count > 0)
             {
                 int last = Rows.Count - 1;
@@ -307,6 +317,19 @@ namespace UniHelper.Pages
                     }
                 });
             });
+        }
+
+        private async void OnClick(CalendarCell cell)
+        {
+            var parameters = new DialogParameters {{"Cell", cell}};
+            var dialog =
+                DialogService.Show<CellInformationDialog>(cell.Tile.SubjectLongName, parameters, new DialogOptions
+                {
+                    MaxWidth = MaxWidth.Small,
+                    FullWidth = true
+                });
+
+            var result = await dialog.Result;
         }
 
         private void ChangeEmptyColFilter(bool value)

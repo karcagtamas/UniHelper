@@ -7,12 +7,23 @@ using UniHelper.Shared.Models;
 
 namespace UniHelper.Services
 {
+    /// <summary>
+    /// Period Service
+    /// </summary>
     public class PeriodService : CommonService<PeriodModel, PeriodDto>, IPeriodService
     {
+        /// <summary>
+        /// Init Period Service
+        /// </summary>
+        /// <param name="httpService">HTTP Service</param>
         public PeriodService(IHttpService httpService) : base(ApplicationSettings.BaseApiUrl, "periods", httpService)
         {
         }
 
+        /// <summary>
+        /// Get current Period
+        /// </summary>
+        /// <returns>Async Id</returns>
         public async Task<int> GetCurrent()
         {
             var pathParams = new HttpPathParameters();
@@ -23,6 +34,11 @@ namespace UniHelper.Services
             return await HttpService.GetInt(settings) ?? -1;
         }
 
+        /// <summary>
+        /// Set current Period
+        /// </summary>
+        /// <param name="id">New Period</param>
+        /// <returns>Async result</returns>
         public async Task<bool> SetCurrent(int id)
         {
             var pathParams = new HttpPathParameters();

@@ -5,10 +5,10 @@
         <EditForm EditContext="TaskContext">
             <DataAnnotationsValidator></DataAnnotationsValidator>
             <div>
-                <MudRadioGroup T="TaskType" SelectedOption="AddType" SelectedOptionChanged="TypeChanged">
+                <MudRadioGroup T="TaskType" SelectedOption="AddType" SelectedOptionChanged="@((e) => TypeChanged(e, true))">
                     @foreach (var type in Enum.GetValues(typeof(TaskType)).Cast<TaskType>())
                     {
-                        <MudRadio Option="@type" Color="Color.Primary">@type</MudRadio>
+                        <MudRadio Option="@type" Color="Color.Primary" Disabled="IsEdit" >@type</MudRadio>
                     }
                 </MudRadioGroup>
             </div>
@@ -28,17 +28,20 @@
             }
             else if (AddType == TaskType.Subject)
             {
-                <div>
-                    <MudSelect T="int" Value="ParentSelectedId" ValueChanged="ParentIdChanged" Label="Period" FullWidth="true" Dense="true">
-                        @if (Periods != null)
-                        {
-                            @foreach (var period in Periods)
+                @if (!IsEdit)
+                {
+                    <div>
+                        <MudSelect T="int" Value="ParentSelectedId" ValueChanged="ParentIdChanged" Label="Period" FullWidth="true" Dense="true">
+                            @if (Periods != null)
                             {
-                                <MudSelectItem Value="period.Id">@period.Name</MudSelectItem>
+                                @foreach (var period in Periods)
+                                {
+                                    <MudSelectItem Value="period.Id">@period.Name</MudSelectItem>
+                                }
                             }
-                        }
-                    </MudSelect>
-                </div>
+                        </MudSelect>
+                    </div>
+                }
                 <div>
                     <MudSelect @bind-Value="SelectedId" Label="Subject" FullWidth="true" Dense="true">
                         @if (Subjects != null)
@@ -69,7 +72,7 @@
                 <ValidationMessage For="() => Model.Priority"></ValidationMessage>
             </div>
             <div>
-                <MudSwitch @bind-Checked="Model.IsSolved" Label="Is Solved" Color="Color.Primary" />
+                <MudSwitch @bind-Checked="Model.IsSolved" Label="Is Solved" Color="Color.Primary"/>
                 <ValidationMessage For="() => Model.IsSolved"></ValidationMessage>
             </div>
         </EditForm>

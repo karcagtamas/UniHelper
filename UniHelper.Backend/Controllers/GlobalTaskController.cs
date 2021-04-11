@@ -1,4 +1,5 @@
 using Karcags.Common.Tools.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniHelper.Backend.Entities;
 using UniHelper.Backend.Services;
@@ -12,6 +13,7 @@ namespace UniHelper.Backend.Controllers
     /// </summary>
     [Route("/api/global-tasks")]
     [ApiController]
+    [Authorize]
     public class GlobalTaskController : MyController<GlobalTask, GlobalTaskModel, TaskDto>
     {
         /// <summary>

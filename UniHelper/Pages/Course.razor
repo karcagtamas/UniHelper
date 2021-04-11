@@ -1,4 +1,6 @@
 @page "/periods/subjects/courses/{Id:int}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
 
 <PageTitle Title="@GetTitle()"></PageTitle>
 

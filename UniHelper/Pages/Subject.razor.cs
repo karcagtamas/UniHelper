@@ -1,31 +1,36 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
-using UniHelper.Enums;
 using UniHelper.Services;
 using UniHelper.Shared.Dialogs;
 using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Pages
 {
+    /// <summary>
+    /// Subject Page
+    /// </summary>
     public partial class Subject
     {
+        /// <summary>
+        /// Subject Id
+        /// </summary>
+        /// <value>Id number</value>
         [Parameter]
         public int Id { get; set; }
 
-        [Inject]
-        private ISubjectService SubjectService { get; set; }
-        
-        [Inject]
-        private NavigationManager NavigationManager { get; set; }
-        
-        [Inject]
-        private IDialogService DialogService { get; set; }
-        
+        [Inject] private ISubjectService SubjectService { get; set; }
+
+        [Inject] private NavigationManager NavigationManager { get; set; }
+
+        [Inject] private IDialogService DialogService { get; set; }
+
         private SubjectDto SubjectData { get; set; }
-        
+
+        /// <summary>
+        /// Init Subject
+        /// </summary>
+        /// <returns>Async task</returns>
         protected override async Task OnInitializedAsync()
         {
             await GetData();
@@ -50,7 +55,7 @@ namespace UniHelper.Pages
         {
             NavigationManager.NavigateTo($"/periods/{SubjectData.PeriodId}");
         }
-        
+
         private async void OpenSubjectDialog()
         {
             var parameters = new DialogParameters {{"Subject", SubjectData}};
@@ -62,7 +67,7 @@ namespace UniHelper.Pages
                 await GetData();
             }
         }
-        
+
         private async void OpenDeleteDialog()
         {
             var parameters = new DialogParameters
@@ -84,7 +89,7 @@ namespace UniHelper.Pages
                 NavigationManager.NavigateTo($"/periods/{SubjectData.PeriodId}");
             }
         }
-        
+
         private async void OpenAddDialog()
         {
             var parameters = new DialogParameters {{"Course", null}};

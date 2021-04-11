@@ -7,12 +7,25 @@ using UniHelper.Shared.Models;
 
 namespace UniHelper.Services
 {
+    /// <summary>
+    /// Lesson hour Service
+    /// </summary>
     public class LessonHourService : CommonService<LessonHourModel, LessonHourDto>, ILessonHourService
     {
+        /// <summary>
+        /// Init Lesson hour Service
+        /// </summary>
+        /// <param name="httpService">HTTP Service</param>
         public LessonHourService(IHttpService httpService) : base(ApplicationSettings.BaseApiUrl, "lesson-hours", httpService)
         {
         }
 
+        /// <summary>
+        /// Get Hour interval by endpoints
+        /// </summary>
+        /// <param name="from">From number</param>
+        /// <param name="to">To number</param>
+        /// <returns>Create Hour interval</returns>
         public Task<LessonHourIntervalDto> GetHourInterval(int from, int to)
         {
             var pathParams = new HttpPathParameters();

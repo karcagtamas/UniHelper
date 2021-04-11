@@ -9,12 +9,21 @@ using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Backend.Services
 {
+    /// <inheritdoc cref="UniHelper.Backend.Services.ILessonHourService" />
     public class LessonHourService : Repository<LessonHour>, ILessonHourService
     {
+        /// <summary>
+        /// Init Lesson Hour Service
+        /// </summary>
+        /// <param name="context">Database Context</param>
+        /// <param name="logger">Logger</param>
+        /// <param name="utils">Utils Service</param>
+        /// <param name="mapper">Mapper</param>
         public LessonHourService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper) : base(context, logger, utils, mapper, "LessonHour")
         {
         }
 
+        /// <inheritdoc />
         public LessonHourIntervalDto GetHourInterval(int from, int to)
         {
             if (from > to)

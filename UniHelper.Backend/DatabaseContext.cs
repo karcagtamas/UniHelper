@@ -5,23 +5,75 @@ using UniHelper.Backend.Entities;
 
 namespace UniHelper.Backend
 {
+    /// <summary>
+    /// Database Context
+    /// </summary>
     public class DatabaseContext : DbContext
     {
+        /// <summary>
+        /// Course Table
+        /// </summary>
         public DbSet<Course> Courses { get; set; }
+
+        /// <summary>
+        /// Subject Note Table
+        /// </summary>
         public DbSet<SubjectNote> SubjectNotes { get; set; }
+
+        /// <summary>
+        /// Subject Task Table
+        /// </summary>
         public DbSet<SubjectTask> SubjectTasks { get; set; }
+
+        /// <summary>
+        /// Subject Table
+        /// </summary>
         public DbSet<Subject> Subjects { get; set; }
+
+        /// <summary>
+        /// Period Note Table
+        /// </summary>
         public DbSet<PeriodNote> PeriodNotes { get; set; }
+
+        /// <summary>
+        /// Period Task Table
+        /// </summary>
         public DbSet<PeriodTask> PeriodTasks { get; set; }
+
+        /// <summary>
+        /// Period Table
+        /// </summary>
         public DbSet<Period> Periods { get; set; }
+
+        /// <summary>
+        /// Note Table
+        /// </summary>
         public DbSet<GlobalNote> GlobalNotes { get; set; }
+
+        /// <summary>
+        /// Task Table
+        /// </summary>
         public DbSet<GlobalTask> GlobalTasks { get; set; }
+
+        /// <summary>
+        /// Lesson Hour Table
+        /// </summary>
         public DbSet<LessonHour> LessonHours { get; set; }
 
+        /// <summary>
+        /// User Table
+        /// </summary>
+        public DbSet<User> Users { get; set; }
+
+        /// <summary>
+        /// Init Database Context
+        /// </summary>
+        /// <param name="options">Database Context options</param>
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
 
+        /// <inheritdoc />
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Course>()
@@ -35,28 +87,46 @@ namespace UniHelper.Backend
                 .WithMany(x => x.Notes)
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
-            
+
             builder.Entity<SubjectTask>()
                 .HasOne(x => x.Subject)
                 .WithMany(x => x.Tasks)
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
-            
+
             builder.Entity<Subject>()
                 .HasOne(x => x.Period)
                 .WithMany(x => x.Subjects)
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
-            
+
             builder.Entity<PeriodNote>()
                 .HasOne(x => x.Period)
                 .WithMany(x => x.Notes)
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
-            
+
             builder.Entity<PeriodTask>()
                 .HasOne(x => x.Period)
                 .WithMany(x => x.Tasks)
+                .OnDelete(DeleteBehavior.ClientCascade)
+                .IsRequired();
+
+            builder.Entity<GlobalTask>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Tasks)
+                .OnDelete(DeleteBehavior.ClientCascade)
+                .IsRequired();
+
+            builder.Entity<GlobalNote>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Notes)
+                .OnDelete(DeleteBehavior.ClientCascade)
+                .IsRequired();
+
+            builder.Entity<Period>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Periods)
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
 

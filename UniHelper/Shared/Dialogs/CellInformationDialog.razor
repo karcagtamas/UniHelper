@@ -1,0 +1,25 @@
+<MudDialog Wi>
+    <TitleContent>
+        <PageTitle Title="@Cell.Tile.SubjectLongName"/>
+    </TitleContent>
+    <DialogContent>
+        <div class="p-1">
+            <strong>Short Name:</strong> @Cell.Tile.SubjectShortName
+        </div>
+        <div class="p-1">
+            <strong>Place:</strong> @Cell.Tile.Place
+        </div>
+        <div class="p-1">
+            <strong>Number:</strong> @Cell.Tile.Number
+        </div>
+        <div class="p-1">
+            <strong>Length:</strong> @Cell.Tile.Length
+        </div>
+        <div class="p-1">
+            <strong>Day:</strong> @Cell.Day
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
