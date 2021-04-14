@@ -19,12 +19,14 @@ namespace UniHelper.Shared.Models
         /// Global Task Model Init
         /// </summary>
         /// <param name="model">Task Model</param>
-        public GlobalTaskModel(TaskModel model)
+        /// <param name="userId">Owner</param>
+        public GlobalTaskModel(TaskModel model, int userId)
         {
             Text = model.Text;
             DueDate = model.DueDate;
             Priority = model.Priority;
             IsSolved = model.IsSolved;
+            UserId = userId;
         }
     }
 }

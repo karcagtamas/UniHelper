@@ -22,6 +22,9 @@ namespace UniHelper.Shared.Dialogs
         public PeriodDto Period { get; set; }
 
         [Inject] private IPeriodService PeriodService { get; set; }
+        
+        [Inject]
+        private IStoreService StoreService { get; set; }
         private EditContext PeriodContext { get; set; }
         private PeriodModel Model { get; set; }
         private bool IsEdit { get; set; }
@@ -36,7 +39,8 @@ namespace UniHelper.Shared.Dialogs
             }
             else
             {
-                Model = new PeriodModel();
+                var userId = StoreService.Get<StorageUser>("user")?.Id ?? -1;
+                Model = new PeriodModel(userId);
             }
 
             PeriodContext = new EditContext(Model);
@@ -45,23 +49,19 @@ namespace UniHelper.Shared.Dialogs
 
         private async void Save()
         {
-            if (PeriodContext.Validate())
+            if (!PeriodContext.Validate()) return;
+            if (IsEdit)
             {
-                /*Model.Start = Model.Start.ToLocalTime();
-                Model.End = Model.End.ToLocalTime();*/
-                if (IsEdit)
+                if (await PeriodService.Update(Period.Id, Model))
                 {
-                    if (await PeriodService.Update(Period.Id, Model))
-                    {
-                        Dialog.Close(DialogResult.Ok(true));
-                    }
+                    Dialog.Close(DialogResult.Ok(true));
                 }
-                else
+            }
+            else
+            {
+                if (await PeriodService.Create(Model))
                 {
-                    if (await PeriodService.Create(Model))
-                    {
-                        Dialog.Close(DialogResult.Ok(true));
-                    }
+                    Dialog.Close(DialogResult.Ok(true));
                 }
             }
         }

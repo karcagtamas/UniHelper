@@ -30,7 +30,8 @@ namespace UniHelper.Backend.Mappers
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.IsCurrent, opt => opt.MapFrom(src => src.IsCurrent))
                 .ForMember(dest => dest.Start, opt => opt.MapFrom(src => src.Start))
-                .ForMember(dest => dest.End, opt => opt.MapFrom(src => src.End));
+                .ForMember(dest => dest.End, opt => opt.MapFrom(src => src.End))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
 
         }
     }

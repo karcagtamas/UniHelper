@@ -35,9 +35,23 @@ namespace UniHelper.Shared.Models
         public DateTime? End { get; set; }
         
         /// <summary>
+        /// Owner
+        /// </summary>
+        [Required]
+        public int UserId { get; set; }
+        
+        /// <summary>
         /// Period Model Init
         /// </summary>
         public PeriodModel() {}
+
+        /// <summary>
+        /// Period Model Init
+        /// </summary>
+        public PeriodModel(int userId)
+        {
+            UserId = userId;
+        }
 
         /// <summary>
         /// Period Model Init
@@ -49,6 +63,7 @@ namespace UniHelper.Shared.Models
             IsCurrent = dto.IsCurrent;
             Start = dto.Start;
             End = dto.End;
+            UserId = dto.UserId;
         }
     }
 }

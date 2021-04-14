@@ -39,6 +39,8 @@ namespace UniHelper.Shared.Dialogs
         [Inject] private IPeriodService PeriodService { get; set; }
 
         [Inject] private ISubjectService SubjectService { get; set; }
+        
+        [Inject] private IStoreService StoreService { get; set; }
 
         private TaskType AddType { get; set; }
         private EditContext TaskContext { get; set; }
@@ -134,7 +136,8 @@ namespace UniHelper.Shared.Dialogs
             {
                 case TaskType.Global when IsEdit:
                 {
-                    if (await GlobalTaskService.Update(TaskData.Id, new GlobalTaskModel(Model)))
+                    var userId = StoreService.Get<StorageUser>("user")?.Id ?? -1;
+                    if (await GlobalTaskService.Update(TaskData.Id, new GlobalTaskModel(Model, userId)))
                     {
                         Dialog.Close(DialogResult.Ok(true));
                     }
@@ -143,7 +146,8 @@ namespace UniHelper.Shared.Dialogs
                 }
                 case TaskType.Global:
                 {
-                    if (await GlobalTaskService.Create(new GlobalTaskModel(Model)))
+                    var userId = StoreService.Get<StorageUser>("user")?.Id ?? -1;
+                    if (await GlobalTaskService.Create(new GlobalTaskModel(Model, userId)))
                     {
                         Dialog.Close(DialogResult.Ok(true));
                     }
