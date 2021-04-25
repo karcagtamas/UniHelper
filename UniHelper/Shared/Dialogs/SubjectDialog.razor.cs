@@ -20,6 +20,12 @@ namespace UniHelper.Shared.Dialogs
         /// </summary>
         [Parameter]
         public SubjectDto Subject { get; set; }
+        
+        /// <summary>
+        /// Period Id
+        /// </summary>
+        [Parameter]
+        public int PeriodId { get; set; }
 
         [Inject] private ISubjectService SubjectService { get; set; }
         private EditContext SubjectContext { get; set; }
@@ -36,7 +42,7 @@ namespace UniHelper.Shared.Dialogs
             }
             else
             {
-                Model = new SubjectModel();
+                Model = new SubjectModel(PeriodId);
             }
 
             SubjectContext = new EditContext(Model);

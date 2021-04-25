@@ -39,6 +39,7 @@ namespace UniHelper.Pages
         private async Task GetData()
         {
             SubjectData = await SubjectService.Get(Id);
+            StateHasChanged();
         }
 
         private string GetTitle()
@@ -92,7 +93,7 @@ namespace UniHelper.Pages
 
         private async void OpenAddDialog()
         {
-            var parameters = new DialogParameters {{"Course", null}};
+            var parameters = new DialogParameters {{"Course", null}, {"SubjectId", SubjectData.Id}};
             var dialog = DialogService.Show<CourseDialog>("Add Course", parameters);
             var result = await dialog.Result;
 

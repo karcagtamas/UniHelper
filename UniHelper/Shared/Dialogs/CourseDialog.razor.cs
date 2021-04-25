@@ -20,6 +20,12 @@ namespace UniHelper.Shared.Dialogs
         /// </summary>
         [Parameter]
         public CourseDto Course { get; set; }
+        
+        /// <summary>
+        /// Subject Id
+        /// </summary>
+        [Parameter]
+        public int SubjectId { get; set; }
 
         [Inject] private ICourseService CourseService { get; set; }
         private EditContext CourseContext { get; set; }
@@ -36,7 +42,7 @@ namespace UniHelper.Shared.Dialogs
             }
             else
             {
-                Model = new CourseModel();
+                Model = new CourseModel(SubjectId);
             }
 
             CourseContext = new EditContext(Model);
