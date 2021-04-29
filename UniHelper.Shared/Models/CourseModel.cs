@@ -27,16 +27,16 @@ namespace UniHelper.Shared.Models
         /// Number
         /// </summary>
         [Required]
-        [MinNumber(0)]
-        [MaxNumber(10)]
+        [MinNumber(0, ErrorMessage = "Minimum number is 0.")]
+        [MaxNumber(10, ErrorMessage = "Maximum number is 10.")]
         public int Number { get; set; }
         
         /// <summary>
         /// Length
         /// </summary>
         [Required]
-        [MinNumber(1)]
-        [MaxSum(14, "Number")]
+        [MinNumber(1, ErrorMessage = "Minimum length is 1.")]
+        [MaxSum(14, "Number", ErrorMessage = "Maximum Number and Length summary is 14.")]
         public int Length { get; set; }
         
         /// <summary>

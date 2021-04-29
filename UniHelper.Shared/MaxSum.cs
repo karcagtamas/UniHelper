@@ -33,8 +33,8 @@ namespace UniHelper.Shared
         /// <returns>Validation result</returns>
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            var val = (long?) value;
-            var other = (long?) validationContext.ObjectType.GetProperty(OtherProperty)
+            var val = (int?) value;
+            var other = (int?) validationContext.ObjectType.GetProperty(OtherProperty)
                 ?.GetValue(validationContext.ObjectInstance, null);
 
             val ??= 0;

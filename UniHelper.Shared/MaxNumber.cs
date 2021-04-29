@@ -30,7 +30,7 @@ namespace UniHelper.Shared
         /// <returns>Validation result</returns>
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            var val = (long?) value;
+            var val = (int?) value;
 
             if (val == null)
             {

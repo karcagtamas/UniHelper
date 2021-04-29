@@ -32,7 +32,7 @@ namespace UniHelper.Shared.Models
         /// Period End
         /// </summary>
         [Required]
-        [DateAfter("Start")]
+        [DateAfter("Start", ErrorMessage = "End date has to be after the Start date.")]
         public DateTime? End { get; set; }
         
         /// <summary>

@@ -39,15 +39,15 @@ namespace UniHelper.Shared.Models
         /// Credit number
         /// </summary>
         [Required]
-        [MaxNumber(10)]
-        [MinNumber(0)]
+        [MaxNumber(10, ErrorMessage = "Maximum credit is 10.")]
+        [MinNumber(0, ErrorMessage = "Minimum credit is 0.")]
         public int Credit { get; set; }
         
         /// <summary>
         /// Mark result
         /// </summary>
-        [MaxNumber(5)]
-        [MinNumber(1)]
+        [MaxNumber(5, ErrorMessage = "Maximum result is 5.")]
+        [MinNumber(1, ErrorMessage = "Minimum result is 1.")]
         public int? Result { get; set; }
         
         /// <summary>
