@@ -53,11 +53,19 @@ namespace UniHelper.Pages
 
         private void BuildTable()
         {
-            ResetHeader();
-            ResetRows();
-            InitRows();
-            DoFilter();
-            StateHasChanged();
+            if (CalendarData != null)
+            {
+                ResetHeader();
+                ResetRows();
+                InitRows();
+                DoFilter();
+                StateHasChanged();
+            }
+            else
+            {
+                HeaderRow = new List<CalendarHeaderData>();
+                Rows = new List<CalendarRow>();
+            }
         }
 
         private void DoFilter()
