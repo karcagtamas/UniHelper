@@ -23,7 +23,7 @@ namespace UniHelper.Shared
         }
 
         /// <summary>
-        /// Date attribute is valid
+        /// Number attribute is valid
         /// </summary>
         /// <param name="value">Current value</param>
         /// <param name="validationContext">Context</param>
