@@ -33,6 +33,13 @@
                     </MudSelect>
                     <ValidationMessage For="() => Model.Type"></ValidationMessage>
                 </div>
+                @if (IsEdit)
+                {
+                    <div>
+                        <MudTextField @bind-Value="Model.Result" InputType="InputType.Number" Label="Mark" FullWidth="true"></MudTextField>
+                        <ValidationMessage For="() => Model.Result"></ValidationMessage>
+                    </div>
+                }
             </EditForm>
         </div>
     </DialogContent>
