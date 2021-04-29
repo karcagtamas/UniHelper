@@ -15,7 +15,7 @@ namespace UniHelper.Shared.Models
         /// </summary>
         [Required]
         [MaxLength(200)]
-        public string Text { get; set; }
+        public string Text { get; set; } = "";
 
         /// <summary>
         /// Due Date

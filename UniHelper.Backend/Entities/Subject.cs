@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Karcags.Common.Annotations;
 using Karcags.Common.Tools;
+using UniHelper.Shared;
 
 namespace UniHelper.Backend.Entities
 {
@@ -46,7 +46,8 @@ namespace UniHelper.Backend.Entities
         /// Subject credit value
         /// </value>
         [Required]
-        [MinNumber(1)]
+        [MaxNumber(10)]
+        [MinNumber(0)]
         public int Credit { get; set; }
 
         /// <value>

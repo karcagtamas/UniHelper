@@ -14,36 +14,40 @@ namespace UniHelper.Shared.Models
         /// </summary>
         [Required]
         [StringLength(100)]
-        public string LongName { get; set; }
-        
+        public string LongName { get; set; } = "";
+
         /// <summary>
         /// Short Name
         /// </summary>
         [Required]
         [StringLength(20)]
-        public string ShortName { get; set; }
-        
+        public string ShortName { get; set; } = "";
+
         /// <summary>
         /// Code
         /// </summary>
         [Required]
         [StringLength(16)]
-        public string Code { get; set; }
-        
+        public string Code { get; set; } = "";
+
         /// <summary>
         /// Description
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; set; } = "";
         
         /// <summary>
         /// Credit number
         /// </summary>
         [Required]
+        [MaxNumber(10)]
+        [MinNumber(0)]
         public int Credit { get; set; }
         
         /// <summary>
         /// Mark result
         /// </summary>
+        [MaxNumber(5)]
+        [MinNumber(1)]
         public int? Result { get; set; }
         
         /// <summary>

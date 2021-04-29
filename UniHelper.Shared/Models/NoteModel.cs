@@ -13,7 +13,7 @@ namespace UniHelper.Shared.Models
         /// </summary>
         [Required]
         [StringLength(240)]
-        public string Text { get; set; }
+        public string Text { get; set; } = "";
         
         /// <summary>
         /// Creation

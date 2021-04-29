@@ -15,7 +15,7 @@ namespace UniHelper.Shared.Models
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string Place { get; set; }
+        public string Place { get; set; } = "";
         
         /// <summary>
         /// Type
@@ -44,7 +44,7 @@ namespace UniHelper.Shared.Models
         /// <summary>
         /// Teachers
         /// </summary>
-        public string Teachers { get; set; }
+        public string Teachers { get; set; } = "";
         
         /// <summary>
         /// Is Selected

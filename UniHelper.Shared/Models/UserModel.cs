@@ -13,27 +13,27 @@ namespace UniHelper.Shared.Models
         /// </summary>
         [Required]
         [MaxLength(120)]
-        public string FullName { get; set; }
+        public string FullName { get; set; } = "";
 
         /// <summary>
         /// User Name
         /// </summary>
         [Required]
         [MaxLength(80)]
-        public string UserName { get; set; }
+        public string UserName { get; set; } = "";
 
         /// <summary>
         /// Password
         /// </summary>
         [Required]
-        public string Password { get; set; }
+        public string Password { get; set; } = "";
 
         /// <summary>
         /// E-mail
         /// </summary>
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Email { get; set; } = "";
 
         /// <summary>
         /// Registration

@@ -8,11 +8,11 @@ namespace UniHelper.Shared.Models
         /// <summary>
         /// User Name
         /// </summary>
-        public string UserName { get; set; }
+        public string UserName { get; set; } = "";
         
         /// <summary>
         /// Password
         /// </summary>
-        public string Password { get; set; }
+        public string Password { get; set; } = "";
     }
 }

@@ -11,26 +11,26 @@ namespace UniHelper.Shared.Models
         /// User Id
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
         /// User Name
         /// </summary>
-        public string UserName { get; set; }
+        public string UserName { get; set; } = "";
         
         /// <summary>
         /// Email
         /// </summary>
-        public string Email { get; set; }
+        public string Email { get; set; } = "";
         
         /// <summary>
         /// Full Name
         /// </summary>
-        public string FullName { get; set; }
+        public string FullName { get; set; } = "";
         
         /// <summary>
         /// Token
         /// </summary>
-        public string Token { get; set; }
+        public string Token { get; set; } = "";
         
         
         /// <summary>
