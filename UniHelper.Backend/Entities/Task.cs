@@ -4,6 +4,9 @@ using Karcags.Common.Tools;
 
 namespace UniHelper.Backend.Entities
 {
+    /// <summary>
+    /// Task
+    /// </summary>
     public class Task : IEntity
     {
         /// <value>

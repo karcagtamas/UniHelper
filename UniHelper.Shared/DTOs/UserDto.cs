@@ -15,17 +15,17 @@ namespace UniHelper.Shared.DTOs
         /// <summary>
         /// Full Name
         /// </summary>
-        public string FullName { get; set; }
+        public string FullName { get; set; } = "";
         
         /// <summary>
         /// User Name
         /// </summary>
-        public string UserName { get; set; }
+        public string UserName { get; set; } = "";
         
         /// <summary>
         /// E-mail Address
         /// </summary>
-        public string Email { get; set; }
+        public string Email { get; set; } = "";
         
         /// <summary>
         /// Registration

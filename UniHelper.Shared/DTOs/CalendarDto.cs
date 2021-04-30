@@ -16,7 +16,7 @@ namespace UniHelper.Shared.DTOs
         /// <summary>
         /// Period Name
         /// </summary>
-        public string PeriodName { get; set; }
+        public string PeriodName { get; set; } = "";
         
         /// <summary>
         /// List of days
@@ -45,7 +45,7 @@ namespace UniHelper.Shared.DTOs
         /// <summary>
         /// Day tiles for lessons
         /// </summary>
-        public List<TileDto> Tiles { get; set; }
+        public List<TileDto> Tiles { get; set; } = new List<TileDto>();
     }
 
     /// <summary>
@@ -61,7 +61,7 @@ namespace UniHelper.Shared.DTOs
         /// <summary>
         /// Course Place
         /// </summary>
-        public string Place { get; set; }
+        public string Place { get; set; } = "";
         
         /// <summary>
         /// Parent Subject Id
@@ -71,12 +71,12 @@ namespace UniHelper.Shared.DTOs
         /// <summary>
         /// Subject Short Name
         /// </summary>
-        public string SubjectShortName { get; set; }
+        public string SubjectShortName { get; set; } = "";
         
         /// <summary>
         /// Subject Long Name
         /// </summary>
-        public string SubjectLongName { get; set; }
+        public string SubjectLongName { get; set; } = "";
         
         /// <summary>
         /// Start number

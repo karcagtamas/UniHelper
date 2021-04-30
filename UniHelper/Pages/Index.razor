@@ -1,3 +1,48 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Authorization
+@using Shared.DTOs
 @attribute [Authorize]
+
+<div class="w-100">
+    <PageTitle Title="Home" />
+    <MudPaper>
+        <MudChart ChartType="ChartType.Pie" InputData="@GetTaskNumbers()" InputLabels="@GetTaskLabels()" Width="300px" Height="300px" />
+    </MudPaper>
+
+    <MudPaper>
+        <MudChart ChartType="ChartType.Line" ChartSeries="@GetSeriesList()" XAxisLabels="@GetSeriesLabels()" Width="100%" Height="350px" />
+    </MudPaper>
+</div>
+
+@code {
+    private StatisticDto Stat { get; set; }
+    private ChartOptions options { get; set; } = new ChartOptions();
+
+    protected override void OnInitialized()
+    {
+        options.InterpolationOption = InterpolationOption.NaturalSpline;
+        base.OnInitialized();
+    }
+
+    private double[] GetTaskNumbers()
+    {
+        return new double[] { Stat.SolvedTasks, Stat.UnSolvedTasks };
+    }
+
+    private string[] GetTaskLabels()
+    {
+        return new string[] { "Solved", "Not solved" };
+    }
+
+    private List<ChartSeries> GetSeriesList() {
+        return new List<ChartSeries> {
+            new ChartSeries { Name="Marks", Data = Stat.Periods.Select(period => period.Marks.Average()).ToArray() }
+        };
+    }
+
+    private string[] GetSeriesLabels() {
+        return Stat.Periods.Select(period => period.Label).ToArray();
+    }
+}
+
+        protected override void

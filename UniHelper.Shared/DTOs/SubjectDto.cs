@@ -16,22 +16,22 @@ namespace UniHelper.Shared.DTOs
         /// <summary>
         /// Long Name
         /// </summary>
-        public string LongName { get; set; }
+        public string LongName { get; set; } = "";
         
         /// <summary>
         /// Short Name
         /// </summary>
-        public string ShortName { get; set; }
+        public string ShortName { get; set; } = "";
         
         /// <summary>
         /// Code
         /// </summary>
-        public string Code { get; set; }
+        public string Code { get; set; } = "";
         
         /// <summary>
         /// Description
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; set; } = "";
         
         /// <summary>
         /// Credit count
@@ -61,16 +61,16 @@ namespace UniHelper.Shared.DTOs
         /// <summary>
         /// Notes
         /// </summary>
-        public List<NoteDto> Notes { get; set; }
+        public List<NoteDto> Notes { get; set; } = new List<NoteDto>();
         
         /// <summary>
         /// Tasks
         /// </summary>
-        public List<TaskDto> Tasks { get; set; }
+        public List<TaskDto> Tasks { get; set; } = new List<TaskDto>();
         
         /// <summary>
         /// Courses
         /// </summary>
-        public List<CourseDto> Courses { get; set; }
+        public List<CourseDto> Courses { get; set; } = new List<CourseDto>();
     }
 }
