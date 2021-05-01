@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Authorization
 @using Shared.DTOs
+@using UniHelper.Services
 @attribute [Authorize]
 
 <div class="w-100">
@@ -15,13 +16,18 @@
 </div>
 
 @code {
-    private StatisticDto Stat { get; set; }
-    private ChartOptions options { get; set; } = new ChartOptions();
+    /// <summary>
+    /// Stat Service
+    /// </summary>
+    [Inject]
+    public IStatService StatService { get; set; }
+    
+    private StatisticDto Stat { get; set; } = new();
 
-    protected override void OnInitialized()
+    /// <inheritdoc />
+    protected override async Task OnInitializedAsync()
     {
-        options.InterpolationOption = InterpolationOption.NaturalSpline;
-        base.OnInitialized();
+        Stat = await StatService.GetHomeStat();
     }
 
     private double[] GetTaskNumbers()
@@ -31,11 +37,12 @@
 
     private string[] GetTaskLabels()
     {
-        return new string[] { "Solved", "Not solved" };
+        return new[] { "Solved", "Not solved" };
     }
 
     private List<ChartSeries> GetSeriesList() {
-        return new List<ChartSeries> {
+        return new()
+        {
             new ChartSeries { Name="Marks", Data = Stat.Periods.Select(period => period.Marks.Average()).ToArray() }
         };
     }
@@ -44,5 +51,3 @@
         return Stat.Periods.Select(period => period.Label).ToArray();
     }
 }
-
-        protected override void
