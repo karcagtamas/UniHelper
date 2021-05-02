@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Backend.Services
@@ -26,7 +28,19 @@ namespace UniHelper.Backend.Services
         public StatisticDto GetHomeStat()
         {
             var stat = new StatisticDto {SolvedTasks = GetSolvedTaskNumber(), UnSolvedTasks = GetNotSolvedTaskNumber()};
+            stat.Periods = new List<PeriodStatistic>();
 
+            var periods = _periodService.GetUserPeriodList();
+            
+            periods.ForEach(period =>
+            {
+                stat.Periods.Add(new PeriodStatistic
+                {
+                    IsCurrent = period.IsCurrent,
+                    Label = period.Name,
+                    Marks = period.Subjects.Where(x => x.Result != null).Select(x => (int)x.Result).ToList()
+                });
+            });
 
             return stat;
         }
@@ -35,11 +49,11 @@ namespace UniHelper.Backend.Services
         {
             var sum = 0;
 
-            sum += _globalTaskService.GetList(x => x.IsSolved).Count;
+            sum += _globalTaskService.GetMyList().Count(x => x.IsSolved);
 
-            sum += _periodTaskService.GetList(x => x.IsSolved).Count;
+            sum += _periodTaskService.GetMyList().Count(x => x.IsSolved);
 
-            sum += _subjectTaskService.GetList(x => x.IsSolved).Count;
+            sum += _subjectTaskService.GetMyList().Count(x => x.IsSolved);
 
             return sum;
         }
@@ -48,11 +62,11 @@ namespace UniHelper.Backend.Services
         {
             var sum = 0;
 
-            sum += _globalTaskService.GetList(x => !x.IsSolved).Count;
+            sum += _globalTaskService.GetMyList().Count(x => !x.IsSolved);
 
-            sum += _periodTaskService.GetList(x => !x.IsSolved).Count;
+            sum += _periodTaskService.GetMyList().Count(x => !x.IsSolved);
 
-            sum += _subjectTaskService.GetList(x => !x.IsSolved).Count;
+            sum += _subjectTaskService.GetMyList().Count(x => !x.IsSolved);
 
             return sum;
         }
