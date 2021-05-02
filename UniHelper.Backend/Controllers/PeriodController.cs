@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Karcags.Common.Tools.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,16 @@ namespace UniHelper.Backend.Controllers
         public void SetCurrent([FromBody] int id)
         {
             _service.SetCurrent(id);
+        }
+
+        /// <summary>
+        /// Get user's period list
+        /// </summary>
+        /// <returns>List of periods</returns>
+        [HttpGet("my")]
+        public List<PeriodDto> GetUserPeriodList()
+        {
+            return _service.GetUserPeriodList();
         }
     }
 }

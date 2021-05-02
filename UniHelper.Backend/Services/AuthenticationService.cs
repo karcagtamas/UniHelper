@@ -87,6 +87,7 @@ namespace UniHelper.Backend.Services
 
             var claims = new[]
             {
+                new Claim("id", user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
                 new Claim("lastlogin", user.LastLogin.ToString("yyyy-MM-dd")),

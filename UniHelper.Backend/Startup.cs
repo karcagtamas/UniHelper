@@ -109,6 +109,8 @@ namespace UniHelper.Backend
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<ITaskService, TaskService>();
             services.AddScoped<IStatService, StatService>();
+            services.AddScoped<ICommonService, CommonService>();
+            services.AddHttpContextAccessor();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

@@ -34,7 +34,7 @@ namespace UniHelper.Pages
 
         private async Task Refresh()
         {
-            this.List = await PeriodService.GetList();
+            List = await PeriodService.GetUserPeriodList();
             SelectedPeriod = await PeriodService.GetCurrent();
             StateHasChanged();
         }
