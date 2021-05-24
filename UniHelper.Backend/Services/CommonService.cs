@@ -16,11 +16,11 @@ namespace UniHelper.Backend.Services
         {
             _httpContextAccessor = httpContextAccessor;
         }
-        
+
         /// <inheritdoc />
         public int GetLoggedUserId()
         {
-            var userId = _httpContextAccessor.HttpContext?.User.FindFirst("id")?.Value ?? "";
+            var userId = _httpContextAccessor.HttpContext?.User.FindFirst("userid")?.Value ?? "";
 
             if (!string.IsNullOrEmpty(userId))
             {

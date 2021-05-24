@@ -6,12 +6,14 @@
 
 <div class="w-100">
     <PageTitle Title="Home" />
-    <MudPaper>
-        <MudChart ChartType="ChartType.Pie" InputData="@GetTaskNumbers()" InputLabels="@GetTaskLabels()" Width="300px" Height="300px" />
+    <MudPaper class="p-3">
+        <MudChart ChartType="ChartType.Pie" InputData="@GetTaskNumbers()" InputLabels="@GetTaskLabels()" Width="300px"
+            Height="250px" />
     </MudPaper>
 
-    <MudPaper>
-        <MudChart ChartType="ChartType.Line" ChartSeries="@GetSeriesList()" XAxisLabels="@GetSeriesLabels()" Width="100%" Height="350px" />
+    <MudPaper class="mt-3 p-3">
+        <MudChart ChartType="ChartType.Line" ChartSeries="@GetSeriesList()" XAxisLabels="@GetSeriesLabels()"
+            Height="250px" />
     </MudPaper>
 </div>
 
@@ -21,7 +23,7 @@
     /// </summary>
     [Inject]
     public IStatService StatService { get; set; }
-    
+
     private StatisticDto Stat { get; set; } = new();
 
     /// <inheritdoc />
@@ -40,14 +42,21 @@
         return new[] { "Solved", "Not solved" };
     }
 
-    private List<ChartSeries> GetSeriesList() {
+    private List<ChartSeries> GetSeriesList()
+    {
         return new()
         {
-            new ChartSeries { Name="Marks", Data = Stat.Periods.Select(period => period.Marks.Average()).ToArray() }
+            new ChartSeries
+            {
+                Name = "Marks",
+                Data = Stat.Periods.Select(period => period.Marks.Count() == 0 ? 0 :
+                period.Marks.Average()).ToArray()
+            }
         };
     }
 
-    private string[] GetSeriesLabels() {
+    private string[] GetSeriesLabels()
+    {
         return Stat.Periods.Select(period => period.Label).ToArray();
     }
 }
