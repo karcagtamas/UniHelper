@@ -34,11 +34,8 @@ namespace UniHelper
             builder.Services.AddScoped<IPeriodService, PeriodService>();
             builder.Services.AddScoped<ISubjectService, SubjectService>();
             builder.Services.AddScoped<ICourseService, CourseService>();
-            builder.Services.AddScoped<IGlobalNoteService, GlobalNoteService>();
             builder.Services.AddScoped<IGlobalTaskService, GlobalTaskService>();
-            builder.Services.AddScoped<IPeriodNoteService, PeriodNoteService>();
             builder.Services.AddScoped<IPeriodTaskService, PeriodTaskService>();
-            builder.Services.AddScoped<ISubjectNoteService, SubjectNoteService>();
             builder.Services.AddScoped<ISubjectTaskService, SubjectTaskService>();
             builder.Services.AddScoped<ICalendarService, CalendarService>();
             builder.Services.AddScoped<ILessonHourService, LessonHourService>();

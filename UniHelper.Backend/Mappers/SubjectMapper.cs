@@ -28,7 +28,6 @@ namespace UniHelper.Backend.Mappers
                 .ForMember(dest => dest.PeriodId, opt => opt.MapFrom(src => src.Period.Id))
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => (SubjectType) src.Type))
                 .ForMember(dest => dest.Tasks, opt => opt.MapFrom(src => src.Tasks))
-                .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes))
                 .ForMember(dest => dest.Courses, opt => opt.MapFrom(src => src.Courses));
 
             CreateMap<SubjectModel, Subject>()

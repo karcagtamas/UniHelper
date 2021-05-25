@@ -39,11 +39,6 @@ namespace UniHelper.Shared.DTOs
         public List<SubjectDto> Subjects { get; set; } = new List<SubjectDto>();
         
         /// <summary>
-        /// Notes
-        /// </summary>
-        public List<NoteDto> Notes { get; set; } = new List<NoteDto>();
-        
-        /// <summary>
         /// Tasks
         /// </summary>
         public List<TaskDto> Tasks { get; set; } = new List<TaskDto>();
