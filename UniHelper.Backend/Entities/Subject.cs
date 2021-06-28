@@ -79,11 +79,6 @@ namespace UniHelper.Backend.Entities
         /// Period
         /// </value>
         public virtual Period Period { get; set; }
-
-        /// <value>
-        /// Subject notes
-        /// </value>
-        public virtual ICollection<SubjectNote> Notes { get; set; }
         
         /// <value>
         /// Subject tasks

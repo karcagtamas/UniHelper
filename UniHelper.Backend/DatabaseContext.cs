@@ -16,11 +16,6 @@ namespace UniHelper.Backend
         public DbSet<Course> Courses { get; set; }
 
         /// <summary>
-        /// Subject Note Table
-        /// </summary>
-        public DbSet<SubjectNote> SubjectNotes { get; set; }
-
-        /// <summary>
         /// Subject Task Table
         /// </summary>
         public DbSet<SubjectTask> SubjectTasks { get; set; }
@@ -31,11 +26,6 @@ namespace UniHelper.Backend
         public DbSet<Subject> Subjects { get; set; }
 
         /// <summary>
-        /// Period Note Table
-        /// </summary>
-        public DbSet<PeriodNote> PeriodNotes { get; set; }
-
-        /// <summary>
         /// Period Task Table
         /// </summary>
         public DbSet<PeriodTask> PeriodTasks { get; set; }
@@ -44,11 +34,6 @@ namespace UniHelper.Backend
         /// Period Table
         /// </summary>
         public DbSet<Period> Periods { get; set; }
-
-        /// <summary>
-        /// Note Table
-        /// </summary>
-        public DbSet<GlobalNote> GlobalNotes { get; set; }
 
         /// <summary>
         /// Task Table
@@ -82,12 +67,6 @@ namespace UniHelper.Backend
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
 
-            builder.Entity<SubjectNote>()
-                .HasOne(x => x.Subject)
-                .WithMany(x => x.Notes)
-                .OnDelete(DeleteBehavior.ClientCascade)
-                .IsRequired();
-
             builder.Entity<SubjectTask>()
                 .HasOne(x => x.Subject)
                 .WithMany(x => x.Tasks)
@@ -100,12 +79,6 @@ namespace UniHelper.Backend
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
 
-            builder.Entity<PeriodNote>()
-                .HasOne(x => x.Period)
-                .WithMany(x => x.Notes)
-                .OnDelete(DeleteBehavior.ClientCascade)
-                .IsRequired();
-
             builder.Entity<PeriodTask>()
                 .HasOne(x => x.Period)
                 .WithMany(x => x.Tasks)
@@ -115,12 +88,6 @@ namespace UniHelper.Backend
             builder.Entity<GlobalTask>()
                 .HasOne(x => x.User)
                 .WithMany(x => x.Tasks)
-                .OnDelete(DeleteBehavior.ClientCascade)
-                .IsRequired();
-
-            builder.Entity<GlobalNote>()
-                .HasOne(x => x.User)
-                .WithMany(x => x.Notes)
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .IsRequired();
 

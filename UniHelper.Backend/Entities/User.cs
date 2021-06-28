@@ -61,11 +61,6 @@ namespace UniHelper.Backend.Entities
         public virtual ICollection<GlobalTask> Tasks { get; set; }
         
         /// <summary>
-        /// User Tasks
-        /// </summary>
-        public virtual ICollection<GlobalNote> Notes { get; set; }
-        
-        /// <summary>
         /// User Periods
         /// </summary>
         public virtual ICollection<Period> Periods { get; set; }

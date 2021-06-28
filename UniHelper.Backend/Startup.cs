@@ -79,7 +79,6 @@ namespace UniHelper.Backend
                 x.AddProfile(new PeriodMapper());
                 x.AddProfile(new SubjectMapper());
                 x.AddProfile(new CourseMapper());
-                x.AddProfile(new NoteMapper());
                 x.AddProfile(new TaskMapper());
                 x.AddProfile(new LessonHourMapper());
                 x.AddProfile(new UserMapper());
@@ -97,9 +96,6 @@ namespace UniHelper.Backend
             services.AddScoped<IPeriodService, PeriodService>();
             services.AddScoped<ISubjectService, SubjectService>();
             services.AddScoped<ICourseService, CourseService>();
-            services.AddScoped<IGlobalNoteService, GlobalNoteService>();
-            services.AddScoped<IPeriodNoteService, PeriodNoteService>();
-            services.AddScoped<ISubjectNoteService, SubjectNoteService>();
             services.AddScoped<IGlobalTaskService, GlobalTaskService>();
             services.AddScoped<IPeriodTaskService, PeriodTaskService>();
             services.AddScoped<ISubjectTaskService, SubjectTaskService>();

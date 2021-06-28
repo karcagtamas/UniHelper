@@ -55,11 +55,6 @@ namespace UniHelper.Backend.Entities
         public virtual ICollection<Subject> Subjects { get; set; }
 
         /// <summary>
-        /// Notes
-        /// </summary>
-        public virtual ICollection<PeriodNote> Notes { get; set; }
-
-        /// <summary>
         /// Tasks
         /// </summary>
         public virtual ICollection<PeriodTask> Tasks { get; set; }
