@@ -104,7 +104,7 @@ namespace UniHelper.Pages
         private void FilterWeekendCols()
         {
             if (!RemoveWeekendCols) return;
-            DayOfWeek[] weekendDays = {DayOfWeek.Saturday, DayOfWeek.Sunday};
+            DayOfWeek[] weekendDays = { DayOfWeek.Saturday, DayOfWeek.Sunday };
 
             weekendDays.ToList().ForEach(day =>
             {
@@ -329,7 +329,7 @@ namespace UniHelper.Pages
 
         private async void OnClick(CalendarCell cell)
         {
-            var parameters = new DialogParameters {{"Cell", cell}};
+            var parameters = new DialogParameters { { "Cell", cell }, { "Interval", GetIntervalForCell(cell) } };
             var dialog =
                 DialogService.Show<CellInformationDialog>(cell.Tile.SubjectLongName, parameters, new DialogOptions
                 {
@@ -338,6 +338,17 @@ namespace UniHelper.Pages
                 });
 
             var result = await dialog.Result;
+        }
+
+        private string GetIntervalForCell(CalendarCell cell)
+        {
+            int start = cell.Tile.Number;
+            int end = cell.Tile.Number + cell.Tile.Length - 1;
+
+            LessonHourDto startHour = LessonHours.Where(less => less.Number == start).FirstOrDefault();
+            LessonHourDto endHour = LessonHours.Where(less => less.Number == end).FirstOrDefault();
+
+            return $"{startHour.Start} - {endHour.End}";
         }
 
         private void ChangeEmptyColFilter(bool value)
