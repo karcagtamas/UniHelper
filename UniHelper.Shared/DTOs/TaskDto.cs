@@ -12,30 +12,35 @@ namespace UniHelper.Shared.DTOs
         /// Id
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
         /// Task
         /// </summary>
         public string Text { get; set; } = "";
-        
+
         /// <summary>
         /// Due Date
         /// </summary>
         public DateTime DueDate { get; set; }
-        
+
         /// <summary>
         /// Priority
         /// </summary>
         public TaskPriority Priority { get; set; }
-        
+
         /// <summary>
         /// Is Solved status
         /// </summary>
         public bool IsSolved { get; set; }
-        
+
         /// <summary>
         /// Type
         /// </summary>
         public TaskType Type { get; set; }
+
+        /// <summary>
+        /// Definition text for period and subject type
+        /// </summary>
+        public string DefinitionText { get; set; } = "";
     }
 }

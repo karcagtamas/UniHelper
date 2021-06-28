@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
@@ -127,6 +128,11 @@ namespace UniHelper.Shared.Components
             }
 
             return _defaultClass + val;
+        }
+
+        private bool HasDefinitionText()
+        {
+            return new List<TaskType>() { TaskType.Period, TaskType.Subject }.Contains(TaskData.Type) && !String.IsNullOrEmpty(TaskData.DefinitionText);
         }
     }
 }

@@ -24,6 +24,10 @@ namespace UniHelper.Pages
 
         private List<TaskDto> TaskList { get; set; } = new();
 
+        private List<TaskDto> SolvedTasks { get; set; } = new List<TaskDto>();
+
+        private List<TaskDto> NotSolvedTasks { get; set; } = new List<TaskDto>();
+
         /// <summary>
         /// Init Tasks
         /// </summary>
@@ -42,12 +46,15 @@ namespace UniHelper.Pages
             list = list.OrderBy(x => x.IsSolved).ThenBy(x => x.DueDate).ThenByDescending(x => x.Priority).ToList();
 
             TaskList = list;
+
+            SolvedTasks = TaskList.Where(task => task.IsSolved).ToList();
+            NotSolvedTasks = TaskList.Where(task => !task.IsSolved).ToList();
             StateHasChanged();
         }
 
         private async void OpenAddDialog()
         {
-            var parameters = new DialogParameters {{"TaskData", null}, {"InitId", new List<int>()}};
+            var parameters = new DialogParameters { { "TaskData", null }, { "InitId", new List<int>() } };
             var dialog = DialogService.Show<TaskDialog>("Add Task", parameters);
             var result = await dialog.Result;
 
