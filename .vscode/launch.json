@@ -10,10 +10,11 @@
       "request": "launch",
       "preLaunchTask": "build",
       "program": "${workspaceFolder}/UniHelper/bin/Debug/net5.0/UniHelper.dll",
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/UniHelper",
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "browser": "chrome"
     },
     {
       "type": "blazorwasm",

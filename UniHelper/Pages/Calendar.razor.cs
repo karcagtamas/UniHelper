@@ -217,8 +217,10 @@ namespace UniHelper.Pages
                 return;
             }
 
+            // iterate days
             CalendarData.Days.ForEach(day =>
             {
+                // iterate tiles
                 day.Tiles.ForEach(tile =>
                 {
                     bool success = false;
@@ -230,8 +232,10 @@ namespace UniHelper.Pages
                         int number = tile.Number;
                         int count = tile.Length;
 
+                        // get calendar cells for tile
                         while (count > 0)
                         {
+                            // Get row
                             var row = Rows.FirstOrDefault(x => x.LessonHour.Number == number);
 
                             if (row == null)
@@ -239,6 +243,7 @@ namespace UniHelper.Pages
                                 throw new ArgumentException("Missing row");
                             }
 
+                            // get correct column values (multiple col for day)
                             var cellsWithGivenDay = row.Cells.Where(x => x.Day == day.DayOfWeek).ToList();
                             var cell = cellsWithGivenDay[cellNumber];
 
@@ -253,16 +258,20 @@ namespace UniHelper.Pages
                             count--;
                         }
 
-                        var c = cells.Count(x => x.Tile != null);
+                        // check already used cells
+                        var c = cells.Count(x => x.HasValue);
 
+                        // if has already used cells, then add new columns
                         if (c > 0)
                         {
                             var cell = cells[0];
                             // TODO: Checks
                             var index = Rows[0].Cells.FindIndex(x => x.Day == cell.Day);
-                            Rows.ForEach(x =>
+
+                            // Add new row cells
+                            Rows.ForEach(row =>
                             {
-                                x.Cells.Insert(index + 1, new CalendarCell
+                                row.Cells.Insert(index + 1, new CalendarCell
                                 {
                                     Day = cell.Day,
                                     Tile = null,
@@ -272,6 +281,7 @@ namespace UniHelper.Pages
                                 });
                             });
 
+                            // Expand cols
                             HeaderRow[index].ColSpanNumber++;
                             HeaderRow[index].HasColSpan = true;
 
@@ -286,6 +296,7 @@ namespace UniHelper.Pages
                             continue;
                         }
 
+                        // Add tiles and rowspans
                         for (int i = 0; i < cells.Count; i++)
                         {
                             if (i == 0)

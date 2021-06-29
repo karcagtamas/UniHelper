@@ -29,7 +29,7 @@ namespace UniHelper
 
             builder.Services.AddOptions();
             builder.Services.AddScoped(
-                sp => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
+                sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<IHelperService, HelperService>();
             builder.Services.AddScoped<IPeriodService, PeriodService>();
             builder.Services.AddScoped<ISubjectService, SubjectService>();
@@ -64,7 +64,7 @@ namespace UniHelper
             });
 
             var host = builder.Build();
-            
+
             var localStorageService = host.Services.GetRequiredService<ILocalStorageService>();
             var storeService = new StoreService(localStorageService);
             await storeService.Init();
