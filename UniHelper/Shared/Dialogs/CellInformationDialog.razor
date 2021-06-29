@@ -15,6 +15,13 @@
         <div class="pb-1">
             <strong>Day:</strong> @Cell.Day
         </div>
+        <div class="pb-1">
+            <MudIconButton Icon="@Icons.Filled.OpenInNew" OnClick="OpenSubject" />
+        </div>
+        <MudDivider />
+        <div class="pb-1">
+            <strong>Others:</strong> @OtherCellsString()
+        </div>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>

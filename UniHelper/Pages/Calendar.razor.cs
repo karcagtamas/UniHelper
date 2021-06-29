@@ -33,6 +33,7 @@ namespace UniHelper.Pages
         private bool RemoveEmptyCols { get; set; }
 
         private bool RemoveWeekendCols { get; set; } = true;
+
         private bool RemoveEmptyFirstAndLastRows { get; set; } = true;
 
         /// <summary>
@@ -329,7 +330,11 @@ namespace UniHelper.Pages
 
         private async void OnClick(CalendarCell cell)
         {
-            var parameters = new DialogParameters { { "Cell", cell }, { "Interval", GetIntervalForCell(cell) } };
+            var parameters = new DialogParameters {
+                { "Cell", cell },
+                { "Interval", GetIntervalForCell(cell) },
+                { "OtherCells", GetOtherCells(cell) }
+            };
             var dialog =
                 DialogService.Show<CellInformationDialog>(cell.Tile.SubjectLongName, parameters, new DialogOptions
                 {
@@ -340,10 +345,37 @@ namespace UniHelper.Pages
             var result = await dialog.Result;
         }
 
+        private List<CalendarCourse> GetOtherCells(CalendarCell cell)
+        {
+            List<CalendarCourse> others = new List<CalendarCourse>();
+            CalendarData.Days.ForEach(day =>
+            {
+                day.Tiles.ForEach(tile =>
+                {
+                    if (tile.CourseId != cell.Tile.CourseId && tile.SubjectId == cell.Tile.SubjectId)
+                    {
+                        others.Add(new CalendarCourse
+                        {
+                            CourseId = tile.CourseId,
+                            Place = tile.Place,
+                            Interval = GetInterval(tile.Number, tile.Length)
+                        });
+                    }
+                });
+            });
+
+            return others;
+        }
+
         private string GetIntervalForCell(CalendarCell cell)
         {
-            int start = cell.Tile.Number;
-            int end = cell.Tile.Number + cell.Tile.Length - 1;
+            return GetInterval(cell.Tile.Number, cell.Tile.Length);
+        }
+
+        private string GetInterval(int number, int length)
+        {
+            int start = number;
+            int end = number + length - 1;
 
             LessonHourDto startHour = LessonHours.Where(less => less.Number == start).FirstOrDefault();
             LessonHourDto endHour = LessonHours.Where(less => less.Number == end).FirstOrDefault();
