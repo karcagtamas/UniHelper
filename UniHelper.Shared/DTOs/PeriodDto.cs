@@ -16,7 +16,7 @@ namespace UniHelper.Shared.DTOs
         /// <summary>
         /// Period Title
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         
         /// <summary>
         /// Is Current
@@ -36,17 +36,12 @@ namespace UniHelper.Shared.DTOs
         /// <summary>
         /// Subjects
         /// </summary>
-        public List<SubjectDto> Subjects { get; set; }
-        
-        /// <summary>
-        /// Notes
-        /// </summary>
-        public List<NoteDto> Notes { get; set; }
+        public List<SubjectDto> Subjects { get; set; } = new List<SubjectDto>();
         
         /// <summary>
         /// Tasks
         /// </summary>
-        public List<TaskDto> Tasks { get; set; }
+        public List<TaskDto> Tasks { get; set; } = new List<TaskDto>();
         
         /// <summary>
         /// Owner

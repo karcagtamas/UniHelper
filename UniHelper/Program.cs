@@ -29,16 +29,13 @@ namespace UniHelper
 
             builder.Services.AddOptions();
             builder.Services.AddScoped(
-                sp => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
+                sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<IHelperService, HelperService>();
             builder.Services.AddScoped<IPeriodService, PeriodService>();
             builder.Services.AddScoped<ISubjectService, SubjectService>();
             builder.Services.AddScoped<ICourseService, CourseService>();
-            builder.Services.AddScoped<IGlobalNoteService, GlobalNoteService>();
             builder.Services.AddScoped<IGlobalTaskService, GlobalTaskService>();
-            builder.Services.AddScoped<IPeriodNoteService, PeriodNoteService>();
             builder.Services.AddScoped<IPeriodTaskService, PeriodTaskService>();
-            builder.Services.AddScoped<ISubjectNoteService, SubjectNoteService>();
             builder.Services.AddScoped<ISubjectTaskService, SubjectTaskService>();
             builder.Services.AddScoped<ICalendarService, CalendarService>();
             builder.Services.AddScoped<ILessonHourService, LessonHourService>();
@@ -46,6 +43,7 @@ namespace UniHelper
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
             builder.Services.AddScoped<ITaskService, TaskService>();
+            builder.Services.AddScoped<IStatService, StatService>();
             builder.Services.AddHttpService(config =>
             {
                 config.IsTokenBearer = true;
@@ -66,7 +64,7 @@ namespace UniHelper
             });
 
             var host = builder.Build();
-            
+
             var localStorageService = host.Services.GetRequiredService<ILocalStorageService>();
             var storeService = new StoreService(localStorageService);
             await storeService.Init();

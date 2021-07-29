@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Karcags.Blazor.Common.Http;
 using Karcags.Blazor.Common.Models;
 using Karcags.Blazor.Common.Services;
+using UniHelper.Pages;
 using UniHelper.Shared.DTOs;
 using UniHelper.Shared.Models;
 
@@ -49,6 +51,20 @@ namespace UniHelper.Services
             var body = new HttpBody<int>(id);
 
             return await HttpService.Update(settings, body);
+        }
+
+        /// <summary>
+        /// Get user's period list
+        /// </summary>
+        /// <returns>List of periods</returns>
+        public async Task<List<PeriodDto>> GetUserPeriodList()
+        {
+            var pathParams = new HttpPathParameters();
+            pathParams.Add("my", -1);
+
+            var settings = new HttpSettings(Url + "/" + this.Entity, null, pathParams);
+
+            return await HttpService.Get<List<PeriodDto>>(settings);
         }
     }
 }

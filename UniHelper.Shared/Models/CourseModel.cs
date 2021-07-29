@@ -15,7 +15,7 @@ namespace UniHelper.Shared.Models
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string Place { get; set; }
+        public string Place { get; set; } = "";
         
         /// <summary>
         /// Type
@@ -27,12 +27,16 @@ namespace UniHelper.Shared.Models
         /// Number
         /// </summary>
         [Required]
+        [MinNumber(0, ErrorMessage = "Minimum number is 0.")]
+        [MaxNumber(10, ErrorMessage = "Maximum number is 10.")]
         public int Number { get; set; }
         
         /// <summary>
         /// Length
         /// </summary>
         [Required]
+        [MinNumber(1, ErrorMessage = "Minimum length is 1.")]
+        [MaxSum(14, "Number", ErrorMessage = "Maximum Number and Length summary is 14.")]
         public int Length { get; set; }
         
         /// <summary>
@@ -44,7 +48,7 @@ namespace UniHelper.Shared.Models
         /// <summary>
         /// Teachers
         /// </summary>
-        public string Teachers { get; set; }
+        public string Teachers { get; set; } = "";
         
         /// <summary>
         /// Is Selected

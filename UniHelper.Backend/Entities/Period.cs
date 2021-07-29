@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Karcags.Common.Tools;
+using UniHelper.Shared;
 
 namespace UniHelper.Backend.Entities
 {
@@ -39,6 +40,7 @@ namespace UniHelper.Backend.Entities
         /// End date
         /// </summary>
         [Required]
+        [DateAfter("Start")]
         public DateTime End { get; set; }
 
         /// <summary>
@@ -51,11 +53,6 @@ namespace UniHelper.Backend.Entities
         /// Subjects
         /// </summary>
         public virtual ICollection<Subject> Subjects { get; set; }
-
-        /// <summary>
-        /// Notes
-        /// </summary>
-        public virtual ICollection<PeriodNote> Notes { get; set; }
 
         /// <summary>
         /// Tasks

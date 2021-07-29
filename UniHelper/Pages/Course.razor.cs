@@ -38,6 +38,7 @@ namespace UniHelper.Pages
         protected override async Task OnInitializedAsync()
         {
             await GetData();
+            StateHasChanged();
         }
 
         private async Task GetData()

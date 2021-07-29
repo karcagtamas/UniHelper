@@ -27,14 +27,12 @@
             <HeaderContent>
                 <MudTh>Name</MudTh>
                 <MudTh>Start - End</MudTh>
-                <MudTh>Notes</MudTh>
                 <MudTh>Task</MudTh>
                 <MudTh>Subjects</MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Name">@context.Name</MudTd>
                 <MudTd DataLabel="Start - End">@context.Start.ToShortDateString() - @context.End.ToShortDateString()</MudTd>
-                <MudTd DataLabel="Notes">@context.Notes?.Count</MudTd>
                 <MudTd DataLabel="Tasks">@context.Tasks?.Count</MudTd>
                 <MudTd DataLabel="Subjects">@context.Subjects?.Count</MudTd>
             </RowTemplate>

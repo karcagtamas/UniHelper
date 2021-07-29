@@ -1,7 +1,6 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using Karcags.Common.Annotations;
 using Karcags.Common.Tools;
+using UniHelper.Shared;
 
 namespace UniHelper.Backend.Entities
 {
@@ -35,7 +34,7 @@ namespace UniHelper.Backend.Entities
         /// </summary>
         [Required]
         [MinNumber(0)]
-        [MaxNumber(16)]
+        [MaxNumber(10)]
         public int Number { get; set; }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace UniHelper.Backend.Entities
         /// </summary>
         [Required]
         [MinNumber(1)]
-        [MaxNumber(8)]
+        [MaxSum(14, "Number")]
         public int Length { get; set; }
 
         /// <summary>

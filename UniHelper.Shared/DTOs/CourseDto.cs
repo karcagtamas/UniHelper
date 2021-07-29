@@ -17,7 +17,7 @@ namespace UniHelper.Shared.DTOs
         /// <summary>
         /// Course Place
         /// </summary>
-        public string Place { get; set; }
+        public string Place { get; set; } = "";
         
         /// <summary>
         /// Type
@@ -42,7 +42,7 @@ namespace UniHelper.Shared.DTOs
         /// <summary>
         /// List of teachers
         /// </summary>
-        public string Teachers { get; set; }
+        public string Teachers { get; set; } = "";
         
         /// <summary>
         /// Course Is Selected

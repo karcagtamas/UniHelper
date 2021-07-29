@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Karcags.Common.Tools;
 using UniHelper.Backend.Entities;
+using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Backend.Services
 {
@@ -19,5 +21,11 @@ namespace UniHelper.Backend.Services
         /// </summary>
         /// <param name="id">New Period's Id</param>
         void SetCurrent(int id);
+
+        /// <summary>
+        /// Get user's period list
+        /// </summary>
+        /// <returns>List of periods</returns>
+        List<PeriodDto> GetUserPeriodList();
     }
 }

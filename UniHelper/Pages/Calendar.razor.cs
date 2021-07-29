@@ -33,6 +33,7 @@ namespace UniHelper.Pages
         private bool RemoveEmptyCols { get; set; }
 
         private bool RemoveWeekendCols { get; set; } = true;
+
         private bool RemoveEmptyFirstAndLastRows { get; set; } = true;
 
         /// <summary>
@@ -53,11 +54,19 @@ namespace UniHelper.Pages
 
         private void BuildTable()
         {
-            ResetHeader();
-            ResetRows();
-            InitRows();
-            DoFilter();
-            StateHasChanged();
+            if (CalendarData != null)
+            {
+                ResetHeader();
+                ResetRows();
+                InitRows();
+                DoFilter();
+                StateHasChanged();
+            }
+            else
+            {
+                HeaderRow = new List<CalendarHeaderData>();
+                Rows = new List<CalendarRow>();
+            }
         }
 
         private void DoFilter()
@@ -96,7 +105,7 @@ namespace UniHelper.Pages
         private void FilterWeekendCols()
         {
             if (!RemoveWeekendCols) return;
-            DayOfWeek[] weekendDays = {DayOfWeek.Saturday, DayOfWeek.Sunday};
+            DayOfWeek[] weekendDays = { DayOfWeek.Saturday, DayOfWeek.Sunday };
 
             weekendDays.ToList().ForEach(day =>
             {
@@ -208,8 +217,10 @@ namespace UniHelper.Pages
                 return;
             }
 
+            // iterate days
             CalendarData.Days.ForEach(day =>
             {
+                // iterate tiles
                 day.Tiles.ForEach(tile =>
                 {
                     bool success = false;
@@ -221,8 +232,10 @@ namespace UniHelper.Pages
                         int number = tile.Number;
                         int count = tile.Length;
 
+                        // get calendar cells for tile
                         while (count > 0)
                         {
+                            // Get row
                             var row = Rows.FirstOrDefault(x => x.LessonHour.Number == number);
 
                             if (row == null)
@@ -230,6 +243,7 @@ namespace UniHelper.Pages
                                 throw new ArgumentException("Missing row");
                             }
 
+                            // get correct column values (multiple col for day)
                             var cellsWithGivenDay = row.Cells.Where(x => x.Day == day.DayOfWeek).ToList();
                             var cell = cellsWithGivenDay[cellNumber];
 
@@ -244,16 +258,20 @@ namespace UniHelper.Pages
                             count--;
                         }
 
-                        var c = cells.Count(x => x.Tile != null);
+                        // check already used cells
+                        var c = cells.Count(x => x.HasValue);
 
+                        // if has already used cells, then add new columns
                         if (c > 0)
                         {
                             var cell = cells[0];
                             // TODO: Checks
                             var index = Rows[0].Cells.FindIndex(x => x.Day == cell.Day);
-                            Rows.ForEach(x =>
+
+                            // Add new row cells
+                            Rows.ForEach(row =>
                             {
-                                x.Cells.Insert(index + 1, new CalendarCell
+                                row.Cells.Insert(index + 1, new CalendarCell
                                 {
                                     Day = cell.Day,
                                     Tile = null,
@@ -263,6 +281,7 @@ namespace UniHelper.Pages
                                 });
                             });
 
+                            // Expand cols
                             HeaderRow[index].ColSpanNumber++;
                             HeaderRow[index].HasColSpan = true;
 
@@ -277,6 +296,7 @@ namespace UniHelper.Pages
                             continue;
                         }
 
+                        // Add tiles and rowspans
                         for (int i = 0; i < cells.Count; i++)
                         {
                             if (i == 0)
@@ -321,7 +341,11 @@ namespace UniHelper.Pages
 
         private async void OnClick(CalendarCell cell)
         {
-            var parameters = new DialogParameters {{"Cell", cell}};
+            var parameters = new DialogParameters {
+                { "Cell", cell },
+                { "Interval", GetIntervalForCell(cell) },
+                { "OtherCells", GetOtherCells(cell) }
+            };
             var dialog =
                 DialogService.Show<CellInformationDialog>(cell.Tile.SubjectLongName, parameters, new DialogOptions
                 {
@@ -330,6 +354,44 @@ namespace UniHelper.Pages
                 });
 
             var result = await dialog.Result;
+        }
+
+        private List<CalendarCourse> GetOtherCells(CalendarCell cell)
+        {
+            List<CalendarCourse> others = new List<CalendarCourse>();
+            CalendarData.Days.ForEach(day =>
+            {
+                day.Tiles.ForEach(tile =>
+                {
+                    if (tile.CourseId != cell.Tile.CourseId && tile.SubjectId == cell.Tile.SubjectId)
+                    {
+                        others.Add(new CalendarCourse
+                        {
+                            CourseId = tile.CourseId,
+                            Place = tile.Place,
+                            Interval = GetInterval(tile.Number, tile.Length)
+                        });
+                    }
+                });
+            });
+
+            return others;
+        }
+
+        private string GetIntervalForCell(CalendarCell cell)
+        {
+            return GetInterval(cell.Tile.Number, cell.Tile.Length);
+        }
+
+        private string GetInterval(int number, int length)
+        {
+            int start = number;
+            int end = number + length - 1;
+
+            LessonHourDto startHour = LessonHours.Where(less => less.Number == start).FirstOrDefault();
+            LessonHourDto endHour = LessonHours.Where(less => less.Number == end).FirstOrDefault();
+
+            return $"{startHour.Start} - {endHour.End}";
         }
 
         private void ChangeEmptyColFilter(bool value)

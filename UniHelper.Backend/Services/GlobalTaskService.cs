@@ -1,14 +1,18 @@
+using System.Collections.Generic;
 using AutoMapper;
 using Karcags.Common.Tools;
 using Karcags.Common.Tools.Services;
 using Microsoft.EntityFrameworkCore;
 using UniHelper.Backend.Entities;
+using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Backend.Services
 {
     /// <inheritdoc cref="UniHelper.Backend.Services.IGlobalTaskService" />
     public class GlobalTaskService : Repository<GlobalTask>, IGlobalTaskService
     {
+        private readonly ICommonService _commonService;
+
         /// <summary>
         /// Init Global Task Service
         /// </summary>
@@ -16,9 +20,18 @@ namespace UniHelper.Backend.Services
         /// <param name="logger">Logger</param>
         /// <param name="utils">Utils Service</param>
         /// <param name="mapper">Mapper</param>
-        public GlobalTaskService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper) :
+        /// <param name="commonService">Common Service</param>
+        public GlobalTaskService(DatabaseContext context, ILoggerService logger, IUtilsService utils, IMapper mapper, ICommonService commonService) :
             base(context, logger, utils, mapper, "Global Task")
         {
+            _commonService = commonService;
+        }
+
+        /// <inheritdoc />
+        public List<TaskDto> GetMyList()
+        {
+            var user = _commonService.GetLoggedUserId();
+            return user == -1 ? new List<TaskDto>() : GetList<TaskDto>(x => x.UserId == user);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace UniHelper.Shared.Models
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         
         /// <summary>
         /// Is Current period
@@ -32,6 +32,7 @@ namespace UniHelper.Shared.Models
         /// Period End
         /// </summary>
         [Required]
+        [DateAfter("Start", ErrorMessage = "End date has to be after the Start date.")]
         public DateTime? End { get; set; }
         
         /// <summary>

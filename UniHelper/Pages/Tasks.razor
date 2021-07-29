@@ -8,10 +8,19 @@
     <MudIconButton Icon="@Icons.Filled.Add" OnClick="OpenAddDialog"></MudIconButton>
 
     <MudGrid>
-        @foreach (var task in TaskList)
+        @foreach (var task in NotSolvedTasks)
         {
-            <MudItem xs="6">
-                <TaskComponent TaskData="task" OnEdit="GetLists" OnRemove="GetLists"></TaskComponent>
+            <MudItem xs="12" sm="6" md="4" xl="3">
+                <TaskComponent TaskData="task" OnEdit="GetLists" OnRemove="GetLists" />
+            </MudItem>
+        }
+    </MudGrid>
+    <MudDivider Class="mt-3 mb-3" />
+    <MudGrid>
+        @foreach (var task in SolvedTasks)
+        {
+            <MudItem xs="12" sm="6" md="4" xl="3">
+                <TaskComponent TaskData="task" OnEdit="GetLists" OnRemove="GetLists" />
             </MudItem>
         }
     </MudGrid>

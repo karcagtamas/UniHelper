@@ -1,22 +1,26 @@
-<MudDialog Wi>
+<MudDialog>
     <TitleContent>
-        <PageTitle Title="@Cell.Tile.SubjectLongName"/>
+        <PageTitle Title="@Cell.Tile.SubjectLongName" />
     </TitleContent>
     <DialogContent>
-        <div class="p-1">
+        <div class="pb-1">
             <strong>Short Name:</strong> @Cell.Tile.SubjectShortName
         </div>
-        <div class="p-1">
+        <div class="pb-1">
             <strong>Place:</strong> @Cell.Tile.Place
         </div>
-        <div class="p-1">
-            <strong>Number:</strong> @Cell.Tile.Number
+        <div class="pb-1">
+            <strong>Interval:</strong> @Interval
         </div>
-        <div class="p-1">
-            <strong>Length:</strong> @Cell.Tile.Length
-        </div>
-        <div class="p-1">
+        <div class="pb-1">
             <strong>Day:</strong> @Cell.Day
+        </div>
+        <div class="pb-1">
+            <MudIconButton Icon="@Icons.Filled.OpenInNew" OnClick="OpenSubject" />
+        </div>
+        <MudDivider class="mb-3" />
+        <div class="pb-1">
+            <strong>Others:</strong> @OtherCellsString()
         </div>
     </DialogContent>
     <DialogActions>

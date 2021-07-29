@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Karcags.Blazor.Common.Http;
 using Karcags.Blazor.Common.Models;
 using Karcags.Blazor.Common.Services;
@@ -17,6 +19,18 @@ namespace UniHelper.Services
         /// <param name="httpService">HTTP Service</param>
         public SubjectTaskService(IHttpService httpService) : base(ApplicationSettings.BaseApiUrl, "subject-tasks", httpService)
         {
+            
+        }
+
+        /// <inheritdoc />
+        public async Task<List<TaskDto>> GetMyList()
+        {
+            var pathParams = new HttpPathParameters();
+            pathParams.Add("my", -1);
+
+            var settings = new HttpSettings(Url + "/" + this.Entity, null, pathParams);
+
+            return await HttpService.Get<List<TaskDto>>(settings);
         }
     }
 }

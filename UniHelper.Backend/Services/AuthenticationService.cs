@@ -52,9 +52,9 @@ namespace UniHelper.Backend.Services
             return ValidatePassword(model.Password, user.Password)
                 ? new StorageUser
                 {
-                    Token = Token(user), 
-                    UserName = user.UserName, 
-                    Id = user.Id, 
+                    Token = Token(user),
+                    UserName = user.UserName,
+                    Id = user.Id,
                     Email = user.Email,
                     FullName = user.FullName,
                     LastLogin = user.LastLogin,
@@ -87,6 +87,7 @@ namespace UniHelper.Backend.Services
 
             var claims = new[]
             {
+                new Claim("userid", user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
                 new Claim("lastlogin", user.LastLogin.ToString("yyyy-MM-dd")),
@@ -115,13 +116,13 @@ namespace UniHelper.Backend.Services
 
         private byte[] Pbkdf2(string password, byte[] salt, int iterations, int outputBytes)
         {
-            var pbkdf2 = new Rfc2898DeriveBytes(password, salt) {IterationCount = iterations};
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt) { IterationCount = iterations };
             return pbkdf2.GetBytes(outputBytes);
         }
 
         private bool ValidatePassword(string password, string passwordHash)
         {
-            char[] delimiter = {':'};
+            char[] delimiter = { ':' };
             string[] split = passwordHash.Split(delimiter);
             int iterations = Int32.Parse(split[IterationIndex]);
 
@@ -135,10 +136,10 @@ namespace UniHelper.Backend.Services
 
         private bool SlowEquals(byte[] a, byte[] b)
         {
-            uint diff = (uint) a.Length ^ (uint) b.Length;
+            uint diff = (uint)a.Length ^ (uint)b.Length;
             for (int i = 0; i < a.Length && i < b.Length; i++)
             {
-                diff |= (uint) (a[i] ^ b[i]);
+                diff |= (uint)(a[i] ^ b[i]);
             }
 
             return diff == 0;

@@ -1,7 +1,13 @@
 <MudPaper Class="@GetClass()">
     <MudText Typo="Typo.h3">@TaskData.Text</MudText>
     <MudText Typo="Typo.body1">@TaskData.DueDate.ToShortDateString()</MudText>
-    <small>@TaskData.Type</small>
+    <small>
+        @TaskData.Type&nbsp;
+        @if (HasDefinitionText())
+        {
+            <b>(@TaskData.DefinitionText)</b>
+        }
+    </small>
     <div>
         <MudIconButton Icon="@Icons.Filled.Edit" OnClick="OpenEditDialog" />
         <MudIconButton Icon="@Icons.Filled.Remove" OnClick="OpenDeleteDialog" />
