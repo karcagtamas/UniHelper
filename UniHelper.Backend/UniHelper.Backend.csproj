@@ -19,23 +19,23 @@
 
     <ItemGroup>
         <PackageReference Include="Karcags.Common" Version="1.0.4" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.4" NoWarn="NU1605" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.4" NoWarn="NU1605" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="5.0.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.13" NoWarn="NU1605" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.13" NoWarn="NU1605" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.13" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="5.0.13" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.13">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.13" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.13" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.13">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.0-alpha.2" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.0" />
+        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.3" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 
     <ItemGroup>

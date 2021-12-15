@@ -12,34 +12,35 @@
         <span class="spacer"></span>
         <MudIconButton Icon="@Icons.Filled.ArrowLeft" OnClick="OpenSubject"></MudIconButton>
     </div>
-                
-    <MudDivider />
 
-    <div>
-        <strong>Place:</strong> @CourseData.Place
-    </div>
-    <div>
-        <strong>Type:</strong> @CourseData.Type
-    </div>
-    <div>
-        <strong>Number:</strong> @CourseData.Number
-    </div>
-    <div>
-        <strong>Length:</strong> @CourseData.Length
-    </div>
-    @if (Interval != null)
-    {
-        <div>
-            <strong>Interval:</strong> @Interval.Start - @Interval.End
+    <MudDivider/>
+    <div class="data-box">
+        <div class="data-row">
+            <strong>Place:</strong> @CourseData.Place
         </div>
-    }
-    <div>
-        <strong>Day:</strong> @CourseData.Day
-    </div>
-    <div>
-        <strong>Teachers:</strong> @CourseData.Teachers
-    </div>
-    <div class="@(CourseData.IsSelected ? "green" : "red")">
-        <strong>Is Selected:</strong> @(CourseData.IsSelected ? "Yes" : "No")
+        <div class="data-row">
+            <strong>Type:</strong> @CourseData.Type
+        </div>
+        <div class="data-row">
+            <strong>Number:</strong> @CourseData.Number
+        </div>
+        <div class="data-row">
+            <strong>Length:</strong> @CourseData.Length
+        </div>
+        @if (Interval != null)
+        {
+            <div class="data-row">
+                <strong>Interval:</strong> @Interval.Start - @Interval.End
+            </div>
+        }
+        <div class="data-row">
+            <strong>Day:</strong> @CourseData.Day
+        </div>
+        <div class="data-row">
+            <strong>Teachers:</strong> @CourseData.Teachers
+        </div>
+        <div class="data-row @(CourseData.IsSelected ? "green-row" : "red-row")">
+            <strong>Is Selected:</strong> @(CourseData.IsSelected ? "Yes" : "No")
+        </div>
     </div>
 }

@@ -1,5 +1,7 @@
 using System;
 using System.Net.Http;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Blazored.LocalStorage;
 using Karcags.Blazor.Common.Http;
@@ -41,7 +43,6 @@ namespace UniHelper
             builder.Services.AddScoped<ILessonHourService, LessonHourService>();
             builder.Services.AddScoped<IToasterService, ToasterService>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-            builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
             builder.Services.AddScoped<ITaskService, TaskService>();
             builder.Services.AddScoped<IStatService, StatService>();
             builder.Services.AddHttpService(config =>
@@ -49,6 +50,16 @@ namespace UniHelper
                 config.IsTokenBearer = true;
                 config.UnauthorizedPath = "/logout";
                 config.TokenName = "token";
+            });
+            builder.Services.AddBlazoredLocalStorage(config =>
+            {
+                config.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
+                config.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+                config.JsonSerializerOptions.IgnoreReadOnlyProperties = true;
+                config.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                config.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                config.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
+                config.JsonSerializerOptions.WriteIndented = false;
             });
             builder.Services.AddMudServices(config =>
             {

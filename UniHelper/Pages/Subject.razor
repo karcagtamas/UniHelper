@@ -8,14 +8,14 @@
 @if (SubjectData != null)
 {
     <div class="data-header">
-        <MudIconButton Icon="@Icons.Filled.Add" OnClick="OpenAddDialog" />
-        <MudIconButton Icon="@Icons.Filled.Edit" OnClick="OpenSubjectDialog" />
-        <MudIconButton Icon="@Icons.Filled.Remove" OnClick="OpenDeleteDialog" />
+        <MudIconButton Icon="@Icons.Filled.Add" OnClick="OpenAddDialog"/>
+        <MudIconButton Icon="@Icons.Filled.Edit" OnClick="OpenSubjectDialog"/>
+        <MudIconButton Icon="@Icons.Filled.Remove" OnClick="OpenDeleteDialog"/>
         <span class="spacer"></span>
-        <MudIconButton Icon="@Icons.Filled.ArrowLeft" OnClick="OpenPeriod" />
+        <MudIconButton Icon="@Icons.Filled.ArrowLeft" OnClick="OpenPeriod"/>
     </div>
 
-    <MudDivider />
+    <MudDivider/>
     @if (SubjectData.Courses != null && SubjectData.Courses.Count > 0)
     {
         <MudTable T="CourseDto" Items="@SubjectData.Courses" Class="mt-1 mb-3" Dense="true" FixedHeader="true" Hover="true" OnRowClick="@((e) => OpenCourse(e))" RowClassFunc="@((e, i) => e.IsSelected ? "" : "un-selected")">
@@ -38,26 +38,28 @@
         </MudTable>
     }
 
-    <MudDivider />
-    <div>
-        <strong>Short Name:</strong> @SubjectData.ShortName
-    </div>
-    <div>
-        <strong>Code:</strong> @SubjectData.Code
-    </div>
-    <div>
-        <strong>Description:</strong> @SubjectData.Description
-    </div>
-    <div>
-        <strong>Credit:</strong> @SubjectData.Credit
-    </div>
-    <div class="@(SubjectData.Result != null ? "green" : "")">
-        <strong>Result:</strong> @SubjectData.Result
-    </div>
-    <div class="@(SubjectData.IsActive ? "green" : "red")">
-        <strong>Is Active:</strong> @(SubjectData.IsActive ? "Yes" : "No")
-    </div>
-    <div>
-        <strong>Type:</strong> @SubjectData.Type
+    <MudDivider/>
+    <div class="data-box">
+        <div class="data-row">
+            <strong>Short Name:</strong> @SubjectData.ShortName
+        </div>
+        <div class="data-row">
+            <strong>Code:</strong> @SubjectData.Code
+        </div>
+        <div class="data-row">
+            <strong>Description:</strong> @SubjectData.Description
+        </div>
+        <div class="data-row">
+            <strong>Credit:</strong> @SubjectData.Credit
+        </div>
+        <div class="data-row @(SubjectData.Result != null ? "green-row" : "")">
+            <strong>Result:</strong> @SubjectData.Result
+        </div>
+        <div class="data-row @(SubjectData.IsActive ? "green-row" : "red-row")">
+            <strong>Is Active:</strong> @(SubjectData.IsActive ? "Yes" : "No")
+        </div>
+        <div class="data-row">
+            <strong>Type:</strong> @SubjectData.Type
+        </div>
     </div>
 }
