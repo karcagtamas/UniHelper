@@ -8,3 +8,21 @@
     flex-grow: 1;
   }
 }
+
+.data-box {
+  padding: 0.4rem;
+  font-size: 14px;
+
+  .data-row {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+
+    &.green-row {
+      color: green;
+    }
+
+    &.red-row {
+      color: red;
+    }
+  }
+}

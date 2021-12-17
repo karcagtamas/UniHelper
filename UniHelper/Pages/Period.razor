@@ -36,8 +36,10 @@
     }
 
     <MudDivider></MudDivider>
-    <div><strong>Interval:</strong> @PeriodData.Start.ToShortDateString() - @PeriodData.End.ToShortDateString()</div>
-    <div class="@(PeriodData.IsCurrent ? "green" : "red")">
-        <strong>Is Current Period:</strong> @(PeriodData.IsCurrent ? "Yes" : "No")
+    <div class="data-box">
+        <div class="data-row"><strong>Interval:</strong> @PeriodData.Start.ToShortDateString() - @PeriodData.End.ToShortDateString()</div>
+        <div class="data-row @(PeriodData.IsCurrent ? "green-row" : "red-row")">
+            <strong>Is Current Period:</strong> @(PeriodData.IsCurrent ? "Yes" : "No")
+        </div>
     </div>
 }

@@ -388,8 +388,8 @@ namespace UniHelper.Pages
             int start = number;
             int end = number + length - 1;
 
-            LessonHourDto startHour = LessonHours.Where(less => less.Number == start).FirstOrDefault();
-            LessonHourDto endHour = LessonHours.Where(less => less.Number == end).FirstOrDefault();
+            LessonHourDto startHour = LessonHours.FirstOrDefault(less => less.Number == start);
+            LessonHourDto endHour = LessonHours.FirstOrDefault(less => less.Number == end);
 
             return $"{startHour.Start} - {endHour.End}";
         }

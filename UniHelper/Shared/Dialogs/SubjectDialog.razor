@@ -21,7 +21,7 @@
                     <ValidationMessage For="() => Model.Description"></ValidationMessage>
                 </div>
                 <div>
-                    <MudTextField @bind-Value="Model.Credit" Label="Credit" FullWidth="true"></MudTextField>
+                    <MudNumericField @bind-Value="Model.Credit" Label="Credit" FullWidth="true"></MudNumericField>
                     <ValidationMessage For="() => Model.Credit"></ValidationMessage>
                 </div>
                 <div>
@@ -36,7 +36,7 @@
                 @if (IsEdit)
                 {
                     <div>
-                        <MudTextField @bind-Value="Model.Result" InputType="InputType.Number" Label="Mark" FullWidth="true"></MudTextField>
+                        <MudNumericField @bind-Value="Model.Result" Label="Mark" FullWidth="true"></MudNumericField>
                         <ValidationMessage For="() => Model.Result"></ValidationMessage>
                     </div>
                 }
