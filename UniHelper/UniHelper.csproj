@@ -19,7 +19,7 @@
 
     <ItemGroup>
         <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
-        <PackageReference Include="Karcags.Blazor.Common" Version="1.1.7" />
+        <PackageReference Include="Karcags.Blazor.Common" Version="1.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.13" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.13" PrivateAssets="all" />
         <PackageReference Include="MudBlazor" Version="5.2.0" />
