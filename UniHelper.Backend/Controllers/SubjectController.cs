@@ -1,8 +1,8 @@
-using Karcags.Common.Tools.Controllers;
+using KarcagS.Common.Tools.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniHelper.Backend.Entities;
-using UniHelper.Backend.Services;
+using UniHelper.Backend.Services.Interfaces;
 using UniHelper.Shared.DTOs;
 using UniHelper.Shared.Models;
 
@@ -14,7 +14,7 @@ namespace UniHelper.Backend.Controllers
     [Route("/api/subjects")]
     [ApiController]
     [Authorize]
-    public class SubjectController : MyController<Subject, SubjectModel, SubjectDto>
+    public class SubjectController : MapperController<Subject, int, SubjectModel, SubjectDto>
     {
         /// <summary>
         /// Init Subject Controller

@@ -38,7 +38,7 @@ namespace UniHelper.Pages
 
         private async Task GetData()
         {
-            SubjectData = await SubjectService.Get(Id);
+            SubjectData = await SubjectService.Get<SubjectDto>(Id);
             StateHasChanged();
         }
 
@@ -78,7 +78,7 @@ namespace UniHelper.Pages
                     new ConfirmDialogInput
                     {
                         Name = SubjectData.LongName,
-                        DeleteFunction = async () => await SubjectService.Remove(SubjectData.Id)
+                        DeleteFunction = async () => await SubjectService.Delete(SubjectData.Id)
                     }
                 }
             };

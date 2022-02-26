@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Karcags.Blazor.Common.Services;
+using KarcagS.Blazor.Common.Http;
 using UniHelper.Shared.DTOs;
-using UniHelper.Shared.Models;
 
 namespace UniHelper.Services
 {
     /// <summary>
     /// Period Task Service
     /// </summary>
-    public interface IPeriodTaskService : ICommonService<PeriodTaskModel, TaskDto>
+    public interface IPeriodTaskService : IHttpCall<int>
     {
         /// <summary>
         /// Get my task list

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UniHelper.Backend.Services;
+using UniHelper.Backend.Services.Interfaces;
 using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Backend.Controllers

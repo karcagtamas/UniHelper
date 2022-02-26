@@ -1,14 +1,13 @@
 using System.Threading.Tasks;
-using Karcags.Blazor.Common.Services;
+using KarcagS.Blazor.Common.Http;
 using UniHelper.Shared.DTOs;
-using UniHelper.Shared.Models;
 
 namespace UniHelper.Services
 {
     /// <summary>
     /// Lesson hour Service
     /// </summary>
-    public interface ILessonHourService : ICommonService<LessonHourModel, LessonHourDto>
+    public interface ILessonHourService : IHttpCall<int>
     {
         /// <summary>
         /// Get Hour interval by endpoints

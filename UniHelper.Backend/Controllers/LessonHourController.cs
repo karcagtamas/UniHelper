@@ -1,42 +1,41 @@
-using Karcags.Common.Tools;
-using Karcags.Common.Tools.Controllers;
+using KarcagS.Common.Tools;
+using KarcagS.Common.Tools.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniHelper.Backend.Entities;
-using UniHelper.Backend.Services;
+using UniHelper.Backend.Services.Interfaces;
 using UniHelper.Shared.DTOs;
 using UniHelper.Shared.Models;
 
-namespace UniHelper.Backend.Controllers
+namespace UniHelper.Backend.Controllers;
+
+/// <summary>
+/// Lesson Hour Controller
+/// </summary>
+[ApiController]
+[Route("/api/lesson-hours")]
+[Authorize]
+public class LessonHourController : MapperController<LessonHour, int, LessonHourModel, LessonHourDto>
 {
+    private readonly ILessonHourService _service;
+
     /// <summary>
     /// Lesson Hour Controller
     /// </summary>
-    [ApiController]
-    [Route("/api/lesson-hours")]
-    [Authorize]
-    public class LessonHourController : MyController<LessonHour, LessonHourModel, LessonHourDto>
+    public LessonHourController(ILessonHourService service) : base(service)
     {
-        private readonly ILessonHourService _service;
-
-        /// <summary>
-        /// Lesson Hour Controller
-        /// </summary>
-        public LessonHourController(ILessonHourService service) : base(service)
-        {
-            _service = service;
-        }
-        
-        /// <summary>
-        /// Get hour interval by interval end points
-        /// </summary>
-        /// <param name="from">From number</param>
-        /// <param name="to">To number</param>
-        /// <returns>Lesson hour interval</returns>
-        [HttpGet("interval")]
-        public LessonHourIntervalDto GetHourInterval([FromQuery] int from, [FromQuery] int to)
-        {
-            return _service.GetHourInterval(from, to);
-        }
+        _service = service;
+    }
+    
+    /// <summary>
+    /// Get hour interval by interval end points
+    /// </summary>
+    /// <param name="from">From number</param>
+    /// <param name="to">To number</param>
+    /// <returns>Lesson hour interval</returns>
+    [HttpGet("interval")]
+    public LessonHourIntervalDto GetHourInterval([FromQuery] int from, [FromQuery] int to)
+    {
+        return _service.GetHourInterval(from, to);
     }
 }

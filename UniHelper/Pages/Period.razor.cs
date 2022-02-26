@@ -38,7 +38,7 @@ namespace UniHelper.Pages
 
         private async Task GetData()
         {
-            PeriodData = await PeriodService.Get(Id);
+            PeriodData = await PeriodService.Get<PeriodDto>(Id);
             StateHasChanged();
         }
 
@@ -78,7 +78,7 @@ namespace UniHelper.Pages
                     new ConfirmDialogInput
                     {
                         Name = PeriodData.Name,
-                        DeleteFunction = async () => await PeriodService.Remove(PeriodData.Id)
+                        DeleteFunction = async () => await PeriodService.Delete(PeriodData.Id)
                     }
                 }
             };

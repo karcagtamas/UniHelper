@@ -1,13 +1,11 @@
-using Karcags.Blazor.Common.Services;
-using UniHelper.Shared.DTOs;
-using UniHelper.Shared.Models;
+using KarcagS.Blazor.Common.Http;
 
 namespace UniHelper.Services
 {
     /// <summary>
     /// Course Service
     /// </summary>
-    public interface ICourseService : ICommonService<CourseModel, CourseDto>
+    public interface ICourseService : IHttpCall<int>
     {
         
     }

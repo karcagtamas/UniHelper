@@ -1,8 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Blazored.LocalStorage;
-using Karcags.Blazor.Common.Http;
-using Karcags.Blazor.Common.Models;
+using KarcagS.Blazor.Common.Http;
+using KarcagS.Blazor.Common.Models;
+using KarcagS.Blazor.Common.Store;
 using Microsoft.AspNetCore.Components;
 using UniHelper.Shared.Models;
 
@@ -37,14 +38,11 @@ namespace UniHelper.Services
         /// <inheritdoc />
         public async Task<bool> Login(LoginModel model)
         {
-            var pathParams = new HttpPathParameters();
-            pathParams.Add("login", -1);
-
-            var settings = new HttpSettings(Url, null, pathParams, "Login");
+            var settings = new HttpSettings(_httpService.BuildUrl(Url, "login")).AddToaster("Login");
 
             var body = new HttpBody<LoginModel>(model);
 
-            var user = await _httpService.CreateWithResult<StorageUser, LoginModel>(settings, body);
+            var user = await _httpService.PostWithResult<StorageUser, LoginModel>(settings, body).ExecuteWithResult();
 
             if (user == null) return false;
             
@@ -57,14 +55,11 @@ namespace UniHelper.Services
         /// <inheritdoc />
         public async Task<bool> Registration(RegistrationModel model)
         {
-            var pathParams = new HttpPathParameters();
-            pathParams.Add("registration", -1);
-
-            var settings = new HttpSettings(Url, null, pathParams, "Registration");
+            var settings = new HttpSettings(_httpService.BuildUrl(Url, "registration")).AddToaster("Registration");
 
             var body = new HttpBody<RegistrationModel>(model);
 
-            return await _httpService.Create(settings, body);
+            return await _httpService.Post(settings, body).Execute();
         }
 
         /// <inheritdoc />

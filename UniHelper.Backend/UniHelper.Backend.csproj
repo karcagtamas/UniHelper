@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <PackageVersion>1.1.0</PackageVersion>
         <Title>UniHelper Backend API</Title>
         <Description>Backend for UniHelper application</Description>
@@ -10,31 +10,31 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DocumentationFile>bin\Debug\net5.0\UniHelper.Backend.xml</DocumentationFile>
+      <DocumentationFile>bin\Debug\net6.0\UniHelper.Backend.xml</DocumentationFile>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DocumentationFile>bin\Release\net5.0\UniHelper.Backend.xml</DocumentationFile>
+      <DocumentationFile>bin\Release\net6.0\UniHelper.Backend.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Karcags.Common" Version="1.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.13" NoWarn="NU1605" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.13" NoWarn="NU1605" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.13" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="5.0.13" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.13">
+        <PackageReference Include="Karcags.Common" Version="2.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.2" NoWarn="NU1605" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.2" NoWarn="NU1605" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="6.0.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.2">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.13" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.13" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.13">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.2">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.3" />
+        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 

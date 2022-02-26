@@ -1,16 +1,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Karcags.Blazor.Common.Services;
-using UniHelper.Pages;
+using KarcagS.Blazor.Common.Http;
 using UniHelper.Shared.DTOs;
-using UniHelper.Shared.Models;
 
 namespace UniHelper.Services
 {
     /// <summary>
     /// Period Service
     /// </summary>
-    public interface IPeriodService : ICommonService<PeriodModel, PeriodDto>
+    public interface IPeriodService : IHttpCall<int>
     {
         /// <summary>
         /// Get current Period

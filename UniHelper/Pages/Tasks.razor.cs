@@ -40,9 +40,9 @@ namespace UniHelper.Pages
         private async Task GetLists()
         {
             var list = new List<TaskDto>();
-            list.AddRange(await GlobalTaskService.GetList());
-            list.AddRange(await PeriodTaskService.GetList());
-            list.AddRange(await SubjectTaskService.GetList());
+            list.AddRange(await GlobalTaskService.GetAll<TaskDto>());
+            list.AddRange(await PeriodTaskService.GetAll<TaskDto>());
+            list.AddRange(await SubjectTaskService.GetAll<TaskDto>());
             list = list.OrderBy(x => x.IsSolved).ThenBy(x => x.DueDate).ThenByDescending(x => x.Priority).ToList();
 
             TaskList = list;

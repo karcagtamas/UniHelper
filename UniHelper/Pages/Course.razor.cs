@@ -43,7 +43,7 @@ namespace UniHelper.Pages
 
         private async Task GetData()
         {
-            CourseData = await CourseService.Get(Id);
+            CourseData = await CourseService.Get<CourseDto>(Id);
             Interval = await LessonHourService.GetHourInterval(CourseData.Number,
                 CourseData.Number + CourseData.Length - 1);
         }
@@ -79,7 +79,7 @@ namespace UniHelper.Pages
                     new ConfirmDialogInput
                     {
                         Name = CourseData.Place,
-                        DeleteFunction = async () => await CourseService.Remove(CourseData.Id)
+                        DeleteFunction = async () => await CourseService.Delete(CourseData.Id)
                     }
                 }
             };

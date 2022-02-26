@@ -1,35 +1,30 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Karcags.Blazor.Common.Http;
-using Karcags.Blazor.Common.Models;
-using Karcags.Blazor.Common.Services;
+using KarcagS.Blazor.Common.Http;
+using KarcagS.Blazor.Common.Models;
 using UniHelper.Shared.DTOs;
-using UniHelper.Shared.Models;
 
 namespace UniHelper.Services
 {
     /// <summary>
     /// Period Task Service
     /// </summary>
-    public class PeriodTaskService : CommonService<PeriodTaskModel, TaskDto>, IPeriodTaskService
+    public class PeriodTaskService : HttpCall<int>, IPeriodTaskService
     {
         /// <summary>
         /// Init Period Task Service
         /// </summary>
         /// <param name="httpService">HTTP Service</param>
-        public PeriodTaskService(IHttpService httpService) : base(ApplicationSettings.BaseApiUrl, "period-tasks", httpService)
+        public PeriodTaskService(IHttpService httpService) : base(httpService, ApplicationSettings.BaseApiUrl + "/period-tasks", "Period Task")
         {
         }
         
         /// <inheritdoc />
         public async Task<List<TaskDto>> GetMyList()
-        {
-            var pathParams = new HttpPathParameters();
-            pathParams.Add("my", -1);
+        { 
+            var settings = new HttpSettings(Http.BuildUrl(Url, "my"));
 
-            var settings = new HttpSettings(Url + "/" + this.Entity, null, pathParams);
-
-            return await HttpService.Get<List<TaskDto>>(settings);
+            return await Http.Get<List<TaskDto>>(settings).ExecuteWithResult();
         }
     }
 }

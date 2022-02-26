@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Karcags.Blazor.Common.Http;
-using Karcags.Blazor.Common.Models;
+using KarcagS.Blazor.Common.Http;
+using KarcagS.Blazor.Common.Models;
 using UniHelper.Shared.Enums;
 
 namespace UniHelper.Services
@@ -29,9 +29,9 @@ namespace UniHelper.Services
             queryParams.Add("id", id);
             queryParams.Add("type", type);
 
-            var settings = new HttpSettings($"{Url}/id-list", queryParams, null);
+            var settings = new HttpSettings($"{Url}/id-list").AddQueryParams(queryParams);
 
-            return await _httpService.Get<List<int>>(settings);
+            return await _httpService.Get<List<int>>(settings).ExecuteWithResult();
         }
     }
 }

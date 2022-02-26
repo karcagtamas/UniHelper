@@ -1,24 +1,21 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Karcags.Blazor.Common.Http;
-using Karcags.Blazor.Common.Models;
-using Karcags.Blazor.Common.Services;
-using UniHelper.Pages;
+using KarcagS.Blazor.Common.Http;
+using KarcagS.Blazor.Common.Models;
 using UniHelper.Shared.DTOs;
-using UniHelper.Shared.Models;
 
 namespace UniHelper.Services
 {
     /// <summary>
     /// Period Service
     /// </summary>
-    public class PeriodService : CommonService<PeriodModel, PeriodDto>, IPeriodService
+    public class PeriodService : HttpCall<int>, IPeriodService
     {
         /// <summary>
         /// Init Period Service
         /// </summary>
         /// <param name="httpService">HTTP Service</param>
-        public PeriodService(IHttpService httpService) : base(ApplicationSettings.BaseApiUrl, "periods", httpService)
+        public PeriodService(IHttpService httpService) : base(httpService, ApplicationSettings.BaseApiUrl + "/periods", "Period")
         {
         }
 
@@ -28,12 +25,9 @@ namespace UniHelper.Services
         /// <returns>Async Id</returns>
         public async Task<int> GetCurrent()
         {
-            var pathParams = new HttpPathParameters();
-            pathParams.Add("current", -1);
-            
-            var settings = new HttpSettings(Url + "/" + this.Entity, null, pathParams);
+            var settings = new HttpSettings(Http.BuildUrl(Url, "current"));
 
-            return await HttpService.GetInt(settings) ?? -1;
+            return await Http.GetInt(settings).ExecuteWithResult();
         }
 
         /// <summary>
@@ -43,14 +37,11 @@ namespace UniHelper.Services
         /// <returns>Async result</returns>
         public async Task<bool> SetCurrent(int id)
         {
-            var pathParams = new HttpPathParameters();
-            pathParams.Add("current", -1);
-            
-            var settings = new HttpSettings(Url + "/" + this.Entity, null, pathParams, "Set current period");
+            var settings = new HttpSettings(Http.BuildUrl(Url, "current")).AddToaster("Set current period");
 
             var body = new HttpBody<int>(id);
 
-            return await HttpService.Update(settings, body);
+            return await Http.Put(settings, body).Execute();
         }
 
         /// <summary>
@@ -59,12 +50,9 @@ namespace UniHelper.Services
         /// <returns>List of periods</returns>
         public async Task<List<PeriodDto>> GetUserPeriodList()
         {
-            var pathParams = new HttpPathParameters();
-            pathParams.Add("my", -1);
+            var settings = new HttpSettings(Http.BuildUrl(Url, "my"));
 
-            var settings = new HttpSettings(Url + "/" + this.Entity, null, pathParams);
-
-            return await HttpService.Get<List<PeriodDto>>(settings);
+            return await Http.Get<List<PeriodDto>>(settings).ExecuteWithResult();
         }
     }
 }

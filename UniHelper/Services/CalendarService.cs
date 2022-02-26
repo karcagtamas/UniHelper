@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using Karcags.Blazor.Common.Http;
-using Karcags.Blazor.Common.Models;
+using KarcagS.Blazor.Common.Http;
+using KarcagS.Blazor.Common.Models;
 using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Services
@@ -33,9 +33,9 @@ namespace UniHelper.Services
             var pathParams = new HttpPathParameters();
             pathParams.Add(periodId, -1);
 
-            var settings = new HttpSettings(Url, null, pathParams);
+            var settings = new HttpSettings(Url).AddPathParams(pathParams);
 
-            return await _httpService.Get<CalendarDto>(settings);
+            return await _httpService.Get<CalendarDto>(settings).ExecuteWithResult();
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace UniHelper.Services
         {
             var settings = new HttpSettings(Url);
 
-            return await _httpService.Get<CalendarDto>(settings);
+            return await _httpService.Get<CalendarDto>(settings).ExecuteWithResult();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@using UniHelper.Shared.Dialogs
+﻿@using KarcagS.Blazor.Common.Store
+@using UniHelper.Shared.Dialogs
 @using UniHelper.Services
 @inherits LayoutComponentBase
 @inject IDialogService DialogService
@@ -9,7 +10,7 @@
     <MudAppBar Elevation="1" Dense="true">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText Typo="Typo.h1" Class="ml-3">UniHelper</MudText>
-        <MudAppBarSpacer />
+        <MudSpacer />
         @if (_isLoggedIn)
         {
             <MudIconButton Icon="@Icons.Material.Filled.Person" Color="Color.Inherit" Edge="Edge.End" OnClick="OpenProfileDialog" />

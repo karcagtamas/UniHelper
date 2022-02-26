@@ -1,21 +1,18 @@
-using Karcags.Blazor.Common.Http;
-using Karcags.Blazor.Common.Models;
-using Karcags.Blazor.Common.Services;
-using UniHelper.Shared.DTOs;
-using UniHelper.Shared.Models;
+using KarcagS.Blazor.Common.Http;
+using KarcagS.Blazor.Common.Models;
 
 namespace UniHelper.Services
 {
     /// <summary>
     /// Course Service
     /// </summary>
-    public class CourseService : CommonService<CourseModel, CourseDto>, ICourseService
+    public class CourseService : HttpCall<int>, ICourseService
     {
         /// <summary>
         /// Init Course Service
         /// </summary>
         /// <param name="httpService">HTTP Service</param>
-        public CourseService(IHttpService httpService) : base(ApplicationSettings.BaseApiUrl, "courses", httpService)
+        public CourseService(IHttpService httpService) : base(httpService, ApplicationSettings.BaseApiUrl, "Course")
         {
         }
     }

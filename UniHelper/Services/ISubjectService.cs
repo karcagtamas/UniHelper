@@ -1,13 +1,11 @@
-using Karcags.Blazor.Common.Services;
-using UniHelper.Shared.DTOs;
-using UniHelper.Shared.Models;
+using KarcagS.Blazor.Common.Http;
 
 namespace UniHelper.Services
 {
     /// <summary>
     /// Subject Service
     /// </summary>
-    public interface ISubjectService : ICommonService<SubjectModel, SubjectDto>
+    public interface ISubjectService : IHttpCall<int>
     {
         
     }

@@ -1,6 +1,6 @@
-using Karcags.Blazor.Common.Enums;
-using Karcags.Blazor.Common.Models;
-using Karcags.Blazor.Common.Services;
+using KarcagS.Blazor.Common.Enums;
+using KarcagS.Blazor.Common.Models;
+using KarcagS.Blazor.Common.Services;
 using MudBlazor;
 
 namespace UniHelper.Services

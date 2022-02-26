@@ -1,15 +1,14 @@
+using KarcagS.Blazor.Common.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Karcags.Blazor.Common.Services;
 using UniHelper.Shared.DTOs;
-using UniHelper.Shared.Models;
 
 namespace UniHelper.Services
 {
     /// <summary>
     /// Subject Task Service
     /// </summary>
-    public interface ISubjectTaskService : ICommonService<SubjectTaskModel, TaskDto>
+    public interface ISubjectTaskService : IHttpCall<int>
     {
         /// <summary>
         /// Get my task list

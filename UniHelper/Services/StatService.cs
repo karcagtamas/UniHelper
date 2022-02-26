@@ -1,6 +1,6 @@
+using KarcagS.Blazor.Common.Http;
+using KarcagS.Blazor.Common.Models;
 using System.Threading.Tasks;
-using Karcags.Blazor.Common.Http;
-using Karcags.Blazor.Common.Models;
 using UniHelper.Shared.DTOs;
 
 namespace UniHelper.Services
@@ -25,12 +25,9 @@ namespace UniHelper.Services
         /// <inheritdoc />
         public async Task<StatisticDto> GetHomeStat()
         {
-            var pathParams = new HttpPathParameters();
-            pathParams.Add("home", -1);
+            var settings = new HttpSettings(_httpService.BuildUrl(Url, "home"));
 
-            var settings = new HttpSettings(Url, null, pathParams);
-
-            return await _httpService.Get<StatisticDto>(settings);
+            return await _httpService.Get<StatisticDto>(settings).ExecuteWithResult();
         }
     }
 }

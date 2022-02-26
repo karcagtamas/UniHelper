@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KarcagS.Blazor.Common.Store;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
@@ -95,11 +96,11 @@ namespace UniHelper.Shared.Dialogs
             switch (type)
             {
                 case TaskType.Period:
-                    Periods = await PeriodService.GetList();
+                    Periods = await PeriodService.GetAll<PeriodDto>();
                     break;
                 case TaskType.Subject:
-                    Periods = await PeriodService.GetList();
-                    SourceSubjects = await SubjectService.GetList();
+                    Periods = await PeriodService.GetAll<PeriodDto>();
+                    SourceSubjects = await SubjectService.GetAll<SubjectDto>();
                     break;
             }
 

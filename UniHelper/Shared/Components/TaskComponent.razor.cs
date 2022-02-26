@@ -52,13 +52,13 @@ namespace UniHelper.Shared.Components
             switch (TaskData.Type)
             {
                 case TaskType.Global:
-                    f = async () => await GlobalTaskService.Remove(TaskData.Id);
+                    f = async () => await GlobalTaskService.Delete(TaskData.Id);
                     break;
                 case TaskType.Period:
-                    f = async () => await PeriodTaskService.Remove(TaskData.Id);
+                    f = async () => await PeriodTaskService.Delete(TaskData.Id);
                     break;
                 case TaskType.Subject:
-                    f = async () => await SubjectTaskService.Remove(TaskData.Id);
+                    f = async () => await SubjectTaskService.Delete(TaskData.Id);
                     break;
             }
 

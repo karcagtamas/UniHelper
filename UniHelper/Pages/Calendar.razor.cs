@@ -48,7 +48,7 @@ namespace UniHelper.Pages
         private async Task Refresh()
         {
             CalendarData = await CalendarService.GetCurrentInterval();
-            LessonHours = await LessonHourService.GetList();
+            LessonHours = await LessonHourService.GetAll<LessonHourDto>();
             BuildTable();
         }
 
